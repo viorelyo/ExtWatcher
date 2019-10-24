@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,11 @@ namespace DirectoryMonitoring
             {
                 Writer = new StreamWriter(LoggerFullPath, true);
             }
+
+            // Add timestamp to log message
+            msg = String.Format("[{0}] - {1}",
+                DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture),
+                msg);
 
             Writer.Write(msg);
             Writer.Flush();

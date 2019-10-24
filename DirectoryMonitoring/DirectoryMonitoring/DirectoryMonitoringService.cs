@@ -15,11 +15,11 @@ namespace DirectoryMonitoring
     {
         protected FileSystemWatcher Watcher;
 
-        private string PathToFolder = @"D:\";
+        private string PathToFolder = @"C:\";
 
         public DirectoryMonitoringService()
         {
-            Logger.Instance.LoggerPath = @"D:\";
+            Logger.Instance.LoggerPath = @"C:\service_test";
             Logger.Instance.LoggerFileName = "DirectoryMonitoring";
             Watcher = new MyFileSystemWatcher(PathToFolder);
         }

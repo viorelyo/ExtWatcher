@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DirectoryMonitoring.Controller;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,7 +35,11 @@ namespace DirectoryMonitoring
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            Logger.WriteLine("File created or added: " + e.FullPath);
+            string filePath = e.FullPath;
+            if (ExtensionController.IsFilePDF(filePath))
+            { 
+                Logger.WriteLine(String.Format("File created or added: {0}", filePath));
+            }
         }
     }
 }
