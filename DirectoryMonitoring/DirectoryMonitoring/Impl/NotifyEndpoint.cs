@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryMonitoring.Impl
 {
-    [ServiceBehavior(ConfigurationName = "DirectoryMonitor.Impl:DirectoryMonitor.Impl.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(ConfigurationName = "DirectoryMonitoring.Impl:DirectoryMonitoring.Impl.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
     public class NotifyEndpoint : INotify
     {
         public void Register(Guid instanceId)
