@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DirectoryMonitoring
 {
     public class MyFileSystemWatcher : FileSystemWatcher
@@ -39,6 +40,7 @@ namespace DirectoryMonitoring
             if (ExtensionController.IsFilePDF(filePath))
             { 
                 Logger.WriteLine(String.Format("File created or added: {0}", filePath));
+                
             }
         }
     }

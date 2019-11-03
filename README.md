@@ -27,5 +27,8 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Log everything 
 - [ ] Use configuration files (server address, monitored directories)
 - [ ] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
-- [ ] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) 
+- [ ] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii .NET Remotin / NamedPipe ]
 - [ ] Submit (HTTP) PDF file to the server to be analyzed
+
+###### Resources
+- https://www.codeguru.com/csharp/.net/net_wcf/article.php/c17179/Tray-Notify--Part-I-Getting-Started.htm (`Use Diagram`)
