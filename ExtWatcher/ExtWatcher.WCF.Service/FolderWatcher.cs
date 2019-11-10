@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtWatcher.Common.Contract;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,19 +12,21 @@ namespace ExtWatcher.WCF.Service
     {
         private string _directoryPath;
         private FileSystemWatcher _watcher = new FileSystemWatcher();
+        private Monitor _monitor;
 
-        private FolderWatcher(string directoryToMonitor)
+        private FolderWatcher(Monitor monitor, string directoryToMonitor)
         {
             _directoryPath = directoryToMonitor;
+            _monitor = monitor;
 
             _watcher.Path = _directoryPath;
             _watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
             _watcher.IncludeSubdirectories = true;
         }
 
-        public static FolderWatcher Create(string directoryToMonitor)
+        public static FolderWatcher Create(Monitor monitor, string directoryToMonitor)
         {
-            return new FolderWatcher(directoryToMonitor);
+            return new FolderWatcher(monitor, directoryToMonitor);
         }
 
         public void Start()
@@ -42,7 +45,7 @@ namespace ExtWatcher.WCF.Service
 
         private void OnFileEvent(object sender, FileSystemEventArgs e)
         {
-            //TODO add behaviour
+            _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
         }
     }
 }
