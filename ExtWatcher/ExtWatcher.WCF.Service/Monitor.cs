@@ -11,7 +11,7 @@ namespace ExtWatcher.WCF.Service
 {
     internal class Monitor
     {
-        private FolderWatcher _watchedFolder;
+        private ConcurrentDictionary<string, FolderWatcher> _folderDictionary = new ConcurrentDictionary<string, FolderWatcher>();
         private readonly BlockingCollection<FileEventArgs> _fileEventQueue = new BlockingCollection<FileEventArgs>(new ConcurrentQueue<FileEventArgs>());
         private event FileEventHandler _fileEvent;
         private Thread _queueServiceThread;
@@ -35,13 +35,30 @@ namespace ExtWatcher.WCF.Service
                 _queueServiceThread.Start();
             }
 
-            _watchedFolder.Start();
+            foreach (FolderWatcher folder in _folderDictionary.Values)
+            {
+                folder.Start();
+            }
         }
 
         public void Add(string folderToMonitor)
         {
-            //TODO save monitored folders into concurrentDictionary
-            _watchedFolder = FolderWatcher.Create(this, folderToMonitor);
+            bool result = _folderDictionary.TryAdd(folderToMonitor, FolderWatcher.Create(this, folderToMonitor));
+            if (!result)
+            {
+                //TODO log if unable to add data, it exists
+            }
+        }
+
+        public void Remove(string folderToMonitor)
+        {
+            FolderWatcher folder;
+            bool result = _folderDictionary.TryRemove(folderToMonitor, out folder);
+            if (!result)
+            {
+                //TODO log if unable to remove key
+            }
+
         }
 
         public void Stop()
@@ -51,7 +68,10 @@ namespace ExtWatcher.WCF.Service
                 _fileEventQueue.CompleteAdding();
                 _queueServiceThread = null;
 
-                _watchedFolder.Stop();
+                foreach (FolderWatcher folder in _folderDictionary.Values)
+                {
+                    folder.Stop();
+                }
             }
         }
 
