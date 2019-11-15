@@ -1,5 +1,6 @@
 ﻿using ExtWatcher.Common.Contract;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,10 @@ namespace ExtWatcher.WCF.Service
 {
     internal class Monitor
     {
-        private const int StopEvent = 0;
-        private const int ItemAddedEvent = 1;
-
         private FolderWatcher _watchedFolder;
-        //TODO use Locks / Use ConcurrentQueue / Use QueueSync from example
-        private Queue<FileEventArgs> _fileEventQueue = new Queue<FileEventArgs>();
-        private AutoResetEvent _itemAddedEvent = new AutoResetEvent(false);
-        private AutoResetEvent _stopEvent = new AutoResetEvent(false);
+        private readonly BlockingCollection<FileEventArgs> _fileEventQueue = new BlockingCollection<FileEventArgs>(new ConcurrentQueue<FileEventArgs>());
         private event FileEventHandler _fileEvent;
-        private WaitHandle[] _waitHandles;
         private Thread _queueServiceThread;
-
 
         private Monitor() { }
 
@@ -31,12 +24,7 @@ namespace ExtWatcher.WCF.Service
         }
 
         public void Start()
-        {
-            if (_waitHandles == null)
-            {
-                _waitHandles = new WaitHandle[] { _itemAddedEvent };
-            }
-
+        { 
             if (_queueServiceThread == null)
             {
                 _queueServiceThread = new Thread(new ThreadStart(QueueServiceThreadProc))
@@ -60,32 +48,26 @@ namespace ExtWatcher.WCF.Service
         {
             if (_queueServiceThread != null)
             {
-                _stopEvent.Set();
+                _fileEventQueue.CompleteAdding();
                 _queueServiceThread = null;
 
                 _watchedFolder.Stop();
             }
         }
 
+        /// <summary>
+        /// Worker function for Thread
+        /// The function dequeues each args from the fileEventQueue and then triggers the event for it.
+        /// Source: https://stackoverflow.com/questions/43117502/thread-safety-in-concurrent-queue-c-sharp
+        /// Source: https://docs.microsoft.com/en-us/dotnet/standard/collections/thread-safe/how-to-use-foreach-to-remove
+        /// </summary>
         private void QueueServiceThreadProc()
         {
             try
             {
-                while (true)
+                foreach (var args in _fileEventQueue.GetConsumingEnumerable())
                 {
-                    switch (WaitHandle.WaitAny(_waitHandles, Timeout.Infinite, false))
-                    {
-                        case StopEvent:
-                            return;
-                        case ItemAddedEvent:
-                            FileEventArgs args = null;
-                            if (null != (args = _fileEventQueue.Peek()))
-                            {
-                                FireFileEvent(args);
-                                _fileEventQueue.Dequeue();
-                            }
-                            break;
-                    }
+                    FireFileEvent(args);
                 }
             }
             catch (Exception)
@@ -110,8 +92,7 @@ namespace ExtWatcher.WCF.Service
 
         public void AddQueueItem(FileEventArgs e)
         {
-            _fileEventQueue.Enqueue(e);
-            _itemAddedEvent.Set();
+            _fileEventQueue.Add(e);
         }
     }
 }
