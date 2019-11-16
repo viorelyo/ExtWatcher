@@ -66,6 +66,7 @@ namespace ExtWatcher.WCF.Service
             if (_queueServiceThread != null)
             {
                 _fileEventQueue.CompleteAdding();
+                _fileEventQueue.Dispose();
                 _queueServiceThread = null;
 
                 foreach (FolderWatcher folder in _folderDictionary.Values)
