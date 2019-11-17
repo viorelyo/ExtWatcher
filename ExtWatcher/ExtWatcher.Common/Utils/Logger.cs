@@ -11,7 +11,6 @@ namespace ExtWatcher.Common.Utils
 {
     public class Logger
     {
-        private static Logger _instance;
         private static Queue<Log> _logQueue;
 
         private static string _logPath = ConfigurationManager.AppSettings["LogPath"];
@@ -20,21 +19,13 @@ namespace ExtWatcher.Common.Utils
         private static int _flushAtQty = int.Parse(ConfigurationManager.AppSettings["FlushAtQty"]);
 
         private static DateTime _lastFlushedAt;
-        
-        private Logger() { }
 
-        public static Logger GetInstance
+        static Logger()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Logger();
-                    _logQueue = new Queue<Log>();
-                    _lastFlushedAt = DateTime.Now;
-                }
-                return _instance;
-            }
+            _logQueue = new Queue<Log>();
+            _lastFlushedAt = DateTime.Now;
+
+            //TODO try to read from App.config here - if not possible write to file the occured exception
         }
 
         public static void WriteToLog(string message)
@@ -101,17 +92,17 @@ namespace ExtWatcher.Common.Utils
             while (_logQueue.Count > 0)
             {
                 Log entry = _logQueue.Dequeue();
-                string path = _logPath + entry.GetDate() + "_" + _logFile;
+                string path = Path.Combine(_logPath, entry.GetDate() + "_" + _logFile);
 
                 FileStream stream = new FileStream(path, FileMode.Append, FileAccess.Write);
                 using (var writer = new StreamWriter(stream))
                 {
-                    writer.WriteLine(String.Format(@"[{0} {1}] - {2}", 
-                        entry.GetDate(), 
+                    writer.WriteLine(String.Format(@"[{0} {1}] - {2}",
+                        entry.GetDate(),
                         entry.GetTime(),
                         entry.GetMessage()));
-                    stream.Close();
                 }
+                stream.Close();
             }
         }
     }

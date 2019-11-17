@@ -24,12 +24,12 @@ namespace ExtWatcher.Common.Utils
 
         public string GetTime()
         {
-            return _logTime.ToString("HH:mm:ss.fff tt");
+            return _logTime.ToString("HH:mm:ss.fff");
         }
 
         public string GetDate()
         {
-            return _logTime.ToString("dd/MM/yyyy");
+            return _logTime.ToString("dd-MM-yyyy");
         }
     }
 }
