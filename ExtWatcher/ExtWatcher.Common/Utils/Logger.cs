@@ -13,10 +13,10 @@ namespace ExtWatcher.Common.Utils
     {
         private static Queue<Log> _logQueue;
 
-        private static string _logPath = ConfigurationManager.AppSettings["LogPath"];
-        private static string _logFile = ConfigurationManager.AppSettings["LogFile"];
-        private static int _flushAtAge = int.Parse(ConfigurationManager.AppSettings["FlushAtAge"]);
-        private static int _flushAtQty = int.Parse(ConfigurationManager.AppSettings["FlushAtQty"]);
+        private static string _logPath = ConfigurationManager.AppSettings["logger:LogPath"];
+        private static string _logFile = ConfigurationManager.AppSettings["logger:LogFile"];
+        private static int _flushAtAge = int.Parse(ConfigurationManager.AppSettings["logger:FlushAtAge"]);
+        private static int _flushAtQty = int.Parse(ConfigurationManager.AppSettings["logger:FlushAtQty"]);
 
         private static DateTime _lastFlushedAt;
 
