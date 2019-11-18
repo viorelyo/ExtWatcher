@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExtWatcher.Common.Utils
+namespace LogImpl
 {
     public class Logger
     {
@@ -37,10 +36,12 @@ namespace ExtWatcher.Common.Utils
             catch (ConfigurationErrorsException)
             {
                 _isConfigured = false;
+                Console.WriteLine("ConfigurationException");
             }
             catch (FormatException)
             {
                 _isConfigured = false;
+                Console.WriteLine("Parse Excetipion");
             }
         }
 
@@ -122,4 +123,5 @@ namespace ExtWatcher.Common.Utils
             }
         }
     }
+
 }
