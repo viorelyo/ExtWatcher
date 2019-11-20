@@ -11,8 +11,12 @@ namespace ExtWatcher.Common.Utils
 {
     public class Logger
     {
-        private static volatile bool _isConfigured;
         private static Queue<Log> _logQueue;
+
+        private const string _defaultLogPath = @"C:\ExtWatcher";
+        private const string _defaultLogFile = "file.log";
+        private const int _defaultFlushAtAge = 10;
+        private const int _defaultFlushAtQty = 10;
 
         private static string _logPath;
         private static string _logFile;
@@ -26,21 +30,30 @@ namespace ExtWatcher.Common.Utils
             _logQueue = new Queue<Log>();
             _lastFlushedAt = DateTime.Now;
 
-            //TODO try to read from App.config here - if not possible write to file the occured exception
+            bool shouldConfigureDefault = false;
             try
             {
-                _logPath = ConfigurationManager.AppSettings["logger:LogPath"];
-                _logFile = ConfigurationManager.AppSettings["logger:LogFile"];
-                _flushAtAge = int.Parse(ConfigurationManager.AppSettings["logger:FlushAtAge"]);
-                _flushAtQty = int.Parse(ConfigurationManager.AppSettings["logger:FlushAtQty"]);
+                var appSettings = ConfigurationManager.AppSettings;
+                _logPath = appSettings["logger:LogPath"] ?? _defaultLogPath;
+                _logFile = appSettings["logger:LogFile"] ?? _defaultLogFile;
+                _flushAtAge = int.Parse(appSettings["logger:FlushAtAge"] ?? _defaultFlushAtAge.ToString());
+                _flushAtQty = int.Parse(appSettings["logger:FlushAtQty"] ?? _defaultFlushAtQty.ToString());
             }
             catch (ConfigurationErrorsException)
             {
-                _isConfigured = false;
+                shouldConfigureDefault = true;
             }
             catch (FormatException)
             {
-                _isConfigured = false;
+                shouldConfigureDefault = true;
+            }
+
+            if (shouldConfigureDefault)
+            {
+                _logPath = _defaultLogPath;
+                _logFile = _defaultLogFile;
+                _flushAtAge = _defaultFlushAtAge;
+                _flushAtQty = _defaultFlushAtQty;
             }
         }
 

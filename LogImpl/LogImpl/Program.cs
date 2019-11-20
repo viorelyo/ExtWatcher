@@ -28,7 +28,6 @@ namespace LogImpl
             {
                 Logger.WriteToLog(String.Format("hello {0}", i));
                 i++;
-                Console.WriteLine(i);
             }
 
             t.Join();
