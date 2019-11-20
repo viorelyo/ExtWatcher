@@ -1,4 +1,5 @@
 ﻿using ExtWatcher.Common.Contract;
+using ExtWatcher.Common.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace ExtWatcher.WCF.Service
         }
 
         public void Start()
-        { 
+        {
+            Logger.WriteToLog(String.Format("Starting the Working Thread..."));
             if (_queueServiceThread == null)
             {
                 _queueServiceThread = new Thread(new ThreadStart(QueueServiceThreadProc))
@@ -37,32 +39,36 @@ namespace ExtWatcher.WCF.Service
 
             foreach (FolderWatcher folder in _folderDictionary.Values)
             {
+                Logger.WriteToLog(String.Format("Starting FolderWatch for '{0}'."));    // TODO Log folderPath
                 folder.Start();
             }
         }
 
         public void Add(string folderToMonitor)
         {
+            Logger.WriteToLog(String.Format("Adding '{0}' to MonitoredFolders.", folderToMonitor));
             bool result = _folderDictionary.TryAdd(folderToMonitor, FolderWatcher.Create(this, folderToMonitor));
             if (!result)
             {
-                //TODO log if unable to add data, it exists
+                Logger.WriteToLog(String.Format("Unable to add '{0}' to MonitoredFolders.", folderToMonitor));
             }
         }
 
         public void Remove(string folderToMonitor)
         {
             FolderWatcher folder;
+            Logger.WriteToLog(String.Format("Removing '{0}' from MonitoredFolders.", folderToMonitor));
             bool result = _folderDictionary.TryRemove(folderToMonitor, out folder);
             if (!result)
             {
-                //TODO log if unable to remove key
+                Logger.WriteToLog(String.Format("Unable to remove '{0}' from MonitoredFolders.", folderToMonitor));
             }
 
         }
 
         public void Stop()
         {
+            Logger.WriteToLog(String.Format("Stopping the Working Thread..."));
             if (_queueServiceThread != null)
             {
                 _fileEventQueue.CompleteAdding();
@@ -71,6 +77,7 @@ namespace ExtWatcher.WCF.Service
 
                 foreach (FolderWatcher folder in _folderDictionary.Values)
                 {
+                    Logger.WriteToLog(String.Format("Stopping FolderWatch for '{0}'."));    // TODO Log folderPath
                     folder.Stop();
                 }
             }
@@ -84,6 +91,7 @@ namespace ExtWatcher.WCF.Service
         /// </summary>
         private void QueueServiceThreadProc()
         {
+            Logger.WriteToLog(String.Format("Starting the Worker Thread to process the Queue of FileArgs."));
             try
             {
                 foreach (var args in _fileEventQueue.GetConsumingEnumerable())
@@ -91,9 +99,9 @@ namespace ExtWatcher.WCF.Service
                     FireFileEvent(args);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO report errror with Logger
+                Logger.WriteToLog(ex);
             }
         }
 
@@ -101,6 +109,7 @@ namespace ExtWatcher.WCF.Service
         {
             if (_fileEvent != null)
             {
+                Logger.WriteToLog(String.Format("Firing FileEventArgs [{0}; {1}; {2}; {3}].", args.Folder, args.FileName, args.Date, args.ChangeType));
                 _fileEvent(this, args);
             }
         }
@@ -111,9 +120,10 @@ namespace ExtWatcher.WCF.Service
             add { _fileEvent += value; }
         }
 
-        public void AddQueueItem(FileEventArgs e)
+        public void AddQueueItem(FileEventArgs args)
         {
-            _fileEventQueue.Add(e);
+            Logger.WriteToLog(String.Format("Adding FileEventArgs to Queue [{0}; {1}; {2}; {3}].", args.Folder, args.FileName, args.Date, args.ChangeType));
+            _fileEventQueue.Add(args);
         }
     }
 }
