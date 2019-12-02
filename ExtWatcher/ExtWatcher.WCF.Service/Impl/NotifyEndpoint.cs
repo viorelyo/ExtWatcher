@@ -1,9 +1,14 @@
-﻿using ExtWatcher.Common.Interface;
+﻿using ExtWatcher.Common.Contract;
+using ExtWatcher.Common.Interface;
+using ExtWatcher.Common.Utils;
+using ExtWatcher.WCF.Service.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service.Impl
@@ -11,9 +16,106 @@ namespace ExtWatcher.WCF.Service.Impl
     [ServiceBehavior(ConfigurationName = "ExtWatcher.WCF.Service.Impl:ExtWatcher.WCF.Service.Impl.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
     public class NotifyEndpoint : INotify
     {
+        private Monitor _monitor = Monitor.Create();
+        private ConcurrentDictionary<Guid, Client> _clients = new ConcurrentDictionary<Guid, Client>();
+
+        public void Start(string folderToMonitor)
+        {
+            Logger.WriteToLog("Starting NotifyEndpoint.");
+            _monitor.Add(folderToMonitor);
+            _monitor.Start();
+        }
+
+        public void Stop(string folderToMonitor)
+        {
+            Logger.WriteToLog("Stopping NotifyEndpoint.");
+            _monitor.Stop();
+            _monitor.Remove(folderToMonitor);
+        }
+
+        public NotifyEndpoint()
+        {
+            _monitor.FileEvent += new FileEventHandler(OnFileEvent);
+        }
+
+        private void OnFileEvent(object sender, FileEventArgs e)
+        {
+            RemoveInvalidClients();
+            
+            foreach (var client in _clients)
+            {
+                ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
+            }
+        }
+
+        private void NotifyThreadProc(object state)
+        {
+            NotifyThreadStateInfo stateInfo = state as NotifyThreadStateInfo;
+            if (stateInfo == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Logger.WriteToLog(String.Format("[NotifyThreadPool] Notifying client with GUID: '{0}', Info: '{1}'", stateInfo.Client.Id, stateInfo.Args.FileName));
+                stateInfo.Client.Callback.OnPDFFileCreatedEvent(stateInfo.Args);
+            }
+            catch (TimeoutException)
+            {
+                Logger.WriteToLog(String.Format("TimeoutException. Invalidating client with GUID: '{0}'.", stateInfo.Client.Id));
+                stateInfo.Client.Invalidate();
+            }
+        }
+
+        private void RemoveInvalidClients()
+        {
+            Logger.WriteToLog("Removing invalid clients.");
+
+            List<Guid> clientsToBeRemoved = new List<Guid>();
+            foreach (Client client in _clients.Values)
+            {
+                if (!client.IsValid)
+                {
+                    clientsToBeRemoved.Add(client.Id);
+                }
+            }
+
+            foreach (Guid id in clientsToBeRemoved)
+            {
+                Client client;
+                bool result = _clients.TryRemove(id, out client);
+                if (!result)
+                {
+                    Logger.WriteToLog(String.Format("Unable to remove client with GUID: '{0}'. Client doesn't exist.", id));
+                }
+            }
+        } 
+
         public void Register(Guid instanceId)
         {
-            throw new NotImplementedException();
+            Logger.WriteToLog(String.Format("Registering new client with GUID: '{0}'.", instanceId));
+            INotifyCallback caller = OperationContext.Current.GetCallbackChannel<INotifyCallback>();
+            if (caller != null)
+            {
+                bool result = _clients.TryAdd(instanceId, Client.Create(instanceId, caller);
+                if (!result)
+                {
+                    Logger.WriteToLog(String.Format("Unable to register new client with GUID: '{0}'.", instanceId));
+                }
+            }
+        }
+
+        public void UnRegister(Guid instanceId)
+        {
+            Logger.WriteToLog(String.Format("Unregistering client with GUID: '{0}'.", instanceId));
+
+            Client client;
+            bool result = _clients.TryRemove(instanceId, out client);
+            if (!result)
+            {
+                Logger.WriteToLog(String.Format("Unable to unregister client with GUID: '{0}'. Client doesn't exist.", instanceId));
+            }
         }
     }
 }
