@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service.Impl
 {
-    [ServiceBehavior(ConfigurationName = "ExtWatcher.WCF.Service.Impl:ExtWatcher.WCF.Service.Impl.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(ConfigurationName = "ExtWatcher.WCF.Service:ExtWatcher.WCF.Service.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
     public class NotifyEndpoint : INotify
     {
         private Monitor _monitor = Monitor.Create();
@@ -44,6 +44,7 @@ namespace ExtWatcher.WCF.Service.Impl
             
             foreach (var client in _clients)
             {
+                // Create a new thread for each client in order to send the notification
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
         }
@@ -98,7 +99,7 @@ namespace ExtWatcher.WCF.Service.Impl
             INotifyCallback caller = OperationContext.Current.GetCallbackChannel<INotifyCallback>();
             if (caller != null)
             {
-                bool result = _clients.TryAdd(instanceId, Client.Create(instanceId, caller);
+                bool result = _clients.TryAdd(instanceId, Client.Create(instanceId, caller));
                 if (!result)
                 {
                     Logger.WriteToLog(String.Format("Unable to register new client with GUID: '{0}'.", instanceId));

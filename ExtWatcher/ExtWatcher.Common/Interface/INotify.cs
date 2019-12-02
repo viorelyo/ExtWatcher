@@ -12,5 +12,14 @@ namespace ExtWatcher.Common.Interface
     {
         [OperationContract]
         void Register(Guid instanceId);
+
+        [OperationContract]
+        void UnRegister(Guid instanceId);
+
+        [OperationContract]
+        void Start(string folderToMonitor);
+
+        [OperationContract]
+        void Stop(string folderToMonitor);
     }
 }
