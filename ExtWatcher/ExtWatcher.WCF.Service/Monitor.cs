@@ -37,10 +37,10 @@ namespace ExtWatcher.WCF.Service
                 _queueServiceThread.Start();
             }
 
-            foreach (FolderWatcher folder in _folderDictionary.Values)
+            foreach (var folder in _folderDictionary)
             {
-                Logger.WriteToLog(String.Format("Starting FolderWatch for '{0}'."));    // TODO Log folderPath
-                folder.Start();
+                Logger.WriteToLog(String.Format("Starting FolderWatch for '{0}'.", folder.Key));    
+                folder.Value.Start();
             }
         }
 
@@ -63,7 +63,6 @@ namespace ExtWatcher.WCF.Service
             {
                 Logger.WriteToLog(String.Format("Unable to remove '{0}' from MonitoredFolders.", folderToMonitor));
             }
-
         }
 
         public void Stop()
@@ -75,10 +74,10 @@ namespace ExtWatcher.WCF.Service
                 _fileEventQueue.Dispose();
                 _queueServiceThread = null;
 
-                foreach (FolderWatcher folder in _folderDictionary.Values)
+                foreach (var folder in _folderDictionary)
                 {
-                    Logger.WriteToLog(String.Format("Stopping FolderWatch for '{0}'."));    // TODO Log folderPath
-                    folder.Stop();
+                    Logger.WriteToLog(String.Format("Stopping FolderWatch for '{0}'.", folder.Key));
+                    folder.Value.Stop();
                 }
             }
         }
