@@ -48,6 +48,7 @@
     <Compile Include="Interface\INotify.cs" />
     <Compile Include="Interface\INotifyCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\WCFServices.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\Logger.cs" />
   </ItemGroup>
