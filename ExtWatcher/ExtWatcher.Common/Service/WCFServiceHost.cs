@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExtWatcher.Common.Service
 {

@@ -1,11 +1,7 @@
 ﻿using ExtWatcher.Common.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExtWatcher.WCF.Service
+namespace ExtWatcher.WCF.Service.Model
 {
     internal class Client
     {

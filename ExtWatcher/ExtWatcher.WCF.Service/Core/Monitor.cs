@@ -2,13 +2,9 @@
 using ExtWatcher.Common.Utils;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace ExtWatcher.WCF.Service
+namespace ExtWatcher.WCF.Service.Core
 {
     internal class Monitor
     {
