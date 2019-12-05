@@ -4,10 +4,10 @@ Samples of Code for implementing final idea for Undegraduate Project
 ## General TODO
 - [ ] References
 - [ ] Latex Documentation
-- [ ] Talk Christian Sacarea 
+- [x] Talk Christian Sacarea 
 - [ ] Datasets
-- [ ] Brainstorm on `brand` / `logo`
-- [ ] Include or no Microsoft Office Suite Docs / other Docs
+- [ ] Brainstorm on `brand` / `logo` (**ExtWatcher**)
+- [ ] Include or no Microsoft Office Suite Docs / other Docs (**Nope**)
 
 
 ## Structure
@@ -23,12 +23,16 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 
 ###### TODO
 - [x] .NET Service that uses `FileSystemWatcher` to monitor disk `C:\` (*?add manually other disks?*)
-- [x] Check if created files are PDFs (`.pdf` extension)
 - [x] Log everything 
+- [x] Add debug mode for windows service `/Debug` parameter to be added
+- [ ] Check if created files are PDFs (`.pdf` extension) (*add ExtensionController maybe as DLL (for future dynamic hotpatch update)*)
+- [ ] Generate Client (WCF)
+- [ ] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii `WCF` ]
 - [ ] Use configuration files (server address, monitored directories)
 - [ ] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
-- [ ] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii .NET Remotin / NamedPipe ]
-- [ ] Submit (HTTP) PDF file to the server to be analyzed
+- [ ] Create Flask server to simulate sandbox
+- [ ] Spike for investigating technology to use for file submit from windows service
+- [ ] Submit (HTTP) PDF file to the server to be analyzed 
 
 ###### Resources
 - https://www.codeguru.com/csharp/.net/net_wcf/article.php/c17179/Tray-Notify--Part-I-Getting-Started.htm (`Use Diagram`)

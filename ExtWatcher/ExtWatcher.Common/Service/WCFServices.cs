@@ -14,12 +14,13 @@ namespace ExtWatcher.Common.Service
     [XmlRoot( ElementName = "configuration", Namespace ="", IsNullable = false)]
     public partial class WCFServices
     {
-        private ServiceModel _seriveceModel;
+        private ServiceModel _serviceModel;
 
+        [XmlElement("system.serviceModel")]
         public ServiceModel ServiceModel
         {
-            get { return _seriveceModel; }
-            set { _seriveceModel = value; }
+            get { return _serviceModel; }
+            set { _serviceModel = value; }
         }
 
         public static WCFServices Create(string configFile)

@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ExtWatcher.WCF.Service.Impl
+namespace ExtWatcher.WCF.Service
 {
     [ServiceBehavior(ConfigurationName = "ExtWatcher.WCF.Service:ExtWatcher.WCF.Service.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
     public class NotifyEndpoint : INotify
