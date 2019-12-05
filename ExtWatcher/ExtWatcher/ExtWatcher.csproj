@@ -56,5 +56,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExtWatcher.Common\ExtWatcher.Common.csproj">
+      <Project>{461CD8EC-3317-4B55-B8C6-71BB697B245C}</Project>
+      <Name>ExtWatcher.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
