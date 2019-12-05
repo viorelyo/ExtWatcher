@@ -56,10 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Client.cs" />
-    <Compile Include="FolderWatcher.cs" />
+    <Compile Include="Core\FolderWatcher.cs" />
     <Compile Include="NotifyEndpoint.cs" />
     <Compile Include="Model\NotifyThreadStateInfo.cs" />
-    <Compile Include="Monitor.cs" />
+    <Compile Include="Core\Monitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

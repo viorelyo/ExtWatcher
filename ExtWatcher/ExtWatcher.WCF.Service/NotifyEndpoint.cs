@@ -5,18 +5,15 @@ using ExtWatcher.WCF.Service.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service
 {
     [ServiceBehavior(ConfigurationName = "ExtWatcher.WCF.Service:ExtWatcher.WCF.Service.NotifyEndpoint", InstanceContextMode = InstanceContextMode.Single)]
     public class NotifyEndpoint : INotify
     {
-        private Monitor _monitor = Monitor.Create();
+        private Core.Monitor _monitor = Core.Monitor.Create();
         private ConcurrentDictionary<Guid, Client> _clients = new ConcurrentDictionary<Guid, Client>();
 
         public void Start(string folderToMonitor)
