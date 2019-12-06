@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtWatcher.WCF.Service", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtWatcher.Common", "ExtWatcher.Common\ExtWatcher.Common.csproj", "{461CD8EC-3317-4B55-B8C6-71BB697B245C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtWatcher.Client", "ExtWatcher.Client\ExtWatcher.Client.csproj", "{01C66E69-9DD6-4F3D-9E07-78C089B775FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6203516D-E64B-492B-8A87-4BAA7140FBCE} = {6203516D-E64B-492B-8A87-4BAA7140FBCE}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{461CD8EC-3317-4B55-B8C6-71BB697B245C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{461CD8EC-3317-4B55-B8C6-71BB697B245C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{461CD8EC-3317-4B55-B8C6-71BB697B245C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

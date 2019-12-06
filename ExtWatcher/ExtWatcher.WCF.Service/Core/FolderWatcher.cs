@@ -40,7 +40,11 @@ namespace ExtWatcher.WCF.Service.Core
 
         private void OnFileEvent(object sender, FileSystemEventArgs e)
         {
-            _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
+            string extension = Path.GetExtension(e.FullPath);
+            if (extension == ".pdf")
+            {
+                _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
+            }
         }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cead4da3-2247-4bc7-b9ca-3171db7e752d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/ExtWatcher/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="e44da520-7dc0-41cd-acab-b3fb00d82c54" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="fe04352c-c7ae-457a-96b9-55e940040057" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="d17f2c74-f82e-41ff-8c4d-db1b647805f2" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+    <MetadataFile FileName="ExtWatcher.Common.Contract.xsd" MetadataType="Schema" ID="ef9be3cc-a9b9-4481-9d1a-07b3b49a7213" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="df212a67-28c5-4020-85d1-14c199ee32bc" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+    <MetadataFile FileName="System.IO.xsd" MetadataType="Schema" ID="4291a236-6808-4c0d-beb4-7edb995de089" SourceId="1" SourceUrl="http://localhost:8000/ExtWatcher/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
