@@ -57,7 +57,7 @@ namespace ExtWatcher.WCF.Service
             try
             {
                 Logger.WriteToLog(String.Format("[NotifyThreadPool] Notifying client with GUID: '{0}', Info: '{1}'", stateInfo.Client.Id, stateInfo.Args.FileName));
-                stateInfo.Client.Callback.OnPDFFileCreatedEvent(stateInfo.Args);
+                stateInfo.Client.Callback.OnFileCreatedEvent(stateInfo.Args);
             }
             catch (TimeoutException)
             {

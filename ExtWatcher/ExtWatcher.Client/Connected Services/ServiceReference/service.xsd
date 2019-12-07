@@ -50,14 +50,14 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnPDFFileCreatedEvent">
+  <xs:element name="OnFileCreatedEvent">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ExtWatcher.Common.Contract" minOccurs="0" name="e" nillable="true" type="q3:FileEventArgs" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="OnPDFFileCreatedEventResponse">
+  <xs:element name="OnFileCreatedEventResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

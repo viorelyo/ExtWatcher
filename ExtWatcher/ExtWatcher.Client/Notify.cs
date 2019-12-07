@@ -161,8 +161,8 @@ public interface INotify
 public interface INotifyCallback
 {
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotify/OnPDFFileCreatedEvent", ReplyAction="http://tempuri.org/INotify/OnPDFFileCreatedEventResponse")]
-    void OnPDFFileCreatedEvent(ExtWatcher.Common.Contract.FileEventArgs e);
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotify/OnFileCreatedEvent", ReplyAction="http://tempuri.org/INotify/OnFileCreatedEventResponse")]
+    void OnFileCreatedEvent(ExtWatcher.Common.Contract.FileEventArgs e);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]

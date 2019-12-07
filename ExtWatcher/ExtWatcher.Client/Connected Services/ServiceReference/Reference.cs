@@ -154,8 +154,8 @@ namespace ExtWatcher.Client.ServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface INotifyCallback {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotify/OnPDFFileCreatedEvent", ReplyAction="http://tempuri.org/INotify/OnPDFFileCreatedEventResponse")]
-        void OnPDFFileCreatedEvent(ExtWatcher.Client.ServiceReference.FileEventArgs e);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INotify/OnFileCreatedEvent", ReplyAction="http://tempuri.org/INotify/OnFileCreatedEventResponse")]
+        void OnFileCreatedEvent(ExtWatcher.Client.ServiceReference.FileEventArgs e);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

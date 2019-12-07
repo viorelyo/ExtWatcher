@@ -5,7 +5,7 @@ namespace ExtWatcher.Client
 {
     public class NotifyCallback : INotifyCallback
     {
-        public void OnPDFFileCreatedEvent(FileEventArgs e)
+        public void OnFileCreatedEvent(FileEventArgs e)
         {
             Console.WriteLine(e.Id);
             Console.WriteLine(e.Folder);

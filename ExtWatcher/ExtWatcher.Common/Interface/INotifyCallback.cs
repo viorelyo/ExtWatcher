@@ -7,6 +7,6 @@ namespace ExtWatcher.Common.Interface
     public interface INotifyCallback
     {
         [OperationContract]
-        void OnPDFFileCreatedEvent(FileEventArgs e);
+        void OnFileCreatedEvent(FileEventArgs e);
     }
 }
