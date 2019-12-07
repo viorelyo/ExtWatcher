@@ -1,18 +1,21 @@
 ﻿using ExtWatcher.Common.Contract;
+using ExtWatcher.WCF.Service.Controller;
 using System.IO;
 
 namespace ExtWatcher.WCF.Service.Core
 {
     internal class FolderWatcher
     {
-        private string _directoryPath;
+        private readonly string _directoryPath;
         private FileSystemWatcher _watcher = new FileSystemWatcher();
         private Monitor _monitor;
+        private ExtensionController _extensionCtrl;
 
         private FolderWatcher(Monitor monitor, string directoryToMonitor)
         {
             _directoryPath = directoryToMonitor;
             _monitor = monitor;
+            _extensionCtrl = new ExtensionController();
 
             _watcher.Path = _directoryPath;
             _watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
@@ -40,8 +43,7 @@ namespace ExtWatcher.WCF.Service.Core
 
         private void OnFileEvent(object sender, FileSystemEventArgs e)
         {
-            string extension = Path.GetExtension(e.FullPath);
-            if (extension == ".pdf")
+            if (_extensionCtrl.IsExtensionSupported(e.FullPath))
             {
                 _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
             }

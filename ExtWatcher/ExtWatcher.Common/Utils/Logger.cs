@@ -14,10 +14,10 @@ namespace ExtWatcher.Common.Utils
         private const int _defaultFlushAtAge = 10;
         private const int _defaultFlushAtQty = 10;
 
-        private static string _logPath;
-        private static string _logFile;
-        private static int _flushAtAge;
-        private static int _flushAtQty;
+        private static readonly string _logPath;
+        private static readonly string _logFile;
+        private static readonly int _flushAtAge;
+        private static readonly int _flushAtQty;
 
         private static DateTime _lastFlushedAt;
 

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace ExtWatcher.Client
 {
-    public class ToastNotification
+    internal class ToastNotification
     {
         private readonly NotifyIcon _notifyIcon;
 

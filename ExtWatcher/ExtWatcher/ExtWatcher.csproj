@@ -79,6 +79,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="config\setup.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExtWatcher.Common\ExtWatcher.Common.csproj">

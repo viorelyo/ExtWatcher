@@ -1,39 +1,35 @@
 ﻿using ExtWatcher.Common.Utils;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service.Controller
 {
-    public class ExtensionController
+    internal class ExtensionController
     {
         private List<string> _supportedExtensions;
 
         public ExtensionController()
         {
-            _supportedExtensions = new HashSet<string>();
+            _supportedExtensions = new List<string>();
 
-            _supportedExtensions = ConfigurationManager.AppSettings.AllKeys
-                                .Where(key => key.Equals("extwatcher:SupportedExtension"))
-                                .Select(key => ConfigurationManager.AppSettings[key])
-                                .
-
+            try
+            {
+                _supportedExtensions = new List<string>(ConfigurationManager.AppSettings["extwatcher:SupportedExtensions"].Split(new char[] { ';' }));
+            }
+            catch (ConfigurationErrorsException e)
+            {
+                Logger.WriteToLog("Could not extract supported extensions from config file.");
+                Logger.WriteToLog(e);
+            }
         }
 
         public bool IsExtensionSupported(string filePath)
         {
-            Logger.WriteToLog(String.Format("Checking if File: {0} is PDF", filePath));
             string extension = Path.GetExtension(filePath);
 
-            if (_supportedExtensions.Contains(filePath))
-            {
-                return true;
-            }
-            return false;
+            return _supportedExtensions.Contains(extension);
         }
     }
 }
