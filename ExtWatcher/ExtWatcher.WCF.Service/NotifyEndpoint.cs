@@ -68,8 +68,6 @@ namespace ExtWatcher.WCF.Service
 
         private void RemoveInvalidClients()
         {
-            Logger.WriteToLog("Removing invalid clients.");
-
             List<Guid> clientsToBeRemoved = new List<Guid>();
             foreach (Client client in _clients.Values)
             {
@@ -81,6 +79,8 @@ namespace ExtWatcher.WCF.Service
 
             foreach (Guid id in clientsToBeRemoved)
             {
+                Logger.WriteToLog(String.Format("Removing invalid client with GUID: '{0}'.", id));
+
                 Client client;
                 bool result = _clients.TryRemove(id, out client);
                 if (!result)

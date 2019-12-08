@@ -27,15 +27,16 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Add debug mode for windows service `/Debug` parameter to be added
 - [x] **CornerCases**: Use **Chrome** at DEMO (Firefox is downloading original + cache -> 2 create Notifications)
 - [ ] **CornerCases**: Exclude RecycleBin from monitored directories
-- [ ] Code refactor (Use generic controller for extension checking)
-- [ ] Graceful close of client app -> close connections (Handler on close buttons)
+- [x] Code refactor (Use generic controller for extension checking)
+- [x] Graceful close of client app -> close connections (Handler on close events - Application_Exit / OnExit)
+- [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
 - [ ] Check function for install windows service
 - [ ] Create script / wizzard for automatic install the service (`https://www.c-sharpcorner.com/UploadFile/b7531b/create-simple-window-service-and-setup-project-with-installa/` / `https://www.youtube.com/watch?v=cp2aFNtcZfk`)
 - [ ] Integrate HTTPWebRequest POST Method to upload file to Flask Server
 - [x] Check if created files are PDFs (`.pdf` extension) (*add ExtensionController maybe as DLL (for future dynamic hotpatch update)*)
 - [x] Generate Client (WCF)
 - [x] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii `WCF` ]
-- [ ] Use configuration files (supportedExstensions, server address, monitored directories)
+- [x] Use configuration files (supportedExstensions, server address, monitored directories)
 - [ ] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
 - [ ] Create Flask server to simulate sandbox
 - [ ] Spike for investigating technology to use for file submit from windows service
