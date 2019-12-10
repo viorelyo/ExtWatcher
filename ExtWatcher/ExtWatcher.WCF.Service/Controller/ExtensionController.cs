@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 
 namespace ExtWatcher.WCF.Service.Controller
 {

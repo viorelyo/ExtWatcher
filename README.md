@@ -26,7 +26,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Log everything (Custom Logger)
 - [x] Add debug mode for windows service `/Debug` parameter to be added
 - [x] **CornerCases**: Use **Chrome** at DEMO (Firefox is downloading original + cache -> 2 create Notifications)
-- [ ] **CornerCases**: Exclude RecycleBin from monitored directories
+- [x] **CornerCases**: Exclude RecycleBin from monitored directories
 - [x] Code refactor (Use generic controller for extension checking)
 - [x] Graceful close of client app -> close connections (Handler on close events - Application_Exit / OnExit)
 - [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
@@ -38,11 +38,11 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii `WCF` ]
 - [x] Use configuration files (supportedExstensions, server address, monitored directories)
 - [ ] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
-- [ ] Create Flask server to simulate sandbox
+- [ ] Create Flask server to simulate sandbox 
 - [ ] Spike for investigating technology to use for file submit from windows service
 - [ ] Submit (HTTP) PDF file to the server to be analyzed 
 - [ ] Apply politics from server to update 
-
+- [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
 
 ###### Resources
