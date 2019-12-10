@@ -41,6 +41,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Create Flask server to simulate sandbox
 - [ ] Spike for investigating technology to use for file submit from windows service
 - [ ] Submit (HTTP) PDF file to the server to be analyzed 
+- [ ] Apply politics from server to update 
 
 - [ ] Submit PDF also to virusTotal and compare results
 
