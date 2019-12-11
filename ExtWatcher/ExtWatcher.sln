@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtWatcher.Client", "ExtWat
 		{6203516D-E64B-492B-8A87-4BAA7140FBCE} = {6203516D-E64B-492B-8A87-4BAA7140FBCE}
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ExtWatcher Setup", "ExtWatcher Setup\ExtWatcher Setup.vdproj", "{06020DEB-4A70-4A79-BF4E-E8BC2D3A50D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,8 @@ Global
 		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01C66E69-9DD6-4F3D-9E07-78C089B775FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06020DEB-4A70-4A79-BF4E-E8BC2D3A50D9}.Debug|Any CPU.ActiveCfg = Debug
+		{06020DEB-4A70-4A79-BF4E-E8BC2D3A50D9}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

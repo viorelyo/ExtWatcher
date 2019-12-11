@@ -43,6 +43,8 @@
             this.serviceInstaller.DisplayName = "ExtWatcher";
             this.serviceInstaller.ServiceName = "ExtWatcherService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this.serviceInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller_AfterInstall);
+            this.serviceInstaller.BeforeUninstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller_BeforeUninstall);
             // 
             // ProjectInstaller
             // 

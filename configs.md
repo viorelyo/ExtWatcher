@@ -7,6 +7,7 @@
 `https://blogs.msdn.microsoft.com/keithmg/2009/08/10/http-could-not-register-url-http-another-application-has-already-registered-this-url-with-http-sys/`
 4. For DEBUG: ExtWatcher Properties -> Debug -> Command line args: `/Debug`
 5. Used command to generate code for client: `"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\SvcUtil.exe" /language:cs /out:Notify.cs /config:app.config http://localhost:8000/ExtWatcher/`
+6. Install extension for setup in VS2017: `https://stackoverflow.com/questions/43308270/vs2017-setup-project-where`
 
 
 #### Resources

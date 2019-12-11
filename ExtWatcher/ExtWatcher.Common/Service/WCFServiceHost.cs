@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtWatcher.Common.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -39,7 +40,6 @@ namespace ExtWatcher.Common.Service
         public void Start()
         {
             Stop();
-            Console.WriteLine("Loading WCF Services...");
 
             _serviceHostList = new List<ServiceHost>();
 
@@ -63,13 +63,14 @@ namespace ExtWatcher.Common.Service
                 _serviceHostList.Add(host);
             }
 
-            Console.WriteLine("Starting WCF Services...\n");
+
+            Logger.WriteToLog("Starting WCF Services...");
             // Start each WCF ServiceHost in our list
             foreach (ServiceHost serviceHost in _serviceHostList)
             {
-                Console.Write(String.Format("\t{0}...", serviceHost.Description.Name));
+                Logger.WriteToLog(String.Format("Opening '{0}'.", serviceHost.Description.Name));
                 serviceHost.Open();
-                Console.WriteLine(String.Format(" {0}", serviceHost.State));
+                Logger.WriteToLog(String.Format("'{0}' - '{1}'", serviceHost.Description.Name, serviceHost.State));
             }
         }
 
