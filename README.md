@@ -45,6 +45,10 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
 
+INSTALLER
+- [ ] config files! + RegistryKey + AutoStart client
+- [ ] UNINSTALL: remove registry, Stop client
+
 ###### Resources
 - https://www.codeguru.com/csharp/.net/net_wcf/article.php/c17179/Tray-Notify--Part-I-Getting-Started.htm (`Use Diagram`)
 - https://books.google.ro/books?id=81OLVXxb-qcC&pg=PA1110&lpg=PA1110&dq=is+projectinstaller+called+once+c%23&source=bl&ots=XK7yLviRPe&sig=ACfU3U1gHbu-ZZJz0TWWi_--fXXv04jh1Q&hl=ro&sa=X&ved=2ahUKEwih_Kqln6TmAhXKvosKHS_PCw8Q6AEwBXoECAkQAQ  (`Windows Service Architecture - 32 Windows Services`)

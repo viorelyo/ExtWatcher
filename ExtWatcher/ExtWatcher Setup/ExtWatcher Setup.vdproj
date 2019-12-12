@@ -16,25 +16,25 @@
         "Entry"
         {
         "MsmKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
-        "OwnerKey" = "8:_D625815E0D7441ECBFB13C1212B8E381"
+        "OwnerKey" = "8:_A940B26E8897422CAB7BDFD680500A56"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
-        "OwnerKey" = "8:_E35DD6D49EF74D0BBFAD71F4A64000F5"
+        "OwnerKey" = "8:_C20ED43E1B584F609C415D6018A51447"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_D625815E0D7441ECBFB13C1212B8E381"
+        "OwnerKey" = "8:_A940B26E8897422CAB7BDFD680500A56"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_E35DD6D49EF74D0BBFAD71F4A64000F5"
+        "OwnerKey" = "8:_C20ED43E1B584F609C415D6018A51447"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,26 +45,38 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A940B26E8897422CAB7BDFD680500A56"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C20ED43E1B584F609C415D6018A51447"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C381FF6738614A128B930E6030F3B058"
-        "OwnerKey" = "8:_D625815E0D7441ECBFB13C1212B8E381"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D625815E0D7441ECBFB13C1212B8E381"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E35DD6D49EF74D0BBFAD71F4A64000F5"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A940B26E8897422CAB7BDFD680500A56"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C20ED43E1B584F609C415D6018A51447"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A940B26E8897422CAB7BDFD680500A56"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -77,18 +89,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E35DD6D49EF74D0BBFAD71F4A64000F5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D625815E0D7441ECBFB13C1212B8E381"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -109,6 +109,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -125,54 +133,69 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_438F25D08C7C4761A74247501E8835B7"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_2380A10B17B64E2A822E84F857FCF900"
             {
             "Name" = "8:Primary output from ExtWatcher (Active)"
             "Condition" = "8:"
-            "Object" = "8:_D625815E0D7441ECBFB13C1212B8E381"
+            "Object" = "8:_A940B26E8897422CAB7BDFD680500A56"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_CD407962_537D_44C0_8DCD_615FEAF1B538"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_A01B35D60E184437B1F85BEFF7022E8E"
+            {
+            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C20ED43E1B584F609C415D6018A51447"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_91A3BD3A_21E4_46A7_A2C5_127D7FF861DF"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_D0D8BAF1700540618050203E7B51D3EE"
+            {
+            "Name" = "8:Primary output from ExtWatcher (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_A940B26E8897422CAB7BDFD680500A56"
             "FileType" = "3:2"
             "InstallAction" = "3:4"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_3FE8E73F_26D5_4107_8405_A277E4E70663"
+            "Identifier" = "8:_7A52C24B_EDF9_4955_81EF_F90EBFA066D0"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_76FB7CD97EE945EB848043D4E238A01E"
-            {
-            "Name" = "8:Primary output from ExtWatcher (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_D625815E0D7441ECBFB13C1212B8E381"
-            "FileType" = "3:2"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_C0D6E678_2EDB_4908_B296_4662FCE8B393"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_FEC3EFD5DCB945E5AAB13DDEB5046EB6"
-            {
-            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_E35DD6D49EF74D0BBFAD71F4A64000F5"
-            "FileType" = "3:2"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:2"
-            "Identifier" = "8:_1A2F5C60_3343_4269_BC0A_67780BDB688E"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            "Run64Bit" = "11:TRUE"
             }
         }
         "DefaultFeature"
@@ -347,7 +370,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ExtWatcher"
         "ProductCode" = "8:{CF2D1606-E8EB-49A1-A70B-D17A45FF0C7E}"
-        "PackageCode" = "8:{3037C758-B934-4945-8E91-D700C67C3767}"
+        "PackageCode" = "8:{C7B4155A-30ED-43B0-83D5-97665499D4DC}"
         "UpgradeCode" = "8:{D5C47072-3125-4B2C-8FA3-F47F4C1A3E71}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -355,7 +378,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:cs.ubb"
+        "Manufacturer" = "8:csubb"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:ExtWatcher Setup"
@@ -866,7 +889,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D625815E0D7441ECBFB13C1212B8E381"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A940B26E8897422CAB7BDFD680500A56"
             {
             "SourcePath" = "8:..\\ExtWatcher\\obj\\Release\\ExtWatcher.exe"
             "TargetName" = "8:"
@@ -894,7 +917,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E35DD6D49EF74D0BBFAD71F4A64000F5"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C20ED43E1B584F609C415D6018A51447"
             {
             "SourcePath" = "8:..\\ExtWatcher.Client\\obj\\Release\\ExtWatcher.Client.exe"
             "TargetName" = "8:"

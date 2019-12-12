@@ -87,7 +87,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="config\setup.config">
+    <None Include="service_config\setup.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
