@@ -20,6 +20,13 @@ namespace ExtWatcher.Client
         public override void Install(IDictionary savedState)
         {
             base.Install(savedState);
+
+            FileStream stream = new FileStream(@"C:\install\install.log", FileMode.Append, FileAccess.Write);
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLine("INSTALLING...\n");
+            }
+            stream.Close();
         }
 
         public override void Commit(IDictionary savedState)
@@ -30,6 +37,14 @@ namespace ExtWatcher.Client
             {
                 string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ExtWatcher.Client.exe";
 
+                FileStream stream = new FileStream(@"C:\install\install.log", FileMode.Append, FileAccess.Write);
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine("COMMITING...\n");
+                    writer.WriteLine(appLocation);
+                }
+                stream.Close();
+
                 // Set RegistryKey to run app at windows startup
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 key.SetValue("ExtWatcher.Client", appLocation);
@@ -38,7 +53,7 @@ namespace ExtWatcher.Client
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
                 Process.Start(appLocation);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 base.Rollback(savedState);
             }
@@ -47,6 +62,36 @@ namespace ExtWatcher.Client
         public override void Rollback(IDictionary savedState)
         {
             base.Rollback(savedState);
+        }
+
+        public override void Uninstall(IDictionary savedState)
+        {
+            base.Uninstall(savedState);
+
+            try
+            {
+                string appName = "ExtWatcher.Client";
+
+                // Stop running instances of App
+                foreach (var proc in Process.GetProcessesByName(appName))
+                {
+                    proc.Kill();
+                }
+
+                // Remove from registry key
+                string keyName = @"Software\Microsoft\Windows\CurrentVersion\Run";
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName, true))
+                {
+                    if (key != null)
+                    {
+                        key.DeleteValue(appName);
+                    }
+                }
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
     }
 }

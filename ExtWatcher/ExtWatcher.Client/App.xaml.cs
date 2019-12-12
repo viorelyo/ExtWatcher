@@ -25,7 +25,6 @@ namespace ExtWatcher.Client
             try
             {
                 _monitoredPaths = new List<string>(ConfigurationManager.AppSettings["extwatcher:MonitoredPaths"].Split(new char[] { ';' }));
-                StartSession();
             }
             catch (ConfigurationErrorsException e)
             {
@@ -33,6 +32,8 @@ namespace ExtWatcher.Client
                 Logger.WriteToLog(e);
                 CloseSession();
             }
+
+            StartSession();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
