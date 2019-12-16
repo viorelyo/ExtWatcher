@@ -29,6 +29,14 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] **CornerCases**: Exclude RecycleBin from monitored directories
 - [x] Code refactor (Use generic controller for extension checking)
 - [x] Graceful close of client app -> close connections (Handler on close events - Application_Exit / OnExit)
+- [ ] Repair this: (maybe working Thread isn't notidfied about service stop)
+```
+    Stack: at System.Threading.SemaphoreSlim.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Collections.Concurrent.BlockingCollection`1.TryTakeWithNoTimeValidation(T& item, Int32 millisecondsTimeout, CancellationToken cancellationToken, CancellationTokenSource combinedTokenSource)
+   at System.Collections.Concurrent.BlockingCollection`1.<GetConsumingEnumerable>d__68.MoveNext()
+   at ExtWatcher.WCF.Service.Core.Monitor.QueueServiceThreadProc()
+```
+- [ ] Set to false `<serviceDebug includeExceptionDetailInFaults="true" />`
 - [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
 - [ ] Check function for install windows service
 - [ ] Create script / wizzard for automatic install the service (`https://docs.devexpress.com/eXpressAppFramework/113235/deployment/deployment-tutorial/setup-project-deployment-of-a-windows-forms-application` / `https://www.youtube.com/watch?v=cp2aFNtcZfk`)
@@ -44,6 +52,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Apply politics from server to update 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
+- [ ] Windows client to control service (enable/disable)
 
 INSTALLER
 - [ ] config files! + RegistryKey + AutoStart client
@@ -55,3 +64,4 @@ INSTALLER
 - https://candordeveloper.com/2012/12/28/simple-installer-for-windows-service-using-visual-studio-2012/ (`Installer`)
 - https://books.google.ro/books?id=4yPnAgAAQBAJ&pg=PA789&lpg=PA789&dq=ProjectInstaller+Install(&source=bl&ots=XdLuu0dfVj&sig=ACfU3U0qcWJJ8aerA7SczDTdaGrgnT8Tgg&hl=ro&sa=X&ved=2ahUKEwjIzeP3pqTmAhXJs4sKHd_PBHIQ6AEwEnoECAoQAQ#v=onepage&q=ProjectInstaller%20Install(&f=false (`27 - Install + Service Manager`)
 - https://www.c-sharpcorner.com/article/how-to-perform-custom-actions-and-upgrade-using-visual-studio-installer/ (`Updates`)
+- https://www.oreilly.com/library/view/learning-wcf/9780596101626/ch04s05.html (`Architecture`)

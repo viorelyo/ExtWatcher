@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.ServiceModel;
+using System.ServiceProcess;
 using System.Windows;
 
 namespace ExtWatcher.Client
@@ -18,6 +20,8 @@ namespace ExtWatcher.Client
 
         public App()
         {
+            WaitForServiceToStart();
+
             InstanceContext site = new InstanceContext(new NotifyCallback());
             _client = new NotifyClient(site);
             _id = Guid.NewGuid();
@@ -34,6 +38,12 @@ namespace ExtWatcher.Client
             }
 
             StartSession();
+        }
+
+        private void WaitForServiceToStart()
+        {
+            var sc = new ServiceController("ExtWatcherService");
+            sc.WaitForStatus(ServiceControllerStatus.Running);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -57,20 +67,25 @@ namespace ExtWatcher.Client
 
                 foreach (string path in _monitoredPaths)
                 {
-                    _client.Start(path);
+                    if (!Directory.Exists(path))
+                    {
+                        Logger.WriteToLog(String.Format("[GUID: '{0}'] '{1}' monitored path does not exist.", _id, path));
+                    }
+                    else
+                    { 
+                        Logger.WriteToLog(String.Format("[GUID: '{0}'] Adding '{1}' path to monitoring.", _id, path));
+                        _client.Start(path);
+                    }
                 }
-                //Console.WriteLine("Started!"); 
             }
-            catch (TimeoutException eTime)
+            catch (System.TimeoutException eTime)
             {
                 Logger.WriteToLog(eTime);
-                //Console.WriteLine("Timeout. " + eTime.Message);
                 CloseSession();
             }
             catch (CommunicationException eComm)
             {
                 Logger.WriteToLog(eComm);
-                //Console.WriteLine("Timeout. " + eComm.Message);
                 CloseSession();
             }
         }

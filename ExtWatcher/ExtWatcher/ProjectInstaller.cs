@@ -19,7 +19,11 @@ namespace ExtWatcher
 
         private void serviceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
         {
-            new ServiceController(serviceInstaller.ServiceName).Stop();
+            var sc = new ServiceController(serviceInstaller.ServiceName);
+            if (sc.Status == ServiceControllerStatus.Running)
+            {
+                sc.Stop();
+            }
         }
     }
 }
