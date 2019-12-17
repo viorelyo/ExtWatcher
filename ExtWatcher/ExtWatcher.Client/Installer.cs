@@ -26,13 +26,16 @@ namespace ExtWatcher.Client
         {
             base.Commit(savedState);
 
+            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLine("Client - Commit");
+            }
+            stream.Close();
+
             try
             {
                 string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ExtWatcher.Client.exe";
-
-                // Set RegistryKey to run app at windows startup
-                //RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                //key.SetValue("ExtWatcher.Client", appLocation);
 
                 // Start App after Install finishes
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
@@ -49,8 +52,16 @@ namespace ExtWatcher.Client
             base.Rollback(savedState);
         }
 
-        public override void Uninstall(IDictionary savedState)
+        protected override void OnBeforeUninstall(IDictionary savedState)
         {
+            base.OnBeforeUninstall(savedState);
+            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLine("Client - OnBeforeUninstall");
+            }
+            stream.Close();
+
             try
             {
                 string appName = "ExtWatcher.Client";
@@ -60,22 +71,37 @@ namespace ExtWatcher.Client
                 {
                     proc.Kill();
                 }
-
-                // Remove from registry key
-                //string keyName = @"Software\Microsoft\Windows\CurrentVersion\Run";
-                //using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName, true))
-                //{
-                //    if (key != null)
-                //    {
-                //        key.DeleteValue(appName);
-                //    }
-                //}
             }
             catch
             {
                 // Do nothing
             }
+        }
+
+        public override void Uninstall(IDictionary savedState)
+        {
             base.Uninstall(savedState);
+            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLine("Client - Uninstall");
+            }
+            stream.Close();
+
+            try
+            {
+                string appName = "ExtWatcher.Client";
+
+                // Stop running instances of App
+                foreach (var proc in Process.GetProcessesByName(appName))
+                {
+                    proc.Kill();
+                }
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
     }
 }

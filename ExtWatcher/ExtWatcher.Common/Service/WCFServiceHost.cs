@@ -35,6 +35,7 @@ namespace ExtWatcher.Common.Service
 
             Console.WriteLine(String.Format("\n{0} WCF services have successfully started.\n\nPress ENTER to exit.", serviceAppName));
             Console.ReadKey(false);
+            serviceHost.Stop();
         }
 
         public void Start()

@@ -52,7 +52,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Apply politics from server to update 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
-- [ ] Windows client to control service (enable/disable)
+- [ ] Windows client to control service (enable/disable) - maybe use only NotifyIcon (Tray) to notify enable/disable - info...and others
 
 INSTALLER
 - [ ] config files! + RegistryKey + AutoStart client

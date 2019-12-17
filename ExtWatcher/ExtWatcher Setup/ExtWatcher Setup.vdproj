@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4C19AA2878224AD1BCE064093EA95BF5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -22,37 +28,25 @@
         "Entry"
         {
         "MsmKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
-        "OwnerKey" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
-        "OwnerKey" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
+        "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_C381FF6738614A128B930E6030F3B058"
-        "OwnerKey" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,13 +82,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
+        "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -175,73 +175,73 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1FB840D3F78D437788D0AA696C70BE09"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_0A979DB99644451F9C530EA1329F3B9E"
             {
             "Name" = "8:Primary output from ExtWatcher (Active)"
             "Condition" = "8:"
-            "Object" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
-            "FileType" = "3:2"
-            "InstallAction" = "3:4"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:2"
-            "Identifier" = "8:_9DD52425_3032_4F4B_8613_4E5FE4DF3A45"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_489FC5E000364BBF9C6C406E3879B6D1"
-            {
-            "Name" = "8:Primary output from ExtWatcher (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_58AE0C8789A84A2E870667BA426FC6C3"
+            "Object" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
             "FileType" = "3:2"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_421E0B93_32D7_4D27_B38B_55A7A79D0DD6"
+            "Identifier" = "8:_A0F088BA_CE5B_45B0_953F_0D63F2E6CF63"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_839105FBB6D44B0999B36E1671F02371"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8727B3A4987D448AA81A2E9DD76AF422"
             {
-            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
+            "Name" = "8:Primary output from ExtWatcher (Active)"
             "Condition" = "8:"
-            "Object" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
-            "FileType" = "3:2"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:2"
-            "Identifier" = "8:_0AAEEEB7_7C52_4990_AE68_598CC8FC4B01"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_94A74C3D85F84CAF840F85D785837085"
-            {
-            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
+            "Object" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
             "FileType" = "3:2"
             "InstallAction" = "3:4"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_E97871EC_C2A4_4A49_A537_1D9374460AC3"
+            "Sequence" = "3:2"
+            "Identifier" = "8:_79701FA7_79E3_491D_ABFA_26121C73253F"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E3A506ED094D4EDCA151CA2A95CAD471"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_872F10A8DD8C46B1A207BBEBE63C76B7"
             {
             "Name" = "8:Primary output from ExtWatcher.Client (Active)"
             "Condition" = "8:"
-            "Object" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
+            "Object" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_C679DE99_9CB1_4152_A673_E23B13A23ABE"
+            "Identifier" = "8:_8F8A7729_F9E8_4DCC_AEBF_75493E92ADF6"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_CBF976AC7C5B4881B0E9F0AEB5187421"
+            {
+            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:2"
+            "Identifier" = "8:_E565A6BD_A3A3_427D_848B_4AE6952432C7"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E8F2C9A5462141D993968A12C5F10D77"
+            {
+            "Name" = "8:Primary output from ExtWatcher.Client (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_A98179F1_5803_4612_A380_53C736BB4448"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
@@ -491,7 +491,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ExtWatcher"
         "ProductCode" = "8:{CF2D1606-E8EB-49A1-A70B-D17A45FF0C7E}"
-        "PackageCode" = "8:{9F48DF04-4A89-4247-99D1-E4D975464FF3}"
+        "PackageCode" = "8:{45D5923B-96F0-4797-ACE1-389007DEDA6F}"
         "UpgradeCode" = "8:{D5C47072-3125-4B2C-8FA3-F47F4C1A3E71}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -597,7 +597,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D96A72EDC72F4F3FA1AE07F137E1CD91"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1570A7E4D6754BE3854D5FC41D67609E"
             {
             "Name" = "8:Shortcut to Primary output from ExtWatcher.Client (Active)"
             "Arguments" = "8:"
@@ -605,7 +605,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_7A275B1BC6774C08A1AA3A0AC4476C63"
+            "Target" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
             "Folder" = "8:_58E1018E39164C4182220B3822DB0C7E"
             "WorkingFolder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
             "Icon" = "8:"
@@ -1010,35 +1010,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_58AE0C8789A84A2E870667BA426FC6C3"
-            {
-            "SourcePath" = "8:..\\ExtWatcher\\obj\\Release\\ExtWatcher.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{64DD0C2D-E444-4642-BBA7-D4630C8E45E8}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7A275B1BC6774C08A1AA3A0AC4476C63"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_071257D2E5F948EE8E48D09EE90E7FB5"
             {
             "SourcePath" = "8:..\\ExtWatcher.Client\\obj\\Release\\ExtWatcher.Client.exe"
             "TargetName" = "8:"
@@ -1061,6 +1033,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{01C66E69-9DD6-4F3D-9E07-78C089B775FE}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EFF48A6C776044D0AC8FC17A9D039B93"
+            {
+            "SourcePath" = "8:..\\ExtWatcher\\obj\\Release\\ExtWatcher.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{64DD0C2D-E444-4642-BBA7-D4630C8E45E8}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

@@ -5,6 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceProcess;
+using System.Threading;
 using System.Windows;
 
 namespace ExtWatcher.Client
@@ -21,7 +22,7 @@ namespace ExtWatcher.Client
         public App()
         {
             WaitForServiceToStart();
-
+            
             InstanceContext site = new InstanceContext(new NotifyCallback());
             _client = new NotifyClient(site);
             _id = Guid.NewGuid();
@@ -32,9 +33,9 @@ namespace ExtWatcher.Client
             }
             catch (ConfigurationErrorsException e)
             {
-                Logger.WriteToLog("Could not extract monitoredPaths from config file.");
+                Logger.WriteToLog(String.Format("[GUID: '{0}'] Could not extract monitoredPaths from config file.", _id));
                 Logger.WriteToLog(e);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();      // Calls Application_Exit()
             }
 
             StartSession();
@@ -42,19 +43,22 @@ namespace ExtWatcher.Client
 
         private void WaitForServiceToStart()
         {
-            var sc = new ServiceController("ExtWatcherService");
-            sc.WaitForStatus(ServiceControllerStatus.Running);
+            string serviceName = "ExtWatcherService";
+            try
+            {
+                var sc = new ServiceController(serviceName);
+                sc.WaitForStatus(ServiceControllerStatus.Running);
+            }
+            catch (InvalidOperationException)
+            {
+                Logger.WriteToLog(String.Format("Service '{0}' not found. Client can not start.", serviceName));
+                Environment.Exit(0);        // Exits immediately
+            }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             CloseSession();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            CloseSession();
-            base.OnExit(e);
         }
 
         private void StartSession()
@@ -70,6 +74,7 @@ namespace ExtWatcher.Client
                     if (!Directory.Exists(path))
                     {
                         Logger.WriteToLog(String.Format("[GUID: '{0}'] '{1}' monitored path does not exist.", _id, path));
+                        _monitoredPaths.Remove(path);
                     }
                     else
                     { 
@@ -81,12 +86,12 @@ namespace ExtWatcher.Client
             catch (System.TimeoutException eTime)
             {
                 Logger.WriteToLog(eTime);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();
             }
             catch (CommunicationException eComm)
             {
                 Logger.WriteToLog(eComm);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();
             }
         }
 
@@ -100,8 +105,6 @@ namespace ExtWatcher.Client
             }
             _client.UnRegister(_id);
             _client.Abort();
-
-            System.Windows.Application.Current.Shutdown();
         }
     }
 }
