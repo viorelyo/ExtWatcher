@@ -18,33 +18,23 @@ namespace ExtWatcher
         protected override void OnAfterInstall(IDictionary savedState)
         {
             base.OnAfterInstall(savedState);
-
-            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
-            using (var writer = new StreamWriter(stream))
+            using (var sc = new ServiceController(serviceInstaller.ServiceName))
             {
-                writer.WriteLine("Service - AfterInstall");
+                sc.Start();
             }
-            stream.Close();
-
-            new ServiceController(serviceInstaller.ServiceName).Start();
         }
 
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
+            using (var sc = new ServiceController(serviceInstaller.ServiceName))
+            { 
+                if (sc.Status != ServiceControllerStatus.Stopped)
+                {
+                    sc.Stop();
+                    sc.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                }
+            }
             base.OnBeforeUninstall(savedState);
-            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
-            using (var writer = new StreamWriter(stream))
-            {
-                writer.WriteLine("Service - BeforeUninstall");
-            }
-            stream.Close();
-
-            var sc = new ServiceController(serviceInstaller.ServiceName);
-            if (sc.Status != ServiceControllerStatus.Stopped)
-            {
-                sc.Stop();
-                sc.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
-            }
         }
     }
 }

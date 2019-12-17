@@ -21,9 +21,13 @@ namespace ExtWatcher.Client
 
         public App()
         {
+            //CheckIfAnotherInstanceNotRunning();
             WaitForServiceToStart();
-            
-            InstanceContext site = new InstanceContext(new NotifyCallback());
+
+            var nc = new NotifyCallback();
+            nc.InitTrayMenu();
+
+            InstanceContext site = new InstanceContext(nc);
             _client = new NotifyClient(site);
             _id = Guid.NewGuid();
 
@@ -41,16 +45,32 @@ namespace ExtWatcher.Client
             StartSession();
         }
 
+        private void CheckIfAnotherInstanceNotRunning()
+        {
+            //TODO implement this
+            throw new NotImplementedException();
+        }
+
         private void WaitForServiceToStart()
         {
             string serviceName = "ExtWatcherService";
             try
             {
                 var sc = new ServiceController(serviceName);
-                sc.WaitForStatus(ServiceControllerStatus.Running);
+                if (sc.Status != ServiceControllerStatus.Stopped)
+                { 
+                    sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                }
+                else
+                {
+                    // Start service if is stopped
+                    sc.Start();
+                    sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                }
             }
             catch (InvalidOperationException)
             {
+                MessageBoxResult warningBox = MessageBox.Show("ExtWatcher Service isn't running.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Logger.WriteToLog(String.Format("Service '{0}' not found. Client can not start.", serviceName));
                 Environment.Exit(0);        // Exits immediately
             }
