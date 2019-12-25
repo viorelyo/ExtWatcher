@@ -27,6 +27,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Add debug mode for windows service `/Debug` parameter to be added
 - [x] **CornerCases**: Use **Chrome** at DEMO (Firefox is downloading original + cache -> 2 create Notifications)
 - [ ] **CornerCases**: Exclude RecycleBin from monitored directories
+- [ ] **CornerCases**: Are we checking if monitoredPaths that we are passing - exist?
 - [x] Code refactor (Use generic controller for extension checking)
 - [x] Graceful close of client app -> close connections (Handler on close events - Application_Exit / OnExit)
 - [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
@@ -41,6 +42,9 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Create Flask server to simulate sandbox
 - [ ] Spike for investigating technology to use for file submit from windows service
 - [ ] Submit (HTTP) PDF file to the server to be analyzed 
+- [ ] Sandbox dashboard - show diagramas of activity / statistics of analyzed files (benign / malicious)
+- [ ] Spike for investigating FileObserver (Xamarin.Android)
+- [ ] Spike for investigating: pass URL and scan pdf from passed url
 
 - [ ] Submit PDF also to virusTotal and compare results
 
@@ -49,3 +53,10 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - https://books.google.ro/books?id=81OLVXxb-qcC&pg=PA1110&lpg=PA1110&dq=is+projectinstaller+called+once+c%23&source=bl&ots=XK7yLviRPe&sig=ACfU3U1gHbu-ZZJz0TWWi_--fXXv04jh1Q&hl=ro&sa=X&ved=2ahUKEwih_Kqln6TmAhXKvosKHS_PCw8Q6AEwBXoECAkQAQ  (`Windows Service Architecture - 32 Windows Services`)
 - https://candordeveloper.com/2012/12/28/simple-installer-for-windows-service-using-visual-studio-2012/ (`Installer`)
 - https://books.google.ro/books?id=4yPnAgAAQBAJ&pg=PA789&lpg=PA789&dq=ProjectInstaller+Install(&source=bl&ots=XdLuu0dfVj&sig=ACfU3U0qcWJJ8aerA7SczDTdaGrgnT8Tgg&hl=ro&sa=X&ved=2ahUKEwjIzeP3pqTmAhXJs4sKHd_PBHIQ6AEwEnoECAoQAQ#v=onepage&q=ProjectInstaller%20Install(&f=false (`27 - Install + Service Manager`)
+
+
+
+- (`SEARCH on Google`) **Malicious PDF detection using metadata and structural features**
+- https://books.google.ro/books?id=P99YDwAAQBAJ&pg=PA190&lpg=PA190&dq=Malicious+PDF+detection+using+metadata+and+structural+features&source=bl&ots=N1tWANjQ1Z&sig=ACfU3U3NL1ZMW3F7GHVNKnD1KW-9TOqgKQ&hl=ro&sa=X&ved=2ahUKEwjb0eCRgqbmAhWRpYsKHX5kAJo4FBDoATACegQIChAB#v=onepage&q=Malicious%20PDF%20detection%20using%20metadata%20and%20structural%20features&f=false (`PDF ML`)
+- https://books.google.ro/books?id=9LZPCwAAQBAJ&pg=PA83&lpg=PA83&dq=Malicious+PDF+detection+using+metadata+and+structural+features&source=bl&ots=Pv_Vxr-qB9&sig=ACfU3U0cKXrjLrr6NY34At9PHdjx7K9oZQ&hl=ro&sa=X&ved=2ahUKEwioofP7gabmAhXomIsKHQmKC4I4ChDoATAFegQIBRAB#v=onepage&q=Malicious%20PDF%20detection%20using%20metadata%20and%20structural%20features&f=false (`PDF ML`)
+- https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28 (`Dashboard model`) 
