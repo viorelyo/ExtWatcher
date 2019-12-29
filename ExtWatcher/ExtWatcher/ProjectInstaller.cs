@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtWatcher.Common;
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Configuration.Install;
@@ -11,8 +12,6 @@ namespace ExtWatcher
     [RunInstaller(true)]
     public partial class ProjectInstaller : System.Configuration.Install.Installer
     {
-        private const string quarantineFolderPath = @"C:\ExtWatcher\Quarantine";
-
         public ProjectInstaller()
         {
             InitializeComponent();
@@ -34,13 +33,13 @@ namespace ExtWatcher
         /// </summary>
         private void CreateQuarantineFolder()
         {
-            Directory.CreateDirectory(quarantineFolderPath);
+            Directory.CreateDirectory(Constants.QuarantineFolderPath);
 
             string adminUserName = Environment.UserName;
-            DirectorySecurity ds = Directory.GetAccessControl(quarantineFolderPath);
+            DirectorySecurity ds = Directory.GetAccessControl(Constants.QuarantineFolderPath);
             FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
             ds.AddAccessRule(fsa);
-            Directory.SetAccessControl(quarantineFolderPath, ds);
+            Directory.SetAccessControl(Constants.QuarantineFolderPath, ds);
         }
 
         protected override void OnBeforeUninstall(IDictionary savedState)
@@ -61,12 +60,12 @@ namespace ExtWatcher
         private void RemoveQuarantineFolder()
         {
             string adminUserName = Environment.UserName;
-            DirectorySecurity ds = Directory.GetAccessControl(quarantineFolderPath);
+            DirectorySecurity ds = Directory.GetAccessControl(Constants.QuarantineFolderPath);
             FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
             ds.RemoveAccessRule(fsa);
-            Directory.SetAccessControl(quarantineFolderPath, ds);
+            Directory.SetAccessControl(Constants.QuarantineFolderPath, ds);
 
-            Directory.Delete(quarantineFolderPath, true);
+            Directory.Delete(Constants.QuarantineFolderPath, true);
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Configuration;
 using System.IO;
 using System.ServiceModel;
 using System.ServiceProcess;
-using System.Threading;
 using System.Windows;
 
 namespace ExtWatcher.Client
@@ -22,7 +21,7 @@ namespace ExtWatcher.Client
         public App()
         {
             //CheckIfAnotherInstanceNotRunning();
-            WaitForServiceToStart();
+            //WaitForServiceToStart();
 
             var nc = new NotifyCallback();
             nc.InitTrayMenu();

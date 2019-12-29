@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Contract\FileEventArgs.cs" />
     <Compile Include="Interface\INotify.cs" />
     <Compile Include="Interface\INotifyCallback.cs" />

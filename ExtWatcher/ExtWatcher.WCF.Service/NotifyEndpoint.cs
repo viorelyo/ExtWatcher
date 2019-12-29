@@ -1,6 +1,7 @@
 ﻿using ExtWatcher.Common.Contract;
 using ExtWatcher.Common.Interface;
 using ExtWatcher.Common.Utils;
+using ExtWatcher.WCF.Service.Controller;
 using ExtWatcher.WCF.Service.Model;
 using System;
 using System.Collections.Concurrent;
@@ -37,6 +38,8 @@ namespace ExtWatcher.WCF.Service
 
         private void OnFileEvent(object sender, FileEventArgs e)
         {
+            FileAnalyzer fileAnalyzer = new FileAnalyzer();
+            fileAnalyzer.Prepare(e);
             RemoveInvalidClients();
             
             foreach (var client in _clients)
@@ -44,6 +47,8 @@ namespace ExtWatcher.WCF.Service
                 // Create a new thread for each client in order to send the notification
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
+
+            fileAnalyzer.Analyze();
         }
 
         private void NotifyThreadProc(object state)
