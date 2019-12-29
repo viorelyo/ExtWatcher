@@ -45,7 +45,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Generate Client (WCF)
 - [x] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii `WCF` ]
 - [x] Use configuration files (supportedExstensions, server address, monitored directories)
-- [ ] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
+- [x] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
 - [ ] Create Flask server to simulate sandbox 
 - [ ] Spike for investigating technology to use for file submit from windows service
 - [ ] Submit (HTTP) PDF file to the server to be analyzed 

@@ -60,6 +60,12 @@ namespace ExtWatcher
 
         private void RemoveQuarantineFolder()
         {
+            string adminUserName = Environment.UserName;
+            DirectorySecurity ds = Directory.GetAccessControl(quarantineFolderPath);
+            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
+            ds.RemoveAccessRule(fsa);
+            Directory.SetAccessControl(quarantineFolderPath, ds);
+
             Directory.Delete(quarantineFolderPath, true);
         }
     }
