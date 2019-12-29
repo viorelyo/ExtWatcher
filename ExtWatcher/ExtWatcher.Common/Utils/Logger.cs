@@ -9,7 +9,7 @@ namespace ExtWatcher.Common.Utils
     {
         private static Queue<Log> _logQueue;
 
-        private const string _defaultLogPath = @"C:\ExtWatcher";
+        private const string _defaultLogPath = @"C:\ExtWatcher\Logs";
         private const string _defaultLogFile = "file.log";
         private const int _defaultFlushAtAge = 10;
         private const int _defaultFlushAtQty = 10;

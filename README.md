@@ -26,12 +26,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Log everything (Custom Logger)
 - [x] Add debug mode for windows service `/Debug` parameter to be added
 - [x] **CornerCases**: Use **Chrome** at DEMO (Firefox is downloading original + cache -> 2 create Notifications)
-<<<<<<< HEAD
-- [ ] **CornerCases**: Exclude RecycleBin from monitored directories
-- [ ] **CornerCases**: Are we checking if monitoredPaths that we are passing - exist?
-=======
 - [x] **CornerCases**: Exclude RecycleBin from monitored directories
->>>>>>> db5cfbd58809d986419135e5add25d3789e2063e
 - [x] Code refactor (Use generic controller for extension checking)
 - [x] Graceful close of client app -> close connections (Handler on close events - Application_Exit / OnExit)
 - [ ] Repair this: (maybe working Thread isn't notidfied about service stop)
@@ -44,7 +39,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Set to false `<serviceDebug includeExceptionDetailInFaults="true" />`
 - [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
 - [ ] Check function for install windows service
-- [ ] Create script / wizzard for automatic install the service (`https://docs.devexpress.com/eXpressAppFramework/113235/deployment/deployment-tutorial/setup-project-deployment-of-a-windows-forms-application` / `https://www.youtube.com/watch?v=cp2aFNtcZfk`)
+- [x] Create script / wizzard for automatic install the service (`https://docs.devexpress.com/eXpressAppFramework/113235/deployment/deployment-tutorial/setup-project-deployment-of-a-windows-forms-application` / `https://www.youtube.com/watch?v=cp2aFNtcZfk`)
 - [ ] Integrate HTTPWebRequest POST Method to upload file to Flask Server
 - [x] Check if created files are PDFs (`.pdf` extension) (*add ExtensionController maybe as DLL (for future dynamic hotpatch update)*)
 - [x] Generate Client (WCF)
@@ -54,15 +49,8 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Create Flask server to simulate sandbox 
 - [ ] Spike for investigating technology to use for file submit from windows service
 - [ ] Submit (HTTP) PDF file to the server to be analyzed 
-<<<<<<< HEAD
-- [ ] Sandbox dashboard - show diagramas of activity / statistics of analyzed files (benign / malicious)
-- [ ] Spike for investigating FileObserver (Xamarin.Android)
-- [ ] Spike for investigating: pass URL and scan pdf from passed url
-
-=======
 - [ ] Apply politics from server to update 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
->>>>>>> db5cfbd58809d986419135e5add25d3789e2063e
 - [ ] Submit PDF also to virusTotal and compare results
 - [ ] Windows client to control service (enable/disable) - maybe use only NotifyIcon (Tray) to notify enable/disable - info...and others
 
@@ -75,15 +63,5 @@ INSTALLER
 - https://books.google.ro/books?id=81OLVXxb-qcC&pg=PA1110&lpg=PA1110&dq=is+projectinstaller+called+once+c%23&source=bl&ots=XK7yLviRPe&sig=ACfU3U1gHbu-ZZJz0TWWi_--fXXv04jh1Q&hl=ro&sa=X&ved=2ahUKEwih_Kqln6TmAhXKvosKHS_PCw8Q6AEwBXoECAkQAQ  (`Windows Service Architecture - 32 Windows Services`)
 - https://candordeveloper.com/2012/12/28/simple-installer-for-windows-service-using-visual-studio-2012/ (`Installer`)
 - https://books.google.ro/books?id=4yPnAgAAQBAJ&pg=PA789&lpg=PA789&dq=ProjectInstaller+Install(&source=bl&ots=XdLuu0dfVj&sig=ACfU3U0qcWJJ8aerA7SczDTdaGrgnT8Tgg&hl=ro&sa=X&ved=2ahUKEwjIzeP3pqTmAhXJs4sKHd_PBHIQ6AEwEnoECAoQAQ#v=onepage&q=ProjectInstaller%20Install(&f=false (`27 - Install + Service Manager`)
-<<<<<<< HEAD
-
-
-
-- (`SEARCH on Google`) **Malicious PDF detection using metadata and structural features**
-- https://books.google.ro/books?id=P99YDwAAQBAJ&pg=PA190&lpg=PA190&dq=Malicious+PDF+detection+using+metadata+and+structural+features&source=bl&ots=N1tWANjQ1Z&sig=ACfU3U3NL1ZMW3F7GHVNKnD1KW-9TOqgKQ&hl=ro&sa=X&ved=2ahUKEwjb0eCRgqbmAhWRpYsKHX5kAJo4FBDoATACegQIChAB#v=onepage&q=Malicious%20PDF%20detection%20using%20metadata%20and%20structural%20features&f=false (`PDF ML`)
-- https://books.google.ro/books?id=9LZPCwAAQBAJ&pg=PA83&lpg=PA83&dq=Malicious+PDF+detection+using+metadata+and+structural+features&source=bl&ots=Pv_Vxr-qB9&sig=ACfU3U0cKXrjLrr6NY34At9PHdjx7K9oZQ&hl=ro&sa=X&ved=2ahUKEwioofP7gabmAhXomIsKHQmKC4I4ChDoATAFegQIBRAB#v=onepage&q=Malicious%20PDF%20detection%20using%20metadata%20and%20structural%20features&f=false (`PDF ML`)
-- https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28 (`Dashboard model`) 
-=======
 - https://www.c-sharpcorner.com/article/how-to-perform-custom-actions-and-upgrade-using-visual-studio-installer/ (`Updates`)
 - https://www.oreilly.com/library/view/learning-wcf/9780596101626/ch04s05.html (`Architecture`)
->>>>>>> db5cfbd58809d986419135e5add25d3789e2063e
