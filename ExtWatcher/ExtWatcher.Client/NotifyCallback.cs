@@ -1,19 +1,31 @@
 ﻿using System;
 using ExtWatcher.Common.Contract;
+using ExtWatcher.Common.Utils;
 
 namespace ExtWatcher.Client
 {
     public class NotifyCallback : INotifyCallback
     {
+        private TrayMenu _trayMenu;
+
+        public NotifyCallback()
+        {
+        }
+        public void InitTrayMenu()
+        {
+            _trayMenu = new TrayMenu();
+        }
+
         public void OnFileCreatedEvent(FileEventArgs e)
         {
-            Console.WriteLine(e.Id);
-            Console.WriteLine(e.Folder);
-            Console.WriteLine(e.FileName);
-            Console.WriteLine(e.Date);
+            Logger.WriteToLog(String.Format("FileCreatedEvent fired. Info: '{0}', '{1}'", e.Folder, e.FileName));
 
-            ToastNotification toast = new ToastNotification();
-            toast.ShowNotification(e.FileName + " " + e.Date);
+            //Console.WriteLine(e.Id);
+            //Console.WriteLine(e.Folder);
+            //Console.WriteLine(e.FileName);
+            //Console.WriteLine(e.Date);
+
+            _trayMenu.ShowNotification(e.FileName + " " + e.Date);
         }
     }
 }

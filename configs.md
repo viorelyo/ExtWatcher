@@ -1,12 +1,22 @@
 # Configurations for ExtWatcher
 
 ### Additional applied settings 
+0. Dependency Injection on WCF Service
 1. ExtWatcher (Windows Service) Properties -> Application -> Output Type -> SET TO: `Console Application` instead of `Windows Application`
 2. App.config - code commented
 3. ExtWatcher.WCF.Service Properties -> WCF Options -> DISABLE: Start WCF Service Host when debugging another project in the same solutions
 `https://blogs.msdn.microsoft.com/keithmg/2009/08/10/http-could-not-register-url-http-another-application-has-already-registered-this-url-with-http-sys/`
 4. For DEBUG: ExtWatcher Properties -> Debug -> Command line args: `/Debug`
 5. Used command to generate code for client: `"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\SvcUtil.exe" /language:cs /out:Notify.cs /config:app.config http://localhost:8000/ExtWatcher/`
+
+##### For installer
+1. Install extension for setup in VS2017: `https://stackoverflow.com/questions/43308270/vs2017-setup-project-where`
+2. For startup: `https://stackoverflow.com/questions/5092477/set-that-a-program-has-to-run-at-startup-from-an-installer`
+    Create shortcut for client and move to special created folder `User's Startup Folder` (from the Setup Project)
+3. For x64 installer: `https://stackoverflow.com/questions/15257865/install-a-service-as-x64?rq=1`
+    Edit with `Orca` the created .msi from Setup: change InstallUtilLib.dll - to load x64 version
+4. Set service (`serviceInstaller`) to run Automatic (Delayed Start = true)
+
 
 
 #### Resources

@@ -43,9 +43,16 @@ namespace ExtWatcher.WCF.Service.Core
 
         private void OnFileEvent(object sender, FileSystemEventArgs e)
         {
-            if (_extensionCtrl.IsExtensionSupported(e.FullPath))
-            {
-                _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
+            string fullPath = e.FullPath;
+
+            // Exclude files added to Recycle Bin
+            // If isn't working, refactor using this: https://www.dreamincode.net/forums/topic/164491-working-with-the-windows-recycle-bin-with-c%23/
+            if (!fullPath.Contains("$Recycle.Bin") && !fullPath.Contains("$RECYCLE.BIN"))
+            { 
+                if (_extensionCtrl.IsExtensionSupported(fullPath))
+                {
+                    _monitor.AddQueueItem(FileEventArgs.Create(e, _directoryPath));
+                }
             }
         }
     }

@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.ServiceModel;
+using System.ServiceProcess;
+using System.Threading;
 using System.Windows;
 
 namespace ExtWatcher.Client
@@ -18,32 +21,64 @@ namespace ExtWatcher.Client
 
         public App()
         {
-            InstanceContext site = new InstanceContext(new NotifyCallback());
+            //CheckIfAnotherInstanceNotRunning();
+            WaitForServiceToStart();
+
+            var nc = new NotifyCallback();
+            nc.InitTrayMenu();
+
+            InstanceContext site = new InstanceContext(nc);
             _client = new NotifyClient(site);
             _id = Guid.NewGuid();
 
             try
             {
                 _monitoredPaths = new List<string>(ConfigurationManager.AppSettings["extwatcher:MonitoredPaths"].Split(new char[] { ';' }));
-                StartSession();
             }
             catch (ConfigurationErrorsException e)
             {
-                Logger.WriteToLog("Could not extract monitoredPaths from config file.");
+                Logger.WriteToLog(String.Format("[GUID: '{0}'] Could not extract monitoredPaths from config file.", _id));
                 Logger.WriteToLog(e);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();      // Calls Application_Exit()
+            }
+
+            StartSession();
+        }
+
+        private void CheckIfAnotherInstanceNotRunning()
+        {
+            //TODO implement this
+            throw new NotImplementedException();
+        }
+
+        private void WaitForServiceToStart()
+        {
+            string serviceName = "ExtWatcherService";
+            try
+            {
+                var sc = new ServiceController(serviceName);
+                if (sc.Status != ServiceControllerStatus.Stopped)
+                { 
+                    sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                }
+                else
+                {
+                    // Start service if is stopped
+                    sc.Start();
+                    sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBoxResult warningBox = MessageBox.Show("ExtWatcher Service isn't running.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Logger.WriteToLog(String.Format("Service '{0}' not found. Client can not start.", serviceName));
+                Environment.Exit(0);        // Exits immediately
             }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             CloseSession();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            CloseSession();
-            base.OnExit(e);
         }
 
         private void StartSession()
@@ -56,21 +91,27 @@ namespace ExtWatcher.Client
 
                 foreach (string path in _monitoredPaths)
                 {
-                    _client.Start(path);
+                    if (!Directory.Exists(path))
+                    {
+                        Logger.WriteToLog(String.Format("[GUID: '{0}'] '{1}' monitored path does not exist.", _id, path));
+                        _monitoredPaths.Remove(path);
+                    }
+                    else
+                    { 
+                        Logger.WriteToLog(String.Format("[GUID: '{0}'] Adding '{1}' path to monitoring.", _id, path));
+                        _client.Start(path);
+                    }
                 }
-                //Console.WriteLine("Started!"); 
             }
-            catch (TimeoutException eTime)
+            catch (System.TimeoutException eTime)
             {
                 Logger.WriteToLog(eTime);
-                //Console.WriteLine("Timeout. " + eTime.Message);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();
             }
             catch (CommunicationException eComm)
             {
                 Logger.WriteToLog(eComm);
-                //Console.WriteLine("Timeout. " + eComm.Message);
-                CloseSession();
+                System.Windows.Application.Current.Shutdown();
             }
         }
 
@@ -84,8 +125,6 @@ namespace ExtWatcher.Client
             }
             _client.UnRegister(_id);
             _client.Abort();
-
-            System.Windows.Application.Current.Shutdown();
         }
     }
 }
