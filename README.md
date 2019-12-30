@@ -37,27 +37,29 @@ Windows Service (runs in background) implemented using C# that monitors in real 
    at ExtWatcher.WCF.Service.Core.Monitor.QueueServiceThreadProc()
 ```
 - [ ] Set to false `<serviceDebug includeExceptionDetailInFaults="true" />`
-- [ ] Add registry at install service - to run app at windows login and Test it + test that app closes on logout
+- [ ] When not debugging - uncomment `WaitForService` from client
 - [ ] Check function for install windows service
 - [x] Create script / wizzard for automatic install the service (`https://docs.devexpress.com/eXpressAppFramework/113235/deployment/deployment-tutorial/setup-project-deployment-of-a-windows-forms-application` / `https://www.youtube.com/watch?v=cp2aFNtcZfk`)
-- [ ] Integrate HTTPWebRequest POST Method to upload file to Flask Server
+- [x] Integrate HTTPWebRequest POST Method to upload file to Flask Server
 - [x] Check if created files are PDFs (`.pdf` extension) (*add ExtensionController maybe as DLL (for future dynamic hotpatch update)*)
 - [x] Generate Client (WCF)
 - [x] Push Windows 10 notification `Toast Notification WPF` (*?keep notification opened until scan is completed?*) [ Naspa: 2 aplicatii `WCF` ]
 - [x] Use configuration files (supportedExstensions, server address, monitored directories)
 - [x] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
 - [ ] Create Flask server to simulate sandbox 
-- [ ] Spike for investigating technology to use for file submit from windows service
-- [ ] Submit (HTTP) PDF file to the server to be analyzed 
+- [x] Spike for investigating technology to use for file submit from windows service 
+- [ ] Test file submission from windows service
+- [x] Submit (HTTP) PDF file to the server to be analyzed 
 - [ ] Apply politics from server to update 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
 - [ ] Windows client to control service (enable/disable) - maybe use only NotifyIcon (Tray) to notify enable/disable - info...and others
 - [ ] Encrypt files (`https://www.codeproject.com/Articles/696528/Csharp-Password-Protected-File`)
+- [ ] Create single instance client
 
 INSTALLER
-- [ ] config files! + RegistryKey + AutoStart client
-- [ ] UNINSTALL: remove registry, Stop client
+- [ ] Full test installer
+- [ ] Installer should close running apps
 
 ###### Resources
 - https://www.codeguru.com/csharp/.net/net_wcf/article.php/c17179/Tray-Notify--Part-I-Getting-Started.htm (`Use Diagram`)
