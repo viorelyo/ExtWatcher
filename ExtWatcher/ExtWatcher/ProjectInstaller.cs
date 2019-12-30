@@ -21,7 +21,7 @@ namespace ExtWatcher
         {
             base.OnAfterInstall(savedState);
 
-            CreateQuarantineFolder();
+            //CreateQuarantineFolder();
             using (var sc = new ServiceController(serviceInstaller.ServiceName))
             {
                 sc.Start();
@@ -44,7 +44,7 @@ namespace ExtWatcher
 
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
-            RemoveQuarantineFolder();
+            //RemoveQuarantineFolder();
 
             using (var sc = new ServiceController(serviceInstaller.ServiceName))
             { 

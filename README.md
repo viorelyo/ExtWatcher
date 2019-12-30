@@ -53,6 +53,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
 - [ ] Windows client to control service (enable/disable) - maybe use only NotifyIcon (Tray) to notify enable/disable - info...and others
+- [ ] Encrypt files (`https://www.codeproject.com/Articles/696528/Csharp-Password-Protected-File`)
 
 INSTALLER
 - [ ] config files! + RegistryKey + AutoStart client

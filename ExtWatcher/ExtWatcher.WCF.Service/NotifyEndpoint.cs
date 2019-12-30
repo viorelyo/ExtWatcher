@@ -39,7 +39,6 @@ namespace ExtWatcher.WCF.Service
         private void OnFileEvent(object sender, FileEventArgs e)
         {
             FileAnalyzer fileAnalyzer = new FileAnalyzer();
-            fileAnalyzer.Prepare(e);
             RemoveInvalidClients();
             
             foreach (var client in _clients)
@@ -48,6 +47,7 @@ namespace ExtWatcher.WCF.Service
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
 
+            fileAnalyzer.Prepare(e);
             fileAnalyzer.Analyze();
         }
 
