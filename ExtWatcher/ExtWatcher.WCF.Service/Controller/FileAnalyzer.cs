@@ -1,28 +1,21 @@
-﻿using ExtWatcher.Common;
-using ExtWatcher.Common.Contract;
+﻿using ExtWatcher.Common.Contract;
 using ExtWatcher.Common.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Security.AccessControl;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service.Controller
 {
     public class FileAnalyzer
     {
         private string fileToBeAnalyzed;
-        private string originalFilePath;
 
         public void Prepare(FileEventArgs args)
         {
-            originalFilePath = Path.Combine(args.Folder, args.FileName);
-            fileToBeAnalyzed = originalFilePath;
-            PutFileInQuarantine();
+            fileToBeAnalyzed = Path.Combine(args.Folder, args.FileName);
+            WaitReady();
+            BlockFile();
         }
 
         public void Analyze()
@@ -64,12 +57,8 @@ namespace ExtWatcher.WCF.Service.Controller
             }
         }
 
-        private void PutFileInQuarantine()
+        private void BlockFile()
         {
-            WaitReady();
-            //fileToBeAnalyzed = Path.Combine(Constants.QuarantineFolderPath, Path.GetFileName(originalFilePath));
-            //File.Move(originalFilePath, fileToBeAnalyzed);
-
             string adminUserName = Environment.UserName;
 
             File.SetAttributes(fileToBeAnalyzed, File.GetAttributes(fileToBeAnalyzed) | FileAttributes.Hidden);
@@ -126,21 +115,22 @@ namespace ExtWatcher.WCF.Service.Controller
 
         private void TakeAction(bool isFileMalicious)
         {
+            string adminUserName = Environment.UserName;
+
+            FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
+            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
+            fs.RemoveAccessRule(fsa);
+            File.SetAccessControl(fileToBeAnalyzed, fs);
+
             if (isFileMalicious)
             {
-                Logger.WriteToLog(String.Format("File: '{0}' is malicious. Deleting it.", originalFilePath));
+                Logger.WriteToLog(String.Format("File: '{0}' is malicious. Deleting it.", fileToBeAnalyzed));
                 File.Delete(fileToBeAnalyzed);
             }
             else
             {
-                Logger.WriteToLog(String.Format("File: '{0}' is benign. Removing it from Quarantine.", originalFilePath));
-                //File.Move(fileToBeAnalyzed, originalFilePath);
-                string adminUserName = Environment.UserName;
+                Logger.WriteToLog(String.Format("File: '{0}' is benign. Unblocking it.", fileToBeAnalyzed));
 
-                FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
-                FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
-                fs.RemoveAccessRule(fsa);
-                File.SetAccessControl(fileToBeAnalyzed, fs);
                 FileAttributes attr = File.GetAttributes(fileToBeAnalyzed) & ~FileAttributes.Hidden;
                 File.SetAttributes(fileToBeAnalyzed, attr);
             }

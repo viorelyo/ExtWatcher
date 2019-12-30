@@ -48,7 +48,7 @@ namespace ExtWatcher.WCF.Service.Core
 
             // Exclude files added to Recycle Bin
             // If isn't working, refactor using this: https://www.dreamincode.net/forums/topic/164491-working-with-the-windows-recycle-bin-with-c%23/
-            if (!fullPath.Contains("$Recycle.Bin") && !fullPath.Contains("$RECYCLE.BIN") && !fullPath.Contains(Constants.QuarantineFolderPath))
+            if (!fullPath.Contains("$Recycle.Bin") && !fullPath.Contains("$RECYCLE.BIN"))
             { 
                 if (_extensionCtrl.IsExtensionSupported(fullPath))
                 {

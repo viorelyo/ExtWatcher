@@ -21,31 +21,14 @@ namespace ExtWatcher
         {
             base.OnAfterInstall(savedState);
 
-            //CreateQuarantineFolder();
             using (var sc = new ServiceController(serviceInstaller.ServiceName))
             {
                 sc.Start();
             }
         }
 
-        /// <summary>
-        /// Create folder, which no user can access
-        /// </summary>
-        private void CreateQuarantineFolder()
-        {
-            Directory.CreateDirectory(Constants.QuarantineFolderPath);
-
-            string adminUserName = Environment.UserName;
-            DirectorySecurity ds = Directory.GetAccessControl(Constants.QuarantineFolderPath);
-            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
-            ds.AddAccessRule(fsa);
-            Directory.SetAccessControl(Constants.QuarantineFolderPath, ds);
-        }
-
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
-            //RemoveQuarantineFolder();
-
             using (var sc = new ServiceController(serviceInstaller.ServiceName))
             { 
                 if (sc.Status != ServiceControllerStatus.Stopped)
@@ -55,17 +38,6 @@ namespace ExtWatcher
                 }
             }
             base.OnBeforeUninstall(savedState);
-        }
-
-        private void RemoveQuarantineFolder()
-        {
-            string adminUserName = Environment.UserName;
-            DirectorySecurity ds = Directory.GetAccessControl(Constants.QuarantineFolderPath);
-            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
-            ds.RemoveAccessRule(fsa);
-            Directory.SetAccessControl(Constants.QuarantineFolderPath, ds);
-
-            Directory.Delete(Constants.QuarantineFolderPath, true);
         }
     }
 }
