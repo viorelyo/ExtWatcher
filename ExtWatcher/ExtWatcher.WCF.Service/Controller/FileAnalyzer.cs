@@ -72,7 +72,7 @@ namespace ExtWatcher.WCF.Service.Controller
         {
             bool status = false;
 
-            Logger.WriteToLog(String.Format("Submitting file: '{0}'", fileToBeAnalyzed));
+            Logger.WriteToLog(String.Format("Submitting file: '{0}'.", fileToBeAnalyzed));
             //try
             //{
             //    using (var httpClient = new HttpClient())

@@ -16,6 +16,7 @@ namespace ExtWatcher.WCF.Service
     {
         private Core.Monitor _monitor = Core.Monitor.Create();
         private ConcurrentDictionary<Guid, Client> _clients = new ConcurrentDictionary<Guid, Client>();
+        private List<Thread> _fileAnalyzersThreads = new List<Thread>();
 
         public void Start(string folderToMonitor)
         {
@@ -29,6 +30,11 @@ namespace ExtWatcher.WCF.Service
             Logger.WriteToLog("Stopping NotifyEndpoint.");
             _monitor.Stop();
             _monitor.Remove(folderToMonitor);
+
+            foreach (var faThread in _fileAnalyzersThreads)
+            {
+                faThread.Join(2000);
+            }
         }
 
         public NotifyEndpoint()
@@ -38,7 +44,6 @@ namespace ExtWatcher.WCF.Service
 
         private void OnFileEvent(object sender, FileEventArgs e)
         {
-            FileAnalyzer fileAnalyzer = new FileAnalyzer();
             RemoveInvalidClients();
             
             foreach (var client in _clients)
@@ -47,8 +52,28 @@ namespace ExtWatcher.WCF.Service
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
 
-            fileAnalyzer.Prepare(e);
-            fileAnalyzer.Analyze();
+            var _fileAnalyzerThread = new Thread(new ThreadStart(() => 
+            {
+                try
+                { 
+                    Logger.WriteToLog("Starting a new FileAnalyzerThread.");
+
+                    FileAnalyzer fileAnalyzer = new FileAnalyzer();
+                    fileAnalyzer.Prepare(e);
+                    fileAnalyzer.Analyze();
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteToLog(ex);
+                }
+            }))
+            {
+                Priority = ThreadPriority.AboveNormal,
+                IsBackground = true
+            };
+
+            _fileAnalyzersThreads.Add(_fileAnalyzerThread);
+            _fileAnalyzerThread.Start();
         }
 
         private void NotifyThreadProc(object state)
