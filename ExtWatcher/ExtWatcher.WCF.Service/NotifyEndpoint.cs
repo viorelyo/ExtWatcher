@@ -52,18 +52,19 @@ namespace ExtWatcher.WCF.Service
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
 
+            // Analyze each file on a separate Thread 
             var _fileAnalyzerThread = new Thread(new ThreadStart(() => 
             {
                 try
                 { 
                     Logger.WriteToLog("Starting a new FileAnalyzerThread.");
 
-                    FileAnalyzer fileAnalyzer = new FileAnalyzer();
-                    fileAnalyzer.Prepare(e);
+                    FileAnalyzer fileAnalyzer = new FileAnalyzer(e);
                     fileAnalyzer.Analyze();
                 }
                 catch (Exception ex)
                 {
+                    Logger.WriteToLog("Exception caught in FileAnalyzerThread.");
                     Logger.WriteToLog(ex);
                 }
             }))

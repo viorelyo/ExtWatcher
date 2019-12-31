@@ -1,9 +1,12 @@
-﻿using ExtWatcher.Common.Contract;
+﻿using ExtWatcher.Common;
+using ExtWatcher.Common.Contract;
 using ExtWatcher.Common.Utils;
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Security.AccessControl;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ExtWatcher.WCF.Service.Controller
 {
@@ -11,11 +14,10 @@ namespace ExtWatcher.WCF.Service.Controller
     {
         private string fileToBeAnalyzed;
 
-        public void Prepare(FileEventArgs args)
+        public FileAnalyzer(FileEventArgs args)
         {
             fileToBeAnalyzed = Path.Combine(args.Folder, args.FileName);
             WaitReady();
-            BlockFile();
         }
 
         public void Analyze()
@@ -57,6 +59,9 @@ namespace ExtWatcher.WCF.Service.Controller
             }
         }
 
+        /// <summary>
+        /// Set attributes for file as Hidden. Blocks fullcontrol on file.
+        /// </summary>
         private void BlockFile()
         {
             string adminUserName = Environment.UserName;
@@ -70,47 +75,60 @@ namespace ExtWatcher.WCF.Service.Controller
 
         private bool SubmitFile()
         {
-            bool status = false;
+            bool isFileMalicious = false;
 
             Logger.WriteToLog(String.Format("Submitting file: '{0}'.", fileToBeAnalyzed));
-            //try
-            //{
-            //    using (var httpClient = new HttpClient())
-            //    {
-            //        var fileStream = File.Open(fileToBeAnalyzed, FileMode.Open);
-            //        var fileInfo = new FileInfo(fileToBeAnalyzed);
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Open fileStream by blocking share of file to other processes
+                    var fileStream = File.Open(fileToBeAnalyzed, FileMode.Open, FileAccess.Read, FileShare.None);
+                    var fileInfo = new FileInfo(fileToBeAnalyzed);
 
-            //        var content = new MultipartFormDataContent();
-            //        content.Headers.Add("filePath", fileToBeAnalyzed);
-            //        content.Add(new StreamContent(fileStream), "\"file\"", String.Format("\"{0}\"", fileToBeAnalyzed + fileInfo.Extension));
+                    var content = new MultipartFormDataContent();
+                    content.Headers.Add("filePath", fileToBeAnalyzed);
+                    content.Add(new StreamContent(fileStream), "\"file\"", String.Format("{0}", fileToBeAnalyzed));
 
-            //        var task = httpClient.PostAsync(Constants.CloudAnalyzerURL, content)
-            //            .ContinueWith(t =>
-            //            {
-            //                if (t.Status == TaskStatus.RanToCompletion)
-            //                {
-            //                    var response = t.Result;
-            //                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            //                    {
-            //                        // TODO process response and return true / false depending on response
-            //                        status = true;
-            //                    }
-            //                }
+                    BlockFile();
 
-            //                fileStream.Dispose();
-            //            });
+                    var task = httpClient.PostAsync(Constants.CloudAnalyzerURL, content)
+                        .ContinueWith(t =>
+                        {
+                            if (t.Status == TaskStatus.RanToCompletion)
+                            {
+                                var response = t.Result;
+                                
+                                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                                {
+                                    string rawResponse = response.Content.ReadAsStringAsync().Result;
+                                    Logger.WriteToLog(String.Format("Server response for file: '{0}' : '{1}'.", fileToBeAnalyzed, rawResponse));
 
-            //        task.Wait();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.WriteToLog("Unable to submit file.");
-            //    Logger.WriteToLog(ex);
-            //    return false;
-            //}
-            Thread.Sleep(5000);
-            return status;
+                                    string statusFromServer = rawResponse.Split(':')[1];
+                                    if (statusFromServer.Contains(Constants.StatusFromServerBenign))
+                                    { 
+                                        isFileMalicious = false;
+                                    }
+                                    else
+                                    {
+                                        isFileMalicious = true;
+                                    }
+                                }
+                            }
+                            fileStream.Close();
+                            fileStream.Dispose();
+                        });
+                    task.Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteToLog("Unable to submit file.");
+                Logger.WriteToLog(ex);
+                return false;
+            }
+           
+            return isFileMalicious;
         }
 
         private void TakeAction(bool isFileMalicious)
