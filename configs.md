@@ -35,3 +35,4 @@
 
 #### Resources
 1. `https://www.scalyr.com/blog/getting-started-quickly-with-flask-logging/` (Logger)
+2. `https://medium.com/zmninja/building-your-own-machine-learning-api-gateway-using-python-flask-part-i-2cc43d81e524` (Flask Architecture)

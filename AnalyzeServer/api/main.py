@@ -3,6 +3,10 @@ from flask import request, jsonify
 from Common.constants import *
 from Validator.validator import Validator
 from Controller.file_controller import FileController
+from Repository.file_repository import FileRepository
+
+
+repo = FileRepository()
 
 
 @app.route('/api/file-upload', methods=['POST'])
@@ -23,7 +27,7 @@ def upload_file():
         response.status_code = 400
         return response
     elif file and validator.allowed_file(file.filename):
-        file_controller = FileController(file)
+        file_controller = FileController(repo, file)
         file_controller.save_uploaded_file()
         file_status = file_controller.analyze()
 
