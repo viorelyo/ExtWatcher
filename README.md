@@ -68,3 +68,8 @@ INSTALLER
 - https://books.google.ro/books?id=4yPnAgAAQBAJ&pg=PA789&lpg=PA789&dq=ProjectInstaller+Install(&source=bl&ots=XdLuu0dfVj&sig=ACfU3U0qcWJJ8aerA7SczDTdaGrgnT8Tgg&hl=ro&sa=X&ved=2ahUKEwjIzeP3pqTmAhXJs4sKHd_PBHIQ6AEwEnoECAoQAQ#v=onepage&q=ProjectInstaller%20Install(&f=false (`27 - Install + Service Manager`)
 - https://www.c-sharpcorner.com/article/how-to-perform-custom-actions-and-upgrade-using-visual-studio-installer/ (`Updates`)
 - https://www.oreilly.com/library/view/learning-wcf/9780596101626/ch04s05.html (`Architecture`)
+
+
+# Usage
+1. Run CloudAnalyzer: `python main.py`
+2. Run ExtWatcher (Service + Client)

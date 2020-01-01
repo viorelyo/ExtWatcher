@@ -28,3 +28,10 @@
 6. Hidden WPF Client: `https://social.msdn.microsoft.com/Forums/silverlight/en-US/e4e819cd-4e00-4b35-9d5d-d2cf91f886d7/starting-a-wpf-application-in-hidden-mode?forum=wpf`
 7. Concept of client with windows service: `https://docs.microsoft.com/en-us/windows/win32/services/interactive-services`
 8. Possible solution: `https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/hh802768(v%3Dvs.85)`
+
+===============================================================================================
+
+# Configuration for AnalyzeServer
+
+#### Resources
+1. `https://www.scalyr.com/blog/getting-started-quickly-with-flask-logging/` (Logger)
