@@ -29,10 +29,26 @@
 7. Concept of client with windows service: `https://docs.microsoft.com/en-us/windows/win32/services/interactive-services`
 8. Possible solution: `https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/hh802768(v%3Dvs.85)`
 
-===============================================================================================
+=========================================================================================
 
 # Configuration for AnalyzeServer
 
 #### Resources
 1. `https://www.scalyr.com/blog/getting-started-quickly-with-flask-logging/` (Logger)
 2. `https://medium.com/zmninja/building-your-own-machine-learning-api-gateway-using-python-flask-part-i-2cc43d81e524` (Flask Architecture)
+3. `https://github.com/danidee10/Votr` (Flask + React deployed to heroku)
+
+=========================================================================================
+
+# Configuration for React UI
+1. npx create-react-app react-extwatcher
+2. npm i semantic-ui-react semantic-ui-css
+3. npm install --save redux
+4. npm install react-redux
+5. npm install react-router-dom
+6. npm install react-router-redux
+7. npm install redux-thunk
+* npm start
+
+#### Resources
+1. `https://www.youtube.com/watch?v=06pWsB_hoD4` (React Architecture)

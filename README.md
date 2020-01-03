@@ -69,6 +69,10 @@ INSTALLER
 - https://www.c-sharpcorner.com/article/how-to-perform-custom-actions-and-upgrade-using-visual-studio-installer/ (`Updates`)
 - https://www.oreilly.com/library/view/learning-wcf/9780596101626/ch04s05.html (`Architecture`)
 
+- https://github.com/blacktop/malice (`Example of web malware analyzer`)
+- http://recharts.org/en-US/examples/SimpleRadialBarChart (`Recharts for charts on UI`)
+- Examples of UI (`https://github.com/victuelles/DashboardReactSemantic`)
+
 
 # Usage
 1. Run CloudAnalyzer: `python main.py`
