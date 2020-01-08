@@ -4,9 +4,13 @@ import Layout from './layout/Layout';
 import Home from './pages/Home'
 // import './App.css';
 
-export default () => (
-  <Layout>
-    <Route exact path="/" component={Home} />
-    <Route path="/home" component={Home} />
-  </Layout>
-);
+const App = () => {
+  return (
+      <Layout>
+        <Route exact path="/" component={Home} />
+        {/* <Route path="/home" component={Home} /> */}
+      </Layout>
+    );
+}
+
+export default App;
