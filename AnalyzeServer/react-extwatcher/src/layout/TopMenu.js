@@ -21,7 +21,7 @@ class TopMenu extends Component {
             <Menu fixed="top" className="top-menu">
                 <Menu.Item className="logo-space-menu-item">
                     <div className="display-inline logo-space">
-                        {/* <Image src="../media/logo.png" /> */}
+                        {/* <Image src="../logo.png" /> */}
                         <p>Dashboard</p>
                     </div>
                 </Menu.Item>

@@ -6,7 +6,7 @@ import { createBrowserHistory } from 'history';
 import registerServiceWroker from './serviceWorker';
 import configureStore from './store/configureStore'
 import App from './App';
-import './index.css';
+import './styles/index.css'
 // import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -29,7 +29,4 @@ ReactDOM.render(
   </Provider>,
   rootElement)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 registerServiceWroker();

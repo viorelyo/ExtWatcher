@@ -29,6 +29,7 @@ class FileController:
         return FILE_STATUS_MALICIOUS if is_malicious else FILE_STATUS_BENIGN
 
     def get_all_analyzed_files(self):
+        time.sleep(10)
         return self.repo.get_all_files()
 
     def get_analyzed_file(self, filename):

@@ -1,5 +1,5 @@
 const toggleMenu = 'TOGGLE_MENU';
-const initialState = { smallMenu: false };
+const initialState = { smallMenu: true };
 
 export const actionCreators = {
   toggleSideMenu: () => ({ type: toggleMenu }),
