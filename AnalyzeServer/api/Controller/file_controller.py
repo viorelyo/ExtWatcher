@@ -16,7 +16,7 @@ class FileController:
         filename = secure_filename(file.filename)
         self.file_path_to_be_analyzed = os.path.join(UPLOAD_FOLDER, filename)
 
-        app.logger.info("Saving uploaded file: '{}".format(self.file_path_to_be_analyzed))
+        app.logger.info("Saving uploaded file: '{}'".format(self.file_path_to_be_analyzed))
         file.save(self.file_path_to_be_analyzed)
         self.repo.add_file(filename, self.file_path_to_be_analyzed)
 
