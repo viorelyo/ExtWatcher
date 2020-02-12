@@ -13,6 +13,7 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 2. Decode + Deobfuscate + Select most relevant subsections of PDF (`PDFid` does all for us)
 3. `PDFiD` from PDF Tools (by Didier Stevens) for feature extraction [1] [2] [3]
 4. `Pandas` for creating shuffled dataframe for supervised learning (.csv file containing features of pdfs, labeled)
+5. Applying `min-max normalization` on dataframe = *the entire range of values of X from min to max are mapped to the range 0 to 1* [6]
 
 
 
@@ -29,3 +30,4 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 3. `https://blog.didierstevens.com/programs/pdf-tools/` **pdfid - Presentation + PDF Presentation**
 4. `https://xakep.ru/2014/09/26/search-document-exploit/` **PDF == Malware + PDF Structure**
 5. `https://resources.infosecinstitute.com/pdf-file-format-basic-structure/` **PDF Format**
+6. `https://www.quora.com/What-is-the-meaning-of-min-max-normalization` **Min-Max Normalization**

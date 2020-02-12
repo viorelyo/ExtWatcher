@@ -33,9 +33,17 @@ class DatasetCreator:
 
         self.dataset = benign_dataset + malicious_dataset
 
-        # Create DataFrame from dataset and then shuffle rows
-        self.dataframe = DataFrame(self.dataset).sample(frac=1)
-        self.dataframe.columns = FEATURES
+        # Create DataFrame from dataset 
+        df = DataFrame(self.dataset)
+        df.columns = FEATURES
+
+        # Apply min-max normalization on all features excepting "Class" feature
+        normalized_df = df[FEATURES[:-1]]  
+        self.dataframe = (normalized_df - normalized_df.min()) / (normalized_df.max() - normalized_df.min())
+        self.dataframe[FEATURES[-1]] = df[FEATURES[-1]]  
+        
+        # Shuffle rows 
+        self.dataframe.sample(frac=1)
 
         # Export dataframe to CSV
         self.dataframe.to_csv('dataset.csv', index=False)
