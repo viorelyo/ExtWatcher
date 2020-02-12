@@ -1,5 +1,6 @@
 import os
 from pandas import DataFrame
+from threading import Thread
 from feature_extractor import FeatureExtractor
 
 
@@ -19,28 +20,19 @@ class DatasetCreator:
         self.malicious_files = os.path.join(DATASET_PATH, MALICIOUS_DIR)
 
     def create(self):
-        print("Extracting features for benign files...")
-        for filename in os.listdir(self.benign_files):
-            file_path = os.path.join(self.benign_files, filename)
-            feature_extractor = FeatureExtractor(file_path)
-            features = feature_extractor.extract()
-            if features is None:
-                print("[ERROR] Could not extract features for file: '{}'".format(filename))
-            else:
-                self.labelize(features, "benign")
-
-        print("====")
-
-        print("Extracting features for malicious files...")
-        for filename in os.listdir(self.malicious_files):
-            file_path = os.path.join(self.malicious_files, filename)
-            feature_extractor = FeatureExtractor(file_path)
-            features = feature_extractor.extract()
-            if features is None:
-                print("[ERROR] Could not extract features for file: '{}'".format(filename))
-            else:
-                self.labelize(features, "malicious")
+        benign_dataset = []
+        malicious_dataset = []
+        b_thread = Thread(target=self.featurize, args=(benign_dataset, "benign", self.benign_files))
+        m_thread = Thread(target=self.featurize, args=(malicious_dataset, "malicious", self.malicious_files))
         
+        b_thread.start()
+        m_thread.start()
+
+        b_thread.join()
+        m_thread.join()
+
+        self.dataset = benign_dataset + malicious_dataset
+
         # Create DataFrame from dataset and then shuffle rows
         self.dataframe = DataFrame(self.dataset).sample(frac=1)
         self.dataframe.columns = FEATURES
@@ -48,9 +40,18 @@ class DatasetCreator:
         # Export dataframe to CSV
         self.dataframe.to_csv('dataset.csv', index=False)
 
-    def labelize(self, features, label):
-        features.append(label)
-        self.dataset.append(features)
+    def featurize(self, dataset, label, files):
+        print("Extracting features for {} files...".format(label))
+        for filename in os.listdir(files):
+            file_path = os.path.join(files, filename)
+            feature_extractor = FeatureExtractor(file_path)
+            features = feature_extractor.extract()
+            if features is None:
+                print("[ERROR] Could not extract features for {} file: '{}'".format(label, filename))
+            else:
+                features.append(label)
+                dataset.append(features)
+
 
 
 """
