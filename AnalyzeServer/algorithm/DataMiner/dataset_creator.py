@@ -1,7 +1,7 @@
 import os
 from pandas import DataFrame
 from threading import Thread
-from feature_extractor import FeatureExtractor
+from DataMiner.feature_extractor import FeatureExtractor
 
 
 DATASET_PATH = r"C:\Users\viorel\Desktop\NewFolder"
@@ -59,11 +59,3 @@ class DatasetCreator:
             else:
                 features.append(label)
                 dataset.append(features)
-
-
-
-"""
-    TEST SECTION 
-"""
-d = DatasetCreator()
-d.create()  

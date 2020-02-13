@@ -2,7 +2,7 @@ import subprocess
 import logging
 
 PYTHON_INTERPRETER_NAME = "python"
-PDFID_LOCATION = "./Utils/pdfid.py"
+PDFID_LOCATION = "DataMiner/Utils/pdfid.py"
 DEFAULT_COUNT = 10
 PDFID_FEATURES_COUNT = 21
 
@@ -20,6 +20,7 @@ class FeatureExtractor:
 
     def extract(self):
         output = self.run_pdfid()
+
         if len(output) == PDFID_FEATURES_COUNT:
             self.featurize(output)
             return self.features

@@ -14,6 +14,9 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 3. `PDFiD` from PDF Tools (by Didier Stevens) for feature extraction [1] [2] [3]
 4. `Pandas` for creating shuffled dataframe for supervised learning (.csv file containing features of pdfs, labeled)
 5. Applying `min-max normalization` on dataframe = *the entire range of values of X from min to max are mapped to the range 0 to 1* [6]
+6. Split test and train data in proportion of 30%
+7. Using `scikit-learn.ensemble.RandomForestClassifier` to train model
+8. Save model for future predictions, using `cPickle`
 
 
 
