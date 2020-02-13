@@ -38,9 +38,9 @@ class DatasetCreator:
         df.columns = FEATURES
 
         # Apply min-max normalization on all features excepting "Class" feature
-        normalized_df = df[FEATURES[:-1]]  
+        normalized_df = df[FEATURES[:-1]]       # Take out "Class" feature
         self.dataframe = (normalized_df - normalized_df.min()) / (normalized_df.max() - normalized_df.min())
-        self.dataframe[FEATURES[-1]] = df[FEATURES[-1]]  
+        self.dataframe[FEATURES[-1]] = df[FEATURES[-1]]         # Add back "Class" feature after min-max normalization
         
         # Shuffle rows 
         self.dataframe.sample(frac=1)
