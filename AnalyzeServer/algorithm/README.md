@@ -34,3 +34,11 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 4. `https://xakep.ru/2014/09/26/search-document-exploit/` **PDF == Malware + PDF Structure**
 5. `https://resources.infosecinstitute.com/pdf-file-format-basic-structure/` **PDF Format**
 6. `https://www.quora.com/What-is-the-meaning-of-min-max-normalization` **Min-Max Normalization**
+
+
+## Questions
+- [ ] How RandomForest is working?
+- [ ] Why extracted_features shouldn't be normalized?
+- [ ] Test DataCreator on full dataset + (maybe) time measure
+- [ ] Add matplotlib for training + etc. (?ROC?)
+- [ ] Confusion Matrix?
