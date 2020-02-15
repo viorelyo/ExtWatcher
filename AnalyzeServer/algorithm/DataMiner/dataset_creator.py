@@ -1,4 +1,5 @@
 import os
+import time
 from pandas import DataFrame
 from threading import Thread
 from DataMiner.feature_extractor import FeatureExtractor
@@ -25,6 +26,8 @@ class DatasetCreator:
         b_thread = Thread(target=self.featurize, args=(benign_dataset, "benign", self.benign_files))
         m_thread = Thread(target=self.featurize, args=(malicious_dataset, "malicious", self.malicious_files))
         
+        start_time = time.time()
+
         b_thread.start()
         m_thread.start()
 
@@ -47,6 +50,9 @@ class DatasetCreator:
 
         # Export normalized dataframe
         self.dataframe.to_csv('dataset.csv', index=False)
+
+        end_time = time.time()
+        print("Time spent: ", end_time - start_time)
 
     def featurize(self, dataset, label, files):
         print("Extracting features for {} files...".format(label))
