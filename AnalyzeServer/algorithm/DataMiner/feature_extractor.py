@@ -1,9 +1,9 @@
 import subprocess
-import logging
+import re
+
 
 PYTHON_INTERPRETER_NAME = "python"
 PDFID_LOCATION = "DataMiner/Utils/pdfid.py"
-DEFAULT_COUNT = 10
 PDFID_FEATURES_COUNT = 21
 
 
@@ -31,7 +31,19 @@ class FeatureExtractor:
         """
         Extract values from output of PDFiD and featurize the pdf
         """
+
+        obfuscations = 0
         
         for line in output_lines:
-            x = int(line.split()[-1])
+            val = line.split()[-1]
+            # Parse number of obfuscations if it exists
+            m = re.match(r"(\d*)\((\d*)\)", val)
+            if m:
+                x = int(m.group(1))
+                obfuscations += int(m.group(2))
+            else:
+                x = int(val)
+                
             self.features.append(x)
+
+        self.features.append(obfuscations)

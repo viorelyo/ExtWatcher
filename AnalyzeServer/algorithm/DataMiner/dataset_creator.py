@@ -9,7 +9,7 @@ BENIGN_DIR = "cleanpdf"
 MALICIOUS_DIR = "maliciouspdf"
 FEATURES = ['obj', 'endobj', 'stream', 'endstream', 'xref', 'trailer', 'startxref', 'Page', 'Encrypt',
             'ObjStm', 'JS', 'Javascript', 'AA', 'OpenAction', 'AcroForm', 'JBIG2Decode', 'RichMedia',
-            'Launch', 'EmbeddedFile', 'XFA', 'Colors', 'Class']
+            'Launch', 'EmbeddedFile', 'XFA', 'Colors', 'Obfuscations', 'Class']
 
 
 class DatasetCreator:
@@ -33,19 +33,19 @@ class DatasetCreator:
 
         self.dataset = benign_dataset + malicious_dataset
 
-        # Create DataFrame from dataset 
-        df = DataFrame(self.dataset)
+        # Create DataFrame from dataset and reshuffle it
+        df = DataFrame(self.dataset).sample(frac=1)
         df.columns = FEATURES
+
+        # Export raw dataframe
+        df.to_csv('dataset_raw.csv', index=False)
 
         # Apply min-max normalization on all features excepting "Class" feature
         normalized_df = df[FEATURES[:-1]]       # Take out "Class" feature
         self.dataframe = (normalized_df - normalized_df.min()) / (normalized_df.max() - normalized_df.min())
         self.dataframe[FEATURES[-1]] = df[FEATURES[-1]]         # Add back "Class" feature after min-max normalization
-        
-        # Shuffle rows 
-        self.dataframe.sample(frac=1)
 
-        # Export dataframe to CSV
+        # Export normalized dataframe
         self.dataframe.to_csv('dataset.csv', index=False)
 
     def featurize(self, dataset, label, files):
