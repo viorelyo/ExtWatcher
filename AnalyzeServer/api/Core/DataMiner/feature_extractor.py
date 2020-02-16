@@ -1,11 +1,8 @@
 import subprocess
 import logging
+import re
 from app import app
-
-PYTHON_INTERPRETER_NAME = "python"
-PDFID_LOCATION = "./Utils/pdfid.py"
-DEFAULT_COUNT = 10
-PDFID_FEATURES_COUNT = 21
+from Common.constants import PYTHON_INTERPRETER_NAME, PDFID_LOCATION, PDFID_FEATURES_COUNT
 
 
 class FeatureExtractor:
@@ -39,6 +36,18 @@ class FeatureExtractor:
 
         app.logger.info("Featurizing file: '{}'".format(self.filepath))
 
+        obfuscations = 0
+        
         for line in output_lines:
-            x = int(line.split()[-1])
+            val = line.split()[-1]
+            # Parse number of obfuscations if it exists
+            m = re.match(r"(\d*)\((\d*)\)", val)
+            if m:
+                x = int(m.group(1))
+                obfuscations += int(m.group(2))
+            else:
+                x = int(val)
+                
             self.features.append(x)
+
+        self.features.append(obfuscations)

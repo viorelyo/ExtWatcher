@@ -10,9 +10,9 @@ class FileRepository:
         self.query = Query()
         app.logger.info("FileRepository initialized.")
 
-    def add_file(self, filename, file_path):
-        app.logger.info("Adding new file. Filename: '{}'; Filepath: '{}'".format(filename, file_path))
-        self.files.upsert({'filename': filename, 'filepath': file_path}, self.query.filename == filename)
+    def add_file(self, filename, filepath):
+        app.logger.info("Adding new file. Filename: '{}'; Filepath: '{}'".format(filename, filepath))
+        self.files.upsert({'filename': filename, 'filepath': filepath}, self.query.filename == filename)
 
     def get_all_files(self):
         app.logger.info("Getting all files.")

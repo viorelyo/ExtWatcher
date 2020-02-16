@@ -1,4 +1,4 @@
-from Common.constants import *
+from Common.constants import ALLOWED_EXTENSIONS
 
 
 class Validator:
