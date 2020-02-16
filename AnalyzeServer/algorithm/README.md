@@ -19,13 +19,12 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 8. Save model for future predictions, using `cPickle`
 
 
-
 ### Future Work
 1. `https://resources.infosecinstitute.com/analysis-malicious-documents-part-1/#article`
-
 `https://www.slideshare.net/RhydhamJoshi/remnux-tutorial3-investigation-of-malicious-pdf-doc-documents`
 **Research other malicious file types**
 2. `https://blog.malwarebytes.com/threat-analysis/2013/08/the-malware-archives-pdf-files/` **Extract more features**
+
 
 ### Resources
 1. `https://books.google.ro/books?id=iFPADwAAQBAJ&pg=PA93&lpg=PA93&dq=get+output+from+pdfid+python&source=bl&ots=AhA5MOUDSY&sig=ACfU3U1Vu-rXI6JNOqrfrddyugldu328Sg&hl=ro&sa=X&ved=2ahUKEwjZ25CK6MznAhUFmIsKHfIpBAAQ6AEwBHoECAoQAQ#v=onepage&q=get%20output%20from%20pdfid%20python&f=false` **Machine Learning for Cybersecurity Cookbook: Over 80 recipe...(Tsukerman)**
@@ -34,11 +33,14 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 4. `https://xakep.ru/2014/09/26/search-document-exploit/` **PDF == Malware + PDF Structure**
 5. `https://resources.infosecinstitute.com/pdf-file-format-basic-structure/` **PDF Format**
 6. `https://www.quora.com/What-is-the-meaning-of-min-max-normalization` **Min-Max Normalization**
+7. `http://contagiodump.blogspot.com/2010/08/malicious-documents-archive-for.html` **Contagio Dataset**
 
 
-## Questions
+## TODO
 - [ ] How RandomForest is working?
 - [ ] Why extracted_features shouldn't be normalized?
-- [ ] Test DataCreator on full dataset + (maybe) time measure
+- [x] Test DataCreator on full dataset + (maybe) time measure
 - [ ] Add matplotlib for training + etc. (?ROC?)
-- [ ] Confusion Matrix?
+- [x] Confusion Matrix? (**FPs** How many where correct detected)
+- [ ] Use metasploit to generate malicious PDF && test ML on it
+- [ ] Find more samples (Clean + Javascript), SWFs etc. (**https://www.hybrid-analysis.com/** , **https://github.com/hslatman/awesome-threat-intelligence#research** , **https://www.pdfscripting.com/public/Free-Sample-PDF-Files-with-scripts.cfm** , **https://tetra4d.com/pdf-samples/**)

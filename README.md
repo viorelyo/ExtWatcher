@@ -5,9 +5,12 @@ Samples of Code for implementing final idea for Undegraduate Project
 - [ ] References
 - [ ] Latex Documentation
 - [x] Talk Christian Sacarea 
-- [ ] Datasets
-- [ ] Brainstorm on `brand` / `logo` (**ExtWatcher**)
+- [x] Basic Datasets (**kartik + contagio**)
+- [ ] Modern Datasets (vtopan + deepdf)
+- [x] Brainstorm on `brand` (**ExtWatcher**)
+- [ ] Brainstorm on `logo` 
 - [x] Include or no Microsoft Office Suite Docs / other Docs (**Nope**)
+- [ ] Create README for each project (api, algorithm, extWatcher, general, frontedjs)
 
 
 ## Structure
@@ -48,14 +51,17 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [x] Create protected folder (hidden / without user access) and move PDF file to that folder until scan is completed.
 - [ ] Create Flask server to simulate sandbox 
 - [x] Spike for investigating technology to use for file submit from windows service 
-- [ ] Test file submission from windows service
+- [x] Test file submission from windows service
 - [x] Submit (HTTP) PDF file to the server to be analyzed 
-- [ ] Apply politics from server to update 
+- [ ] Apply politics from server to update (MAYBE FUTURE WORKS)
 - [ ] Deploy flask server anywhere (`https://docs.microsoft.com/en-us/samples/azure-samples/azure-sql-db-python-rest-api/azure-sql-db-python-rest-api/`)
 - [ ] Submit PDF also to virusTotal and compare results
 - [ ] Windows client to control service (enable/disable) - maybe use only NotifyIcon (Tray) to notify enable/disable - info...and others
 - [ ] Encrypt files (`https://www.codeproject.com/Articles/696528/Csharp-Password-Protected-File`)
 - [ ] Create single instance client
+- [ ] Test API on separate Linux
+- [ ] Configure Private network kali (Attacker) + windows (Target) + linux (API)
+- [ ] Test attack with Sacarea's infected PDF
 
 INSTALLER
 - [ ] Full test installer
