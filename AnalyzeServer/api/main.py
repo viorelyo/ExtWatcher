@@ -1,6 +1,6 @@
 from app import app
 from flask import request, jsonify
-from Common.constants import *
+from Common.constants import ALLOWED_EXTENSIONS
 from Validator.validator import Validator
 from Controller.file_controller import FileController
 from Repository.file_repository import FileRepository
@@ -28,8 +28,7 @@ def upload_file():
         return response
     elif file and validator.allowed_file(file.filename):
         file_controller = FileController(repo)
-        file_controller.save_uploaded_file(file)
-        file_status = file_controller.analyze()
+        file_status = file_controller.analyze(file)
 
         response = jsonify({'message': file_status})
         response.status_code = 200

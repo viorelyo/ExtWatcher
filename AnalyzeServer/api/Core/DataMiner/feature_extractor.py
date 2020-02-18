@@ -1,5 +1,4 @@
 import subprocess
-import logging
 import re
 from app import app
 from Common.constants import PYTHON_INTERPRETER_NAME, PDFID_LOCATION, PDFID_FEATURES_COUNT
@@ -16,6 +15,7 @@ class FeatureExtractor:
 
         proc = subprocess.Popen([PYTHON_INTERPRETER_NAME, PDFID_LOCATION, self.filepath], stdout=subprocess.PIPE)
         output = str(proc.communicate()[0], 'utf-8').strip()
+
         output = output.split("\n")[2:]     # skip PDFiD Header
         return output
 
