@@ -13,7 +13,7 @@
 - [x] DB refactor
 - [x] Update verdict in DB after analyzing
 - [x] Rename search functions
-- [ ] Make methods private
+- [x] Make methods private
 - [ ] Permit multiple Types of file_analyzers
 - [ ] Use correct analyzer in controller.analyze
 - [ ] Add more logging in each component
