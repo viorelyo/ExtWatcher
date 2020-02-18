@@ -62,6 +62,7 @@ Windows Service (runs in background) implemented using C# that monitors in real 
 - [ ] Test API on separate Linux
 - [ ] Configure Private network kali (Attacker) + windows (Target) + linux (API)
 - [ ] Test attack with Sacarea's infected PDF
+- [ ] EDGE CASE: What happens when there is no connection between EXTWATCHER and API?!?!?! (HANDLE THIS CASE!!! (MAYBE just block files!))
 
 INSTALLER
 - [ ] Full test installer

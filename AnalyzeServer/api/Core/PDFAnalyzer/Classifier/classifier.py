@@ -1,6 +1,6 @@
 import _pickle as cPickle
 from app import app
-from Core.DataMiner.feature_extractor import FeatureExtractor
+from Core.PDFAnalyzer.DataMiner.feature_extractor import FeatureExtractor
 from Common.constants import MODEL_FILE
 
 
@@ -22,7 +22,3 @@ class Classifier:
             result = self.model.predict(features)[0]
             app.logger.info("Classifier predicted file: '{}' as '{}'".format(filepath, result))
             return result
-
-
-
-        

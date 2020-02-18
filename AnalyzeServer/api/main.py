@@ -1,12 +1,7 @@
 from app import app
+from components import file_controller, validator
 from flask import request, jsonify
 from Common.constants import ALLOWED_EXTENSIONS
-from Validator.validator import Validator
-from Controller.file_controller import FileController
-from Repository.file_repository import FileRepository
-
-
-repo = FileRepository()
 
 
 @app.route('/api/file-upload', methods=['POST'])
@@ -20,14 +15,12 @@ def upload_file():
         return response
 
     file = request.files['file']
-    validator = Validator()
     
     if file.filename == '':
         response = jsonify({'message': 'No file selected for uploading'})
         response.status_code = 400
         return response
     elif file and validator.allowed_file(file.filename):
-        file_controller = FileController(repo)
         file_status = file_controller.analyze(file)
 
         response = jsonify({'message': file_status})
@@ -44,7 +37,6 @@ def upload_file():
 @app.route('/api/analyzed-files', methods=['GET'])
 def get_files():
     app.logger.info("GET Method: analyzed-files was triggered.")
-    file_controller = FileController(repo)
     files = file_controller.get_all_analyzed_files()
 
     response = jsonify({'files': files})
@@ -58,8 +50,7 @@ def get_file_by_name():
 
     filename = request.args.get('filename')
     if filename:
-        file_controller = FileController(repo)
-        file = file_controller.get_analyzed_file(filename)
+        file = file_controller.search_analyzed_file_by_filename(filename)
 
         if file:
             response = jsonify({'file': file})

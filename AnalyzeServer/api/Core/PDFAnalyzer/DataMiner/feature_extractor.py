@@ -10,7 +10,17 @@ class FeatureExtractor:
         self.features = []
         app.logger.info("FeatureExtractor initialized.")
 
-    def run_pdfid(self):
+    def extract(self):
+        app.logger.info("Extracting features for file: '{}'".format(self.filepath))
+
+        output = self.__run_pdfid()
+        if len(output) == PDFID_FEATURES_COUNT:
+            self.__featurize(output)
+            return self.features
+        else:
+            return None
+
+    def __run_pdfid(self):
         app.logger.info("Running PDFiD for file: '{}'".format(self.filepath))
 
         proc = subprocess.Popen([PYTHON_INTERPRETER_NAME, PDFID_LOCATION, self.filepath], stdout=subprocess.PIPE)
@@ -19,17 +29,7 @@ class FeatureExtractor:
         output = output.split("\n")[2:]     # skip PDFiD Header
         return output
 
-    def extract(self):
-        app.logger.info("Extracting features for file: '{}'".format(self.filepath))
-
-        output = self.run_pdfid()
-        if len(output) == PDFID_FEATURES_COUNT:
-            self.featurize(output)
-            return self.features
-        else:
-            return None
-    
-    def featurize(self, output_lines):
+    def __featurize(self, output_lines):
         """
         Extract values from output of PDFiD and featurize the pdf
         """

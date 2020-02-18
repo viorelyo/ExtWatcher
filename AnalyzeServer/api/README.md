@@ -1,6 +1,7 @@
 # FLASK API
 
 ## TODO
+- [ ] IF file is not pdf - JOPA!!!!!!
 - [x] Identify md5/anything_else of each uploaded file, save in DB 
 - [x] General search by md5 (when uploading - forst calculate md5 - see if available then use ML)
 - [ ] Use VirusTotal API + compare results
@@ -11,4 +12,8 @@
 - [ ] Remove file from uploads after analysis
 - [x] DB refactor
 - [x] Update verdict in DB after analyzing
-- [ ] IF file is not pdf - JOPA
+- [x] Rename search functions
+- [ ] Make methods private
+- [ ] Permit multiple Types of file_analyzers
+- [ ] Use correct analyzer in controller.analyze
+- [ ] Add more logging in each component
