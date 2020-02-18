@@ -6,6 +6,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 FILE_STATUS_MALICIOUS = "malicious"
 FILE_STATUS_BENIGN = "benign"
+FILE_STATUS_UNDETECTED = "undetected"
 
 MODEL_FILE = "Resources/models/model.sav"
 

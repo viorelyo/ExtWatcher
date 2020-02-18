@@ -15,7 +15,7 @@ class Classifier:
 
         feature_extractor = FeatureExtractor(filepath)
         features = [feature_extractor.extract()]
-        if features is None:
+        if features[0] is None:
             app.logger.info("[ERROR] Could not extract features for file: '{}'".format(filepath))
             return None
         else:

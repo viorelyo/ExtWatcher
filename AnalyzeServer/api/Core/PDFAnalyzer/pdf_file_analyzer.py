@@ -1,5 +1,4 @@
 from app import app
-from Common.constants import FILE_STATUS_MALICIOUS
 
 
 class PDFFileAnalyzer:
@@ -10,4 +9,4 @@ class PDFFileAnalyzer:
         app.logger.info("Processing file: '{}'".format(filepath))
 
         result = self.classifier.classify(filepath)
-        return result == FILE_STATUS_MALICIOUS
+        return result

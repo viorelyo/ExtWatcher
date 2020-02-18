@@ -17,3 +17,11 @@
 - [ ] Permit multiple Types of file_analyzers
 - [ ] Use correct analyzer in controller.analyze
 - [ ] Add more logging in each component
+
+
+## Installation
+1. Folder Resources in root (see structure on disk) untracked by git
+- db
+- logs
+- models
+- uploads

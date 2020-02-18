@@ -3,7 +3,7 @@ import os
 from hashlib import md5
 from app import app
 from werkzeug.utils import secure_filename
-from Common.constants import FILE_STATUS_BENIGN, FILE_STATUS_MALICIOUS, UPLOAD_FOLDER
+from Common.constants import FILE_STATUS_BENIGN, FILE_STATUS_MALICIOUS, FILE_STATUS_UNDETECTED, UPLOAD_FOLDER
 
 
 class FileController:
@@ -22,9 +22,10 @@ class FileController:
             filename = self.__save_uploaded_file(file)
             self.repo.add_file(file_hash, filename, self.__extract_file_extension(filename))
 
-            is_malicious = self.analyzer.process(self.filepath_to_be_analyzed)
+            result = self.analyzer.process(self.filepath_to_be_analyzed)
             # TODO delete file after analysis
-            verdict = FILE_STATUS_MALICIOUS if is_malicious else FILE_STATUS_BENIGN
+
+            verdict = self.__get_verdict(result)
             self.repo.update_file_verdict(file_hash, verdict)
             return verdict
         else:
@@ -57,3 +58,11 @@ class FileController:
         file_hash = md5(file.read()).hexdigest()
         file.seek(0)        # rewind file pointer after .read()
         return file_hash
+
+    def __get_verdict(self, result):
+        if result is None:
+            return FILE_STATUS_UNDETECTED
+        elif result == FILE_STATUS_MALICIOUS:
+            return FILE_STATUS_MALICIOUS
+        elif result == FILE_STATUS_BENIGN:
+            return FILE_STATUS_BENIGN

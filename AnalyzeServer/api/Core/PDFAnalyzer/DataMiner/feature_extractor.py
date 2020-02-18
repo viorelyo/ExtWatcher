@@ -18,6 +18,7 @@ class FeatureExtractor:
             self.__featurize(output)
             return self.features
         else:
+            app.logger.info("[ERROR] Can't extract features for file: '{}'. Additional Info: '{}'".format(self.filepath, output))
             return None
 
     def __run_pdfid(self):
