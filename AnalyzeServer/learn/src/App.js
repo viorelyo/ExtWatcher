@@ -5,16 +5,21 @@ import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-import MenuBar from './components/MenuBar';
+import SideMenu from './components/SideMenu';
+import TopMenu from './components/TopMenu';
+
 import Home from './pages/Home';
-import MenuBar from './components/MenuBar'
+import Statistics from './pages/Statistics';
 
 function App() {
     return (
         <Router>
             <Container>
-                <MenuBar />
-                <Route exact path="/" component={Home} />
+                <TopMenu />
+                <SideMenu />
+                <Route exact path='/' component={Home}/>
+                <Route path="/home" component={Home} />
+                <Route path="/stats" component={Statistics} />
             </Container>
         </Router>
     );
