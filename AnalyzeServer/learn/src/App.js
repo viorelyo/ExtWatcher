@@ -16,8 +16,8 @@ function App() {
     return (
         <Router>
             <SideMenu />
+            <TopMenu />
             <Container>
-                <TopMenu />
                 <Route path="/home" component={Home} />
                 <Route path="/stats" component={Statistics} />
                 {/* <Route path="/downloads" component={Downloads} /> */}
