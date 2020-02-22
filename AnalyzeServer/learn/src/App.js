@@ -5,8 +5,8 @@ import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-import SideMenu from './components/SideMenu';
-import TopMenu from './components/TopMenu';
+import SideMenu from './components/SideMenu/SideMenu';
+import TopMenu from './components/TopMenu/TopMenu';
 
 import Home from './pages/Home';
 import Statistics from './pages/Statistics';

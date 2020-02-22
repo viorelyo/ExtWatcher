@@ -10,3 +10,8 @@
 1. semantic-ui-react semantic-ui-css
 2. react-router-dom
 3. node-sass
+
+
+## Resources
+1. https://productioncoder.com/build-youtube-in-react-part-4/
+2. https://www.youtube.com/watch?v=c-FZo25k1Io&list=PLMhAeHCz8S3_pgb-j51QnCEhXNj5oyl8n&index=10

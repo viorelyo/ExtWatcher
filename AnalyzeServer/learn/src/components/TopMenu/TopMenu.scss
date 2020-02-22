@@ -1,0 +1,22 @@
+@import '../../styles/shared.scss';
+
+.ui.menu.top-menu {
+    height: $topmenu-height;
+    border: none; /*Remove Semantic UI's bottom border*/
+    .logo {
+      width: $sidemenu-left-width;  /* try 40% */
+    }
+    .nav-container {
+      flex-grow: 1; /* take available space in the flex container */
+      padding: 0;
+
+      .search-input {
+          padding-left: 0;
+          width: 33%;
+
+          form {
+              width: 100%;
+          }
+      }
+    }
+}
