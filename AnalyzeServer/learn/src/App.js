@@ -1,30 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import 'semantic-ui-css/semantic.min.css';
-import './App.css';
+import "semantic-ui-css/semantic.min.css";
+import "./App.css";
 
-import SideMenu from './components/SideMenu/SideMenu';
-import TopMenu from './components/TopMenu/TopMenu';
+import { AppLayout } from "./components/AppLayout/AppLayout";
 
-import Home from './pages/Home';
-import Statistics from './pages/Statistics';
-
+import Home from "./pages/Home";
+import Statistics from "./pages/Statistics";
 
 function App() {
-    return (
-        <Router>
-            <SideMenu />
-            <TopMenu />
-            <Container>
-                <Route path="/home" component={Home} />
-                <Route path="/stats" component={Statistics} />
-                {/* <Route path="/downloads" component={Downloads} /> */}
-                {/* <Route path="/analyze" component={Analyze} /> */}
-            </Container>
-        </Router>
-    );
-  }
-  
+  return (
+    <AppLayout>
+      <Switch>
+        <Route path="/home" component={Home} />
+        <Route path="/stats" component={Statistics} />
+        {/* <Route path="/downloads" component={Downloads} /> */}
+        {/* <Route path="/analyze" component={Analyze} /> */}
+      </Switch>
+    </AppLayout>
+  );
+}
+
 export default App;

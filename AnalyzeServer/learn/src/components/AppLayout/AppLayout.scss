@@ -1,0 +1,8 @@
+@import "../../styles/shared.scss";
+
+.app-layout {
+  & > *:not(:first-child) {
+    margin-top: $topmenu-height;
+    margin-left: $sidemenu-left-width;
+  }
+}

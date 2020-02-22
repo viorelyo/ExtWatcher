@@ -1,7 +1,7 @@
-@import '../../styles/shared.scss';
+@import "../../styles/shared.scss";
 
 .ui.menu.fixed.side-nav {
-    margin-top: $topmenu-height;
-    overflow-y: auto;
-    padding-bottom: $topmenu-height;
+  margin-top: $topmenu-height;
+  overflow-y: auto;
+  padding-bottom: $topmenu-height;
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 function Statistics() {
   return (
     <div>
-        <h1>Statistics</h1>
+      <h1>Statistics</h1>
     </div>
   );
 }
