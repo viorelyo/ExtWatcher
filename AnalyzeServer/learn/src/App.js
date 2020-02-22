@@ -11,15 +11,17 @@ import TopMenu from './components/TopMenu';
 import Home from './pages/Home';
 import Statistics from './pages/Statistics';
 
+
 function App() {
     return (
         <Router>
+            <SideMenu />
             <Container>
                 <TopMenu />
-                <SideMenu />
-                <Route exact path='/' component={Home}/>
                 <Route path="/home" component={Home} />
                 <Route path="/stats" component={Statistics} />
+                {/* <Route path="/downloads" component={Downloads} /> */}
+                {/* <Route path="/analyze" component={Analyze} /> */}
             </Container>
         </Router>
     );
