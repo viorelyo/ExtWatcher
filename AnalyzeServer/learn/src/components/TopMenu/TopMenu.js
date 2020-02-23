@@ -12,7 +12,7 @@ function TopMenu() {
           src="http://via.placeholder.com/1200x600"
           size="tiny"
           as={Link}
-          to="/"
+          to="/home"
         />
       </Menu.Item>
 

@@ -22,6 +22,7 @@ function SideMenu() {
       icon="labeled"
       fixed="left"
       className="side-nav"
+      size="tiny"
     >
       <Menu.Item
         name="home"
