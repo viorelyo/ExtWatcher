@@ -2,18 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Image, Input, Form, Icon } from "semantic-ui-react";
 import "./TopMenu.scss";
-// import logo from "../../assets/images/logo.jpg";
+import logo from "../../assets/images/logo.jpg";
 
 function TopMenu() {
   return (
     <Menu inverted borderless fixed="top" className="top-menu">
       <Menu.Item header className="logo">
-        <Image
-          src="http://via.placeholder.com/1200x600"
-          size="tiny"
-          as={Link}
-          to="/home"
-        />
+        <Image src={logo} size="tiny" as={Link} to="/home" />
       </Menu.Item>
 
       <Menu.Menu className="nav-container">

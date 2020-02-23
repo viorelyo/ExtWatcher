@@ -2,7 +2,7 @@
 
 .app-layout {
   & > *:not(:first-child) {
-    margin-top: $topmenu-height;
-    margin-left: $sidemenu-left-width;
+    margin-top: $topmenu-height + 5px;
+    margin-left: 10em;
   }
 }

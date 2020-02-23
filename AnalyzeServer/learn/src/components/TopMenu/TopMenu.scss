@@ -5,6 +5,11 @@
   border: none; /*Remove Semantic UI's bottom border*/
   .logo {
     width: $sidemenu-left-width; /* try 40% */
+
+    .image {
+      width: auto;
+      padding: 8px;
+    }
   }
   .nav-container {
     flex-grow: 1; /* take available space in the flex container */
