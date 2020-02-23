@@ -1,8 +1,10 @@
 @import "../../styles/shared.scss";
 
 .app-layout {
-  & > *:not(:first-child) {
-    margin-top: $topmenu-height + 5px;
-    margin-left: 10em;
-  }
+  // & > *:not(:first-child) {
+  margin-top: $topmenu-height + 15px;
+  margin-left: 10em;
+  // }
+
+  margin-right: 5em;
 }

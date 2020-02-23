@@ -6,8 +6,8 @@ import "./App.css";
 
 import { AppLayout } from "./components/AppLayout/AppLayout";
 
-import Home from "./pages/Home";
-import Statistics from "./pages/Statistics";
+import Home from "./pages/Home/Home";
+import Statistics from "./pages/Statistics/Statistics";
 
 function App() {
   return (
