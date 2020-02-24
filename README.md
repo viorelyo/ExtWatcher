@@ -11,6 +11,7 @@ Samples of Code for implementing final idea for Undegraduate Project
 - [ ] Brainstorm on `logo` 
 - [x] Include or no Microsoft Office Suite Docs / other Docs (**Nope**)
 - [ ] Create README for each project (api, algorithm, extWatcher, general, frontedjs)
+- [ ] Create general tools for fixing SIDE Effects (Remove C:\Extwatcher folder with admin rights, Delete blocked files (forgot to be unlocked etc.))
 
 
 ## Structure
