@@ -16,6 +16,9 @@ export function FilesTable(props) {
       case "pdf":
         type = pdf;
         break;
+      default:
+        type = pdf;
+        break;
       //TODO new supported filetypes will be added here
     }
 
