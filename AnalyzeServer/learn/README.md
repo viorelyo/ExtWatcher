@@ -13,14 +13,21 @@
 ## Dependencies
 
 1. semantic-ui-react semantic-ui-css
-2. react-router-dom
-3. node-sass
-4. redux react-redux
-5. redux-saga
+2. react-router-dom (Each page maps to specific link)
+3. node-sass (CSS per Component)
+4. redux react-redux (States management)
+5. redux-saga (using async functionality in states)
 6. redux-logger
+7. reselect (Data getting optimization)
 
 ## Resources
 
 1. https://productioncoder.com/build-youtube-in-react-part-4/
 2. https://www.youtube.com/watch?v=c-FZo25k1Io&list=PLMhAeHCz8S3_pgb-j51QnCEhXNj5oyl8n&index=10
 3. https://www.youtube.com/watch?v=DG9rXV1kI0o
+
+## Copyrights
+
+1. <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+2. brandmark.io
+3. colomind.io

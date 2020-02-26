@@ -23,7 +23,7 @@ function TopMenu() {
 
       <Menu.Menu position="right">
         <Menu.Item name="about">
-          <Icon size="big" name="question circle outline" />
+          <Icon link size="big" name="question circle outline" />
         </Menu.Item>
       </Menu.Menu>
     </Menu>

@@ -1,4 +1,4 @@
-import { fork, take, takeEvery } from "redux-saga/effects";
+import { takeEvery } from "redux-saga/effects";
 import * as fileActions from "../actions/file";
 import { REQUEST } from "../actions";
 import { fetchEntity } from "./index";

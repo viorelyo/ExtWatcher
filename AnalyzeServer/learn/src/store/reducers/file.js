@@ -1,5 +1,6 @@
 import { ALL_FILES } from "../actions/file";
 import { SUCCESS } from "../actions";
+import { createSelector } from "reselect";
 
 const initialState = {
   files: {}
@@ -20,3 +21,8 @@ function reduceWorkerAllFiles(response, prevState) {
     files: response.files
   };
 }
+
+export const getAllFiles = createSelector(
+  state => state.file,
+  allFiles => allFiles.files
+);

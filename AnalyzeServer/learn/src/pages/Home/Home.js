@@ -3,7 +3,7 @@ import { Feed, Header, Divider } from "semantic-ui-react";
 import "./Home.scss";
 
 import UploadEvent from "../../components/FeedEventTypes/UploadEvent";
-import AnalyzeEvent from "../../components/FeedEventTypes/AnalyzeEvent";
+import SubmitEvent from "../../components/FeedEventTypes/SubmitEvent";
 
 function Home() {
   return (
@@ -13,9 +13,9 @@ function Home() {
 
       <Feed>
         <UploadEvent />
-        <AnalyzeEvent />
-        <AnalyzeEvent />
-        <AnalyzeEvent />
+        <SubmitEvent />
+        <SubmitEvent />
+        <SubmitEvent />
         <UploadEvent />
         <UploadEvent />
         <UploadEvent />

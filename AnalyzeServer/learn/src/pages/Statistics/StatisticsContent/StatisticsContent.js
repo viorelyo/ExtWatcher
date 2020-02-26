@@ -1,65 +1,36 @@
 import React from "react";
-import { Table, Statistic, Icon, Divider } from "semantic-ui-react";
+import { Statistic, Divider } from "semantic-ui-react";
+import { getAllFiles } from "../../../store/reducers/file";
+import { connect } from "react-redux";
+import { FilesTable } from "../../../components/FilesTable/FilesTable";
 
-function StatisticsContent() {
-  return (
-    <div>
-      <Statistic>
-        <Statistic.Label>Files</Statistic.Label>
-        <Statistic.Value>40,509</Statistic.Value>
-      </Statistic>
+class StatisticsContent extends React.Component {
+  render() {
+    const allFiles = this.getAllFiles();
 
-      <Divider />
+    return (
+      <div>
+        <Statistic>
+          <Statistic.Label>Files</Statistic.Label>
+          <Statistic.Value>{allFiles.length}</Statistic.Value>
+        </Statistic>
 
-      <Table celled striped>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell colSpan="3">Git Repository</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+        <Divider />
 
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell collapsing>
-              <Icon name="folder" /> node_modules
-            </Table.Cell>
-            <Table.Cell>Initial commit</Table.Cell>
-            <Table.Cell collapsing textAlign="right">
-              10 hours ago
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Icon name="folder" /> test
-            </Table.Cell>
-            <Table.Cell>Initial commit</Table.Cell>
-            <Table.Cell textAlign="right">10 hours ago</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Icon name="folder" /> build
-            </Table.Cell>
-            <Table.Cell>Initial commit</Table.Cell>
-            <Table.Cell textAlign="right">10 hours ago</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Icon name="file outline" /> package.json
-            </Table.Cell>
-            <Table.Cell>Initial commit</Table.Cell>
-            <Table.Cell textAlign="right">10 hours ago</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Icon name="file outline" /> Gruntfile.js
-            </Table.Cell>
-            <Table.Cell>Initial commit</Table.Cell>
-            <Table.Cell textAlign="right">10 hours ago</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
-    </div>
-  );
+        <FilesTable files={allFiles} />
+      </div>
+    );
+  }
+
+  getAllFiles() {
+    return this.props.allFiles;
+  }
 }
 
-export default StatisticsContent;
+function mapStateToProps(state) {
+  return {
+    allFiles: getAllFiles(state)
+  };
+}
+
+export default connect(mapStateToProps, null)(StatisticsContent);
