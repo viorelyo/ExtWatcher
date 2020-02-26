@@ -1,12 +1,6 @@
 import { combineReducers } from "redux";
+import fileReducer from "./file";
 
-export default function(state = {}, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
-
-// export default combineReducers({
-//   api:
-// })
+export default combineReducers({
+  file: fileReducer
+});

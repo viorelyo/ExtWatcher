@@ -17,8 +17,10 @@
 3. node-sass
 4. redux react-redux
 5. redux-saga
+6. redux-logger
 
 ## Resources
 
 1. https://productioncoder.com/build-youtube-in-react-part-4/
 2. https://www.youtube.com/watch?v=c-FZo25k1Io&list=PLMhAeHCz8S3_pgb-j51QnCEhXNj5oyl8n&index=10
+3. https://www.youtube.com/watch?v=DG9rXV1kI0o
