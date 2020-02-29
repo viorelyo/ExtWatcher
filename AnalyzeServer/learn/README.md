@@ -9,6 +9,15 @@
 - [ ] Fill react/ public folder with extWatcher logos / infos
 - [ ] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
 - [ ] Adapt design for mobile
+- [ ] UI - FEED : replace analyzed - submit
+- [ ] Frontend Bug: when wirst load "/ "should link to "/home"
+- [ ] Backend: save feed into DB
+- [ ] Backend: Pagination?!
+- [ ] Backend: rename "verdict"
+- [ ] Add current timestamp into db - when file was added
+- [ ] normalize filetype in backend - lowercase!
+- [ ] Fronend bug: loading dimmer is not fixed - when scroll is moving div
+- [ ] Frontend: Add button for accordion
 
 ## Dependencies
 

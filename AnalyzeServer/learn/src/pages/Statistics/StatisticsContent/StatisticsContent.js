@@ -1,8 +1,11 @@
 import React from "react";
-import { Statistic, Divider, Dimmer, Loader } from "semantic-ui-react";
+import { Loader } from "semantic-ui-react";
 import { getAllFiles } from "../../../store/reducers/file";
 import { connect } from "react-redux";
-import { FilesTable } from "../../../components/FilesTable/FilesTable";
+import "./StatisticsContent.scss";
+
+import FilesTable from "../../../components/FilesTable/FilesTable";
+import FileCounter from "../../../components/FileCounter/FileCounter";
 
 class StatisticsContent extends React.Component {
   render() {
@@ -10,20 +13,12 @@ class StatisticsContent extends React.Component {
 
     return (
       <div>
-        <Dimmer.Dimmable dimmed={this.props.showLoader}>
-          <Dimmer active={this.props.showLoader} inverted>
-            <Loader>Loading</Loader>
-          </Dimmer>
+        <Loader active={this.props.showLoader} size="large">
+          Loading
+        </Loader>
 
-          <Statistic>
-            <Statistic.Label>Files</Statistic.Label>
-            <Statistic.Value>{allFiles.length}</Statistic.Value>
-          </Statistic>
-
-          <Divider />
-
-          <FilesTable files={allFiles} />
-        </Dimmer.Dimmable>
+        <FileCounter files={allFiles} />
+        <FilesTable files={allFiles} />
       </div>
     );
   }
