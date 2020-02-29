@@ -3,12 +3,16 @@ import "./AppLayout.scss";
 import TopMenu from "../TopMenu/TopMenu";
 import SideMenu from "../SideMenu/SideMenu";
 
-export function AppLayout(props) {
-  return (
-    <div className="app-layout">
-      <TopMenu />
-      <SideMenu />
-      {props.children}
-    </div>
-  );
+class AppLayout extends React.Component {
+  render() {
+    return (
+      <div className="app-layout">
+        <TopMenu />
+        <SideMenu location={this.props.location} />
+        {this.props.children}
+      </div>
+    );
+  }
 }
+
+export default AppLayout;

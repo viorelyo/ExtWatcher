@@ -8,7 +8,7 @@ function TopMenu() {
   return (
     <Menu inverted borderless fixed="top" className="top-menu">
       <Menu.Item header className="logo">
-        <Image src={logo} size="tiny" as={Link} to="/home" />
+        <Image src={logo} size="tiny" as={Link} to="/" />
       </Menu.Item>
 
       <Menu.Menu className="nav-container">

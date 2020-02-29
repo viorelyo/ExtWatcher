@@ -1,78 +1,48 @@
-import React, { useState } from "react";
-import { Icon, Menu } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Menu } from "semantic-ui-react";
 import "./SideMenu.scss";
 
-function SideMenu() {
-  const pathname = window.location.pathname;
-  const path = pathname === "/" ? "home" : pathname.substr(1);
+import { SideMenuItem } from "./SideMenuItem/SideMenuItem";
 
-  const [activeItem, setActiveItem] = useState(path);
-  const [color] = useState("teal");
-
-  const handleItemClick = (e, { name }) => {
-    setActiveItem(name);
-  };
-
-  return (
-    <Menu
-      inverted
-      borderless
-      vertical
-      icon="labeled"
-      fixed="left"
-      className="side-nav"
-      size="tiny"
-    >
-      <Menu.Item
-        name="home"
-        active={activeItem === "home"}
-        onClick={handleItemClick}
-        color={color}
-        as={Link}
-        to="/home"
+export class SideMenu extends React.Component {
+  render() {
+    return (
+      <Menu
+        inverted
+        borderless
+        vertical
+        icon="labeled"
+        fixed="left"
+        className="side-nav"
+        size="tiny"
       >
-        <Icon name="home" />
-        Home
-      </Menu.Item>
-
-      <Menu.Item
-        name="stats"
-        active={activeItem === "stats"}
-        onClick={handleItemClick}
-        color={color}
-        as={Link}
-        to="/stats"
-      >
-        <Icon name="chart bar" />
-        Statistics
-      </Menu.Item>
-
-      <Menu.Item
-        name="analyze"
-        active={activeItem === "analyze"}
-        onClick={handleItemClick}
-        color={color}
-        as={Link}
-        to="/analyze"
-      >
-        <Icon name="dna" />
-        Analyze
-      </Menu.Item>
-
-      <Menu.Item
-        name="downloads"
-        active={activeItem === "downloads"}
-        onClick={handleItemClick}
-        color={color}
-        as={Link}
-        to="/downloads"
-      >
-        <Icon name="download" />
-        Downloads
-      </Menu.Item>
-    </Menu>
-  );
+        <SideMenuItem
+          path="/"
+          label="Home"
+          icon="home"
+          location={this.props.location}
+        />
+        <SideMenuItem
+          path="/stats"
+          label="Statistics"
+          icon="chart bar"
+          location={this.props.location}
+        />
+        <SideMenuItem
+          path="/analyze"
+          label="Analyze"
+          icon="dna"
+          location={this.props.location}
+        />
+        <SideMenuItem
+          path="/download"
+          label="Download"
+          icon="download"
+          location={this.props.location}
+        />
+      </Menu>
+    );
+  }
 }
 
 export default SideMenu;

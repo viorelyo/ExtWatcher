@@ -1,25 +1,29 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-
+import React, { Component } from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 
-import { AppLayout } from "./components/AppLayout/AppLayout";
+import AppLayout from "./components/AppLayout/AppLayout";
 
 import Home from "./pages/Home/Home";
 import Statistics from "./pages/Statistics/Statistics";
+import UnknownPage from "./pages/UnknownPage/UnknownPage";
 
-function App() {
-  return (
-    <AppLayout>
-      <Switch>
-        <Route path="/home" component={Home} />
-        <Route path="/stats" component={Statistics} />
-        {/* <Route path="/downloads" component={Downloads} /> */}
-        {/* <Route path="/analyze" component={Analyze} /> */}
-      </Switch>
-    </AppLayout>
-  );
+class App extends Component {
+  render() {
+    return (
+      <AppLayout location={this.props.location}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/stats" component={Statistics} />
+          {/* <Route path="/analyze" component={Analyze} /> */}
+          {/* <Route path="/downloads" component={Downloads} /> */}
+          <Route path="/unknown" component={UnknownPage} />
+          <Redirect to="/unknown" />
+        </Switch>
+      </AppLayout>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);

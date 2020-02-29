@@ -2,10 +2,10 @@
 
 .app-layout {
   // & > *:not(:first-child) {
-  margin-top: $topmenu-height + 15px;
-  margin-left: 10em;
-  margin-bottom: 3em;
-  // }
+  padding-top: $topmenu-height + 15px;
+  padding-left: 10em;
+  padding-bottom: 5em;
+  padding-right: 5em;
 
-  margin-right: 5em;
+  // }
 }
