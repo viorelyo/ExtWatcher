@@ -13,11 +13,11 @@ class FileRepository:
 
     def add_file(self, file_hash, filename, filetype):
         app.logger.info("Adding new file. File-md5: '{}'; Filename: '{}'".format(file_hash, filename))
-        self.files.upsert({'file_hash': file_hash, 'filename': filename, 'filetype': filetype, 'verdict': 'unknown'}, self.query.file_hash == file_hash)
+        self.files.upsert({'file_hash': file_hash, 'filename': filename, 'filetype': filetype.lower(), 'result': 'unknown'}, self.query.file_hash == file_hash)
     
-    def update_file_verdict(self, file_hash, verdict):
-        app.logger.info("Updating verdict for file with md5: '{}'".format(file_hash))
-        self.files.update(set("verdict", verdict), self.query.file_hash == file_hash)
+    def update_file_result(self, file_hash, result):
+        app.logger.info("Updating result for file with md5: '{}'".format(file_hash))
+        self.files.update(set("result", result), self.query.file_hash == file_hash)
 
     def get_all_files(self):
         app.logger.info("Getting all files.")

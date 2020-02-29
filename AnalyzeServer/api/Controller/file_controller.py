@@ -25,12 +25,12 @@ class FileController:
             result = self.analyzer.process(self.filepath_to_be_analyzed)
             # TODO delete file after analysis
 
-            verdict = self.__get_verdict(result)
-            self.repo.update_file_verdict(file_hash, verdict)
-            return verdict
+            result = self.__get_result(result)
+            self.repo.update_file_result(file_hash, result)
+            return result
         else:
-            app.logger.info("MD5 of the file: '{}' found in DB. Returning it's verdict".format(file.filename))
-            return file_data['verdict']
+            app.logger.info("MD5 of the file: '{}' found in DB. Returning it's result".format(file.filename))
+            return file_data['result']
 
     def get_all_analyzed_files(self):
         time.sleep(5)   # testing UI Spinner TODO remove in production
@@ -59,7 +59,7 @@ class FileController:
         file.seek(0)        # rewind file pointer after .read()
         return file_hash
 
-    def __get_verdict(self, result):
+    def __get_result(self, result):
         if result is None:
             return FILE_STATUS_UNDETECTED
         elif result == FILE_STATUS_MALICIOUS:

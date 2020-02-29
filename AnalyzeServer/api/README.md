@@ -1,20 +1,23 @@
 # FLASK API
 
 ## TODO
-- [x] Identify md5/anything_else of each uploaded file, save in DB 
-- [x] General search by md5 (when uploading - forst calculate md5 - see if available then use ML)
-- [ ] Use VirusTotal API + compare results
+- [ ] Add current timestamp into db - when file was added
 - [ ] Calculate time of analyze for each file
+- [ ] Save feed into DB
+- [ ] Remove file from uploads after analysis
+- [x] Identify md5/anything_else of each uploaded file, save in DB
+- [x] General search by md5 (when uploading - forst calculate md5 - see if available then use ML)
 - [x] Integrate ML into API
 - [x] Test API with integrated ML
 - [x] Handle possible error if file couldn't be uploaded and we don't have it's path (fileController.analyze)
-- [ ] Remove file from uploads after analysis
 - [x] DB refactor
-- [x] Update verdict in DB after analyzing
+- [x] Update result in DB after analyzing
 - [x] Rename search functions
 - [x] Make methods private
+- [ ] Pagination?!
 - [ ] Permit multiple Types of file_analyzers
 - [ ] Use correct analyzer in controller.analyze
+- [ ] Use VirusTotal API + compare results
 - [ ] Add more logging in each component
 
 
