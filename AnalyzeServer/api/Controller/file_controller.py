@@ -25,8 +25,8 @@ class FileController:
             result = self.analyzer.process(self.filepath_to_be_analyzed)
             # TODO delete file after analysis
 
-            result = self.__get_result(result)
-            self.repo.update_file_result(file_hash, result)
+            result, analysis_time = self.__get_result(result)
+            self.repo.update_file_result(file_hash, result, analysis_time)
             return result
         else:
             app.logger.info("MD5 of the file: '{}' found in DB. Returning it's result".format(file.filename))
@@ -60,9 +60,9 @@ class FileController:
         return file_hash
 
     def __get_result(self, result):
-        if result is None:
-            return FILE_STATUS_UNDETECTED
-        elif result == FILE_STATUS_MALICIOUS:
-            return FILE_STATUS_MALICIOUS
-        elif result == FILE_STATUS_BENIGN:
-            return FILE_STATUS_BENIGN
+        if result['result'] is None:
+            return FILE_STATUS_UNDETECTED, "N/A"
+        elif result['result'] == FILE_STATUS_MALICIOUS:
+            return FILE_STATUS_MALICIOUS, result['analysis_time']
+        elif result['result'] == FILE_STATUS_BENIGN:
+            return FILE_STATUS_BENIGN, result['analysis_time']

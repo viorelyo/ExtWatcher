@@ -1,10 +1,10 @@
 # FLASK API
 
 ## TODO
-- [ ] Add current timestamp into db - when file was added
-- [ ] Calculate time of analyze for each file
 - [ ] Save feed into DB
 - [ ] Remove file from uploads after analysis
+- [x] Calculate time of analyze for each file
+- [x] Add current timestamp into db - when file was added
 - [x] Identify md5/anything_else of each uploaded file, save in DB
 - [x] General search by md5 (when uploading - forst calculate md5 - see if available then use ML)
 - [x] Integrate ML into API
