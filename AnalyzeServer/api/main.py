@@ -1,7 +1,7 @@
 from app import app
-from components import file_controller, validator
 from flask import request, jsonify
 from Common.constants import ALLOWED_EXTENSIONS
+from Common.components import file_controller, validator, file_utils
 
 
 @app.route('/api/file-upload', methods=['POST'])
@@ -20,7 +20,7 @@ def upload_file():
         response = jsonify({'message': 'No file selected for uploading'})
         response.status_code = 400
         return response
-    elif file and validator.allowed_file(file.filename):
+    elif file and validator.allowed_file(file_utils.extract_file_extension(file.filename)):
         requester_ip = request.remote_addr
         file_status = file_controller.upload(file, requester_ip)
 
@@ -47,6 +47,12 @@ def submit_url():
         return response
     if not validator.validate_url(submitted_url):
         response = jsonify({'message': "URL is not valid."})
+        response.status_code = 400
+        return response
+    if not validator.allowed_file(file_utils.get_file_type(submitted_url)):
+        message = 'Allowed file types are: [{}]'.format(', '.join(ext for ext in ALLOWED_EXTENSIONS))
+
+        response = jsonify({'message': message})
         response.status_code = 400
         return response
     else:

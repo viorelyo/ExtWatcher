@@ -4,8 +4,8 @@
 - [ ] Add support for submitting url of pdf - download, analyze, send result
 - [ ] Permit multiple Types of file_analyzers
 - [ ] Use correct analyzer in controller.analyze
-- [ ] Implement Validator.validate_url
 - [ ] Test new added type
+- [x] Implement Validator.validate_url
 - [x] Detect Requester's IP
 - [x] Save feed into DB
 - [x] Remove file from uploads after analysis
@@ -31,3 +31,7 @@
 - logs
 - models
 - uploads
+
+2. Requirements
+- requests
+- sklearn

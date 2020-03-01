@@ -7,8 +7,8 @@ class Validator:
     def __init__(self):
         pass
 
-    def allowed_file(self, filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    def allowed_file(self, file_extension):
+        return file_extension in ALLOWED_EXTENSIONS
 
     def validate_url(self, submitted_url):
         if submitted_url == "":

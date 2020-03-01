@@ -3,6 +3,7 @@ from hashlib import md5
 from app import app
 from werkzeug.utils import secure_filename
 from Common.constants import FILE_STATUS_BENIGN, FILE_STATUS_MALICIOUS, FILE_STATUS_UNDETECTED, UPLOAD_FOLDER, SUBMIT_REQUEST_TYPE, UPLOAD_REQUEST_TYPE
+from Common.components import file_utils
 
 
 class FileController:
@@ -47,7 +48,7 @@ class FileController:
         # If file is in DB it shouldn't be reanalyzed
         file_data = self.file_repo.get_file_by_filehash(file_hash)
         if file_data is None:
-            self.file_repo.add_file(file_hash, filename, self.__extract_file_extension(filename))
+            self.file_repo.add_file(file_hash, filename, file_utils.extract_file_extension(filename))
 
             result = self.analyzer.process(filepath)
             result, analysis_time = self.__get_result(result)
@@ -75,10 +76,6 @@ class FileController:
     def __delete_file(self, filepath):
         app.logger.info("Removing temp saved file: '{}'".format(filepath))
         os.remove(filepath)
-
-    def __extract_file_extension(self, filename):
-        f, ext = os.path.splitext(filename)
-        return ext[1:]          # remove "." from file extension
     
     def __get_file_hash(self, filepath):
         app.logger.info("Getting MD5 hash of temp saved file: '{}'".format(filepath))
