@@ -1,13 +1,14 @@
 import os
+from urllib.request import urlretrieve
 from hashlib import md5
 from app import app
 from werkzeug.utils import secure_filename
 from Common.constants import FILE_STATUS_BENIGN, FILE_STATUS_MALICIOUS, FILE_STATUS_UNDETECTED, UPLOAD_FOLDER, SUBMIT_REQUEST_TYPE, UPLOAD_REQUEST_TYPE
-from Common.components import file_utils
 
 
 class FileController:
-    def __init__(self, file_repo, feed_repo, analyzer):
+    def __init__(self, file_repo, feed_repo, analyzer, file_utils):
+        self.file_utils = file_utils
         self.file_repo = file_repo
         self.feed_repo = feed_repo
         self.analyzer = analyzer
@@ -21,9 +22,10 @@ class FileController:
         return result
 
     def submit(self, submitted_url, requester_ip):
+        app.logger.info("Retrieving filename from submitted url: '{}'".format(submitted_url))
         request_type = SUBMIT_REQUEST_TYPE
         filename = self.__save_file_from_url(submitted_url)
-        self.feed_repo.add_event(request_type, filename, requester_ip)
+        self.feed_repo.add_event(request_type, submitted_url, requester_ip)
 
         result = self.__analyze(filename)
         return result
@@ -42,13 +44,14 @@ class FileController:
         return self.file_repo.get_file_by_filehash(file_hash)
 
     def __analyze(self, filename):
+        app.logger.info("Analyzing file: '{}'".format(filename))
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file_hash = self.__get_file_hash(filepath)
 
         # If file is in DB it shouldn't be reanalyzed
         file_data = self.file_repo.get_file_by_filehash(file_hash)
         if file_data is None:
-            self.file_repo.add_file(file_hash, filename, file_utils.extract_file_extension(filename))
+            self.file_repo.add_file(file_hash, filename, self.file_utils.extract_file_extension(filename))
 
             result = self.analyzer.process(filepath)
             result, analysis_time = self.__get_result(result)
@@ -62,15 +65,18 @@ class FileController:
 
     def __save_uploaded_file(self, file):
         filename = secure_filename(file.filename)
-        filepath_to_be_analyzed = os.path.join(UPLOAD_FOLDER, filename)
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
 
-        app.logger.info("Saving uploaded file: '{}'".format(filepath_to_be_analyzed))
-        file.save(filepath_to_be_analyzed)
+        app.logger.info("Saving uploaded file: '{}'".format(filepath))
+        file.save(filepath)
         return filename
 
     def __save_file_from_url(self, submitted_url):
-        #TODO implement file download from url
-        filename = ""
+        filename = self.file_utils.get_filename(submitted_url)
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+
+        app.logger.info("Saving file: '{}' from submitted url: '{}'".format(filepath, submitted_url))
+        urlretrieve(submitted_url, filepath)
         return filename
 
     def __delete_file(self, filepath):

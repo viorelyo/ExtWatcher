@@ -19,4 +19,4 @@ pdf_classifier = PDFClassifier()
 # Analyzers
 analyzer = PDFFileAnalyzer(pdf_classifier)
 
-file_controller = FileController(file_repo, feed_repo, analyzer)
+file_controller = FileController(file_repo, feed_repo, analyzer, file_utils)
