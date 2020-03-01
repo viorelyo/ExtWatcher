@@ -6,7 +6,7 @@ from Common.constants import ALLOWED_EXTENSIONS
 
 @app.route('/api/file-upload', methods=['POST'])
 def upload_file():
-    app.logger.info("POST Method: file-uplod was triggered.\n Request: '{}';\n Headers: '{}';\n Files: '{}'"
+    app.logger.info("POST Method: file-upload was triggered.\n Request: '{}';\n Headers: '{}';\n Files: '{}'"
                     .format(request, str(request.headers).strip().strip(), request.files))
     
     if 'file' not in request.files:
@@ -21,7 +21,8 @@ def upload_file():
         response.status_code = 400
         return response
     elif file and validator.allowed_file(file.filename):
-        file_status = file_controller.analyze(file)
+        requester_ip = request.remote_addr
+        file_status = file_controller.upload(file, requester_ip)
 
         response = jsonify({'message': file_status})
         response.status_code = 200
@@ -32,6 +33,39 @@ def upload_file():
         response = jsonify({'message': message})
         response.status_code = 400
         return response
+
+
+@app.route('/api/url-submit', methods=['POST'])
+def submit_url():
+    app.logger.info("POST Method: url-submit was triggered.\n Request: '{}';\n Headers: '{}';\n "
+                    .format(request, str(request.headers).strip().strip(), ))
+
+    submitted_url = request.form.get('url')
+    if submitted_url is None:
+        response = jsonify({'message': "No URL found."})
+        response.status_code = 400
+        return response
+    if not validator.validate_url(submitted_url):
+        response = jsonify({'message': "URL is not valid."})
+        response.status_code = 400
+        return response
+    else:
+        requester_ip = request.remote_addr
+        file_status = file_controller.submit(submitted_url, requester_ip)
+
+        response = jsonify({'message': file_status})
+        response.status_code = 200
+        return response
+
+
+@app.route('/api/feed', methods=['GET'])
+def get_feed():
+    app.logger.info("GET Method: feed was triggered.")
+    feed_events = file_controller.get_feed()
+
+    response = jsonify({'feed': feed_events})
+    response.status_code = 200
+    return response
 
 
 @app.route('/api/analyzed-files', methods=['GET'])
@@ -67,3 +101,4 @@ def get_file_by_name():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # app.run(host= '0.0.0.0', debug=False)

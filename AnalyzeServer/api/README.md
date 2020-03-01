@@ -1,8 +1,14 @@
 # FLASK API
 
 ## TODO
-- [ ] Save feed into DB
-- [ ] Remove file from uploads after analysis
+- [ ] Add support for submitting url of pdf - download, analyze, send result
+- [ ] Permit multiple Types of file_analyzers
+- [ ] Use correct analyzer in controller.analyze
+- [ ] Implement Validator.validate_url
+- [ ] Test new added type
+- [x] Detect Requester's IP
+- [x] Save feed into DB
+- [x] Remove file from uploads after analysis
 - [x] Calculate time of analyze for each file
 - [x] Add current timestamp into db - when file was added
 - [x] Identify md5/anything_else of each uploaded file, save in DB
@@ -15,8 +21,6 @@
 - [x] Rename search functions
 - [x] Make methods private
 - [ ] Pagination?!
-- [ ] Permit multiple Types of file_analyzers
-- [ ] Use correct analyzer in controller.analyze
 - [ ] Use VirusTotal API + compare results
 - [ ] Add more logging in each component
 

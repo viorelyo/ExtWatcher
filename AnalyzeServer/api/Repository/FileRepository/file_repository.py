@@ -1,13 +1,12 @@
 import time
-import Common.constants as g
+from Common.constants import DB_FILE
 from app import app
 from tinydb import TinyDB, Query
-from tinydb.operations import set
 
 
 class FileRepository:
     def __init__(self):
-        self.db = TinyDB(g.DB_FILE)
+        self.db = TinyDB(DB_FILE)
         self.files = self.db.table("files")
         self.query = Query()
         app.logger.info("FileRepository initialized.")
