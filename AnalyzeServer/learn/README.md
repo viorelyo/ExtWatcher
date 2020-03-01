@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Frontend: Add button for accordion
+- [ ] Create modal for Copyright author, more info etc.
 - [ ] Download page for download the extWatcher installer for windows
 - [ ] PDF URL paste and automatic detection
 - [ ] Fill react/ public folder with extWatcher logos / infos

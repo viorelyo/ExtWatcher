@@ -3,6 +3,7 @@
 .ui.menu.top-menu {
   height: $topmenu-height;
   border: none; /*Remove Semantic UI's bottom border*/
+
   .logo {
     width: $sidemenu-left-width; /* try 40% */
 
@@ -11,6 +12,7 @@
       padding: 8px;
     }
   }
+
   .nav-container {
     flex-grow: 1; /* take available space in the flex container */
     // padding: 0;
@@ -24,5 +26,12 @@
         width: 100%;
       }
     }
+  }
+}
+
+.ui.basic.modal {
+  .vg-rights {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.6);
   }
 }

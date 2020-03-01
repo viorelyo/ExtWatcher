@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
-import "./App.css";
 
 import AppLayout from "./components/AppLayout/AppLayout";
 

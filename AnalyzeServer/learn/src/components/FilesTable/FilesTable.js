@@ -38,7 +38,7 @@ function FilesTable(props) {
   // });
 
   return (
-    <Table celled>
+    <Table celled selectable>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell textAlign="center">Filetype</Table.HeaderCell>
@@ -81,10 +81,7 @@ function FilesTable(props) {
               ]
             },
             content: {
-              children: [
-                <Image src={type} size="massive" centered />,
-                <Image src={type} size="massive" centered />
-              ]
+              children: [<Image src={type} size="massive" />]
             }
           };
         })}
