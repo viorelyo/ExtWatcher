@@ -2,22 +2,17 @@
 
 ## TODO
 
+- [ ] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
+- [ ] Frontend: Add button for accordion
 - [ ] Download page for download the extWatcher installer for windows
 - [ ] PDF URL paste and automatic detection
-- [ ] Feed with recent activity on server on HOME (maybe rename to feed) + total nr. of submitted files
-- [ ] Table with pdf / docx/ ppt logo
 - [ ] Fill react/ public folder with extWatcher logos / infos
-- [ ] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
 - [ ] Adapt design for mobile
-- [ ] UI - FEED : replace analyzed - submit
-- [ ] Frontend Bug: when wirst load "/ "should link to "/home"
-- [ ] Backend: save feed into DB
-- [ ] Backend: Pagination?!
-- [ ] Backend: rename "verdict"
-- [ ] Add current timestamp into db - when file was added
-- [ ] normalize filetype in backend - lowercase!
-- [ ] Fronend bug: loading dimmer is not fixed - when scroll is moving div
-- [ ] Frontend: Add button for accordion
+- [x] UI - FEED : replace analyzed - submit
+- [x] Fronend bug: loading dimmer is not fixed - when scroll is moving div
+- [x] Frontend Bug: when wirst load "/ "should link to "/home" (Dynamic SideBar)
+- [x] Table with pdf / docx/ ppt logo
+- [x] Feed with recent activity on server on HOME (maybe rename to feed) + total nr. of submitted files
 
 ## Dependencies
 
