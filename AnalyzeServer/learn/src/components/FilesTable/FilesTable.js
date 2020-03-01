@@ -76,10 +76,8 @@ function FilesTable(props) {
                   {file.file_hash}
                 </Table.Cell>,
                 <Table.Cell textAlign="center">{file.filename}</Table.Cell>,
-                <Table.Cell textAlign="center">
-                  26/02/2020 - 23:03:00
-                </Table.Cell>,
-                <CellType type={file.verdict} />
+                <Table.Cell textAlign="center">{file.datetime}</Table.Cell>,
+                <CellType type={file.result} />
               ]
             },
             content: {

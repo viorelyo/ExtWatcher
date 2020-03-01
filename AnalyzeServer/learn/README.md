@@ -2,12 +2,12 @@
 
 ## TODO
 
-- [ ] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
 - [ ] Frontend: Add button for accordion
 - [ ] Download page for download the extWatcher installer for windows
 - [ ] PDF URL paste and automatic detection
 - [ ] Fill react/ public folder with extWatcher logos / infos
 - [ ] Adapt design for mobile
+- [x] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
 - [x] UI - FEED : replace analyzed - submit
 - [x] Fronend bug: loading dimmer is not fixed - when scroll is moving div
 - [x] Frontend Bug: when wirst load "/ "should link to "/home" (Dynamic SideBar)

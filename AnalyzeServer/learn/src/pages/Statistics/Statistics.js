@@ -1,19 +1,14 @@
 import React from "react";
-import {} from "../../store/reducers/file";
-import * as fileActions from "../../store/actions/file";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import * as fileActions from "../../store/actions/file";
 import { getAllFiles } from "../../store/reducers/file";
 
 import StatisticsContent from "./StatisticsContent/StatisticsContent";
 
 export class Statistics extends React.Component {
   render() {
-    return (
-      <React.Fragment>
-        <StatisticsContent showLoader={this.shouldShowLoader()} />
-      </React.Fragment>
-    );
+    return <StatisticsContent showLoader={this.shouldShowLoader()} />;
   }
 
   componentDidMount() {

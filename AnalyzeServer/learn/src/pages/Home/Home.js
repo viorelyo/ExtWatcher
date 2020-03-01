@@ -1,29 +1,37 @@
 import React from "react";
-import { Feed, Header, Divider } from "semantic-ui-react";
-import "./Home.scss";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as feedActions from "../../store/actions/feed";
+import { getAllFeed } from "../../store/reducers/feed";
 
-import UploadEvent from "../../components/FeedEventTypes/UploadEvent";
-import SubmitEvent from "../../components/FeedEventTypes/SubmitEvent";
+import HomeContent from "./HomeContent/HomeContent";
 
 class Home extends React.Component {
   render() {
-    return (
-      <div className="home-page">
-        <Header size="huge" content="Feed" />
-        <Divider />
+    return <HomeContent showLoader={this.shouldShowLoader()} />;
+  }
 
-        <Feed>
-          <UploadEvent />
-          <SubmitEvent />
-          <SubmitEvent />
-          <SubmitEvent />
-          <UploadEvent />
-          <UploadEvent />
-          <UploadEvent />
-        </Feed>
-      </div>
-    );
+  componentDidMount() {
+    this.props.fetchAllFeed();
+  }
+
+  shouldShowLoader() {
+    if (!this.props.allFeed || !this.props.allFeed.length) {
+      return true;
+    }
+    return false;
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    allFeed: getAllFeed(state)
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  const fetchAllFeed = feedActions.allFeed.request;
+  return bindActionCreators({ fetchAllFeed }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

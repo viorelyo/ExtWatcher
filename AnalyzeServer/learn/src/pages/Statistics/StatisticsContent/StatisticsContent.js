@@ -2,7 +2,6 @@ import React from "react";
 import { Loader } from "semantic-ui-react";
 import { getAllFiles } from "../../../store/reducers/file";
 import { connect } from "react-redux";
-import "./StatisticsContent.scss";
 
 import FilesTable from "../../../components/FilesTable/FilesTable";
 import FileCounter from "../../../components/FileCounter/FileCounter";

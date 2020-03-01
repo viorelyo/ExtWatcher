@@ -1,13 +1,20 @@
 import React from "react";
-import { Feed } from "semantic-ui-react";
+import { Feed, Icon } from "semantic-ui-react";
 
-function UploadEvent() {
+function UploadEvent(props) {
   return (
-    <Feed.Event
-      icon="upload"
-      date="23.02.2020 - 15:48:00"
-      summary="IP: 10.10.12.255 uploaded file: '12.pdf'."
-    />
+    <Feed.Event>
+      <Feed.Label>
+        <Icon name="cloud upload" />
+      </Feed.Label>
+      <Feed.Content>
+        <Feed.Date>{props.datetime}</Feed.Date>
+        <Feed.Summary>
+          URL: <a>{props.filename}</a> uploaded from IP:
+          {props.origin_ip}
+        </Feed.Summary>
+      </Feed.Content>
+    </Feed.Event>
   );
 }
 

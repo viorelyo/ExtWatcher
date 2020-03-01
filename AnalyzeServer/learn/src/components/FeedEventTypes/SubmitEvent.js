@@ -1,13 +1,20 @@
 import React from "react";
-import { Feed } from "semantic-ui-react";
+import { Feed, Icon } from "semantic-ui-react";
 
-function SubmitEvent() {
+function SubmitEvent(props) {
   return (
-    <Feed.Event
-      icon="cloud upload"
-      date="23.02.2020 - 20:18:00"
-      summary="IP: 192.10.12.255 submitted file: 'curs.pdf'."
-    />
+    <Feed.Event>
+      <Feed.Label>
+        <Icon name="cloud upload" />
+      </Feed.Label>
+      <Feed.Content>
+        <Feed.Date>{props.datetime}</Feed.Date>
+        <Feed.Summary>
+          URL: <a>{props.submitted_url}</a> submitted from IP:
+          {props.origin_ip}
+        </Feed.Summary>
+      </Feed.Content>
+    </Feed.Event>
   );
 }
 
