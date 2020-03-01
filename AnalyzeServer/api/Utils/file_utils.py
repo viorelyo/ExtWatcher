@@ -21,6 +21,8 @@ class FileUtils:
         response = requests.get(submitted_url)
         content_type = response.headers.get('content-type')
         extension = mimetypes.guess_extension(content_type)
+        if extension is None:
+            return None
         return extension[1:]        # remove "." from file extension
 
     @staticmethod

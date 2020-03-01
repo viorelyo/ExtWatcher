@@ -26,8 +26,8 @@ class Validator:
 
     def __check_connection(self, url):
         try:
-            request = requests.get(url)
-            if request.status_code == 200:
+            response = requests.get(url)
+            if response.status_code == 200:
                 return True
             else:
                 return False
