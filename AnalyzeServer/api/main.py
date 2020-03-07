@@ -84,7 +84,7 @@ def get_files():
     return response
 
 
-@app.route('/api/analyzed-file', methods=['GET'])
+@app.route('/api/search-files', methods=['GET'])
 def get_file_by_name():
     app.logger.info("GET Method: analyzed-file was triggered.")
 
@@ -93,7 +93,7 @@ def get_file_by_name():
         file = file_controller.search_analyzed_file_by_filename(filename)
 
         if file:
-            response = jsonify({'file': file})
+            response = jsonify({'files': file})
             response.status_code = 200
         else:
             response = jsonify({"message": "Filename not found."})
