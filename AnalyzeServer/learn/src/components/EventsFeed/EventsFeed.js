@@ -16,7 +16,7 @@ function EventsFeed(props) {
         eventType = (
           <UploadEvent
             datetime={event.datetime}
-            filename={event.filename}
+            filename={event.content}
             origin_ip={event.origin_ip}
           />
         );
@@ -25,7 +25,7 @@ function EventsFeed(props) {
         eventType = (
           <SubmitEvent
             datetime={event.datetime}
-            submitted_url={event.submitted_url}
+            submitted_url={event.content}
             origin_ip={event.origin_ip}
           />
         );

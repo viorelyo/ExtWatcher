@@ -6,7 +6,7 @@ const initialState = {
   files: {}
 };
 
-export default function files(state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case ALL_FILES[SUCCESS]:
       return reduceWorkerAllFiles(action.response, state);

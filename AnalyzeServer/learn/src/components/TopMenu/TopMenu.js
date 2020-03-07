@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   Menu,
   Image,
@@ -13,8 +13,25 @@ import {
 import "./TopMenu.scss";
 import logo from "../../assets/images/logo.jpg";
 
-export default class TopMenu extends Component {
-  state = { modalOpen: false };
+class TopMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: "",
+      modalOpen: false
+    };
+  }
+
+  onInputChange = event => {
+    this.setState({
+      query: event.target.value
+    });
+  };
+
+  onSubmit = () => {
+    const escapedSearchQuery = encodeURI(this.state.query);
+    this.props.history.push(`/results?search_query=${escapedSearchQuery}`);
+  };
 
   handleOpen = () => this.setState({ modalOpen: true });
   handleClose = () => this.setState({ modalOpen: false });
@@ -28,9 +45,22 @@ export default class TopMenu extends Component {
 
         <Menu.Menu className="nav-container">
           <Menu.Item className="search-input">
-            <Form>
+            <Form onSubmit={this.onSubmit}>
               <Form.Field>
-                <Input icon="search" placeholder="Search..." size="small" />
+                <Input
+                  icon="search"
+                  placeholder="Search..."
+                  size="small"
+                  list="queries"
+                  value={this.state.query}
+                  onChange={this.onInputChange}
+                />
+                <datalist id="queries">
+                  <option value="hash=" />
+                  <option value="filename=" />
+                  <option value="type=" />
+                  <option value="datetime=" />
+                </datalist>
               </Form.Field>
             </Form>
           </Menu.Item>
@@ -52,7 +82,11 @@ export default class TopMenu extends Component {
               basic
               size="small"
             >
-              <Header icon="copyright outline" content="ExtWatcher" />
+              <Header
+                icon="copyright outline"
+                content="ExtWatcher"
+                size="large"
+              />
               <Modal.Content>
                 <h3>Cloud malware Analyzer based on Machine Learning.</h3>
                 <h5 className="vg-rights">
@@ -71,3 +105,5 @@ export default class TopMenu extends Component {
     );
   }
 }
+
+export default withRouter(TopMenu);

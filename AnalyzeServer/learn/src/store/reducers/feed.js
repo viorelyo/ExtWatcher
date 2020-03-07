@@ -6,7 +6,7 @@ const initialState = {
   feed: {}
 };
 
-export default function feed(state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case ALL_FEED[SUCCESS]:
       return reduceWorkerAllFeed(action.response, state);

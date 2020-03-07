@@ -5,12 +5,16 @@ function UploadEvent(props) {
   return (
     <Feed.Event>
       <Feed.Label>
-        <Icon name="cloud upload" />
+        <Icon name="upload" />
       </Feed.Label>
       <Feed.Content>
         <Feed.Date>{props.datetime}</Feed.Date>
         <Feed.Summary>
-          URL: <a>{props.filename}</a> uploaded from IP:
+          File:{" "}
+          <a href={"https://www.google.com/search?q=" + props.filename}>
+            {props.filename}
+          </a>{" "}
+          uploaded from IP:
           {props.origin_ip}
         </Feed.Summary>
       </Feed.Content>

@@ -10,7 +10,8 @@ function SubmitEvent(props) {
       <Feed.Content>
         <Feed.Date>{props.datetime}</Feed.Date>
         <Feed.Summary>
-          URL: <a>{props.submitted_url}</a> submitted from IP:
+          URL: <a href={props.submitted_url}>{props.submitted_url}</a> submitted
+          from IP:
           {props.origin_ip}
         </Feed.Summary>
       </Feed.Content>
