@@ -2,11 +2,15 @@
 
 ## TODO
 
-- [ ] Create modal for Copyright author, more info etc.
+- [ ] Test sagaworker with while(true) fork - Maybe is updating in real time
+- [ ] Implement Search Bar (searches everything - e.g. give "type" and shows table with all results of "type")
+- [ ] Add graphs into Accordion Table
+- [ ] (Maybe) add new page for overall statistics
 - [ ] Download page for download the extWatcher installer for windows
 - [ ] PDF URL paste and automatic detection
 - [ ] Fill react/ public folder with extWatcher logos / infos
 - [ ] Adapt design for mobile
+- [x] Create modal for Copyright author, more info etc.
 - [x] Table Accordion (https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row)
 - [x] UI - FEED : replace analyzed - submit
 - [x] Fronend bug: loading dimmer is not fixed - when scroll is moving div
