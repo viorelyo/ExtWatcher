@@ -1,3 +1,4 @@
+import re
 import time
 from Common.constants import DB_FILE
 from app import app
@@ -24,10 +25,31 @@ class FileRepository:
         app.logger.info("Getting all files.")
         return self.files.all()
 
-    def get_file_by_filename(self, filename):
-        app.logger.info("Getting file by it's filename: '{}'".format(filename))
-        return self.files.get(self.query.filename == filename)
-
     def get_file_by_filehash(self, file_hash):
         app.logger.info("Getting file by it's md5: '{}'".format(file_hash))
         return self.files.get(self.query.file_hash == file_hash)
+
+    def get_files_by_filename(self, filename):
+        app.logger.info("Getting files by filename: '{}'".format(filename))
+        pattern = filename + ".*"
+        return self.files.search(self.query.filename.matches(pattern, flags=re.IGNORECASE))
+
+    def get_files_by_filehash(self, file_hash):
+        app.logger.info("Getting files by md5: '{}'".format(file_hash))
+        pattern = file_hash + ".*"
+        return self.files.search(self.query.file_hash.matches(pattern, flags=re.IGNORECASE))
+
+    def get_files_by_datetime(self, datetime):
+        app.logger.info("Getting files by datetime: '{}'".format(datetime))
+        pattern = datetime + ".*"
+        return self.files.search(self.query.datetime.matches(pattern, flags=re.IGNORECASE))
+
+    def get_files_by_filetype(self, filetype):
+        app.logger.info("Getting files by filetype: '{}'".format(filetype))
+        pattern = filetype + ".*"
+        return self.files.search(self.query.filetype.matches(pattern, flags=re.IGNORECASE))
+
+    def get_files_by_result(self, result):
+        app.logger.info("Getting files by type: '{}'".format(result))
+        pattern = result + ".*"
+        return self.files.search(self.query.result.matches(pattern, flags=re.IGNORECASE))

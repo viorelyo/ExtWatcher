@@ -7,10 +7,11 @@ from Common.constants import FILE_STATUS_BENIGN, FILE_STATUS_MALICIOUS, FILE_STA
 
 
 class FileController:
-    def __init__(self, file_repo, feed_repo, analyzer, file_utils):
+    def __init__(self, file_repo, feed_repo, analyzer, file_utils, query_parser):
         self.file_utils = file_utils
         self.file_repo = file_repo
         self.feed_repo = feed_repo
+        self.query_parser = query_parser
         self.analyzer = analyzer
 
     def upload(self, file, requester_ip):
@@ -31,14 +32,26 @@ class FileController:
         return result
 
     def get_all_analyzed_files(self):
-        # time.sleep(5)   # testing UI Spinner TODO remove in production
         return self.file_repo.get_all_files()
 
     def get_feed(self):
         return self.feed_repo.get_feed()
 
-    def search_analyzed_file_by_filename(self, filename):
-        return self.file_repo.get_file_by_filename(filename)
+    def search_by_query(self, search_query):
+        parsed_content = self.query_parser.parse(search_query)
+        if parsed_content is None:
+            return None
+
+        if parsed_content["keyword"] == "filename":
+            return self.file_repo.get_files_by_filename(parsed_content["param"])
+        elif parsed_content["keyword"] == "hash":
+            return self.file_repo.get_files_by_filehash(parsed_content["param"])
+        elif parsed_content["keyword"] == "datetime":
+            return self.file_repo.get_files_by_datetime(parsed_content["param"])
+        elif parsed_content["keyword"] == "type":
+            return self.file_repo.get_files_by_filetype(parsed_content["param"])
+        elif parsed_content["keyword"] == "result":
+            return self.file_repo.get_files_by_result(parsed_content["param"])
 
     def search_analyzed_file_by_filehash(self, file_hash):
         return self.file_repo.get_file_by_filehash(file_hash)

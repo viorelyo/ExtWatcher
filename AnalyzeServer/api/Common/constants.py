@@ -18,3 +18,5 @@ PDFID_FEATURES_COUNT = 21
 
 UPLOAD_REQUEST_TYPE = "upload"
 SUBMIT_REQUEST_TYPE = "submit"
+
+QUERY_KEYWORDS = {"filename", "hash", "datetime", "type", "result"}

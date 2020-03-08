@@ -86,17 +86,17 @@ def get_files():
 
 @app.route('/api/search-files', methods=['GET'])
 def get_file_by_name():
-    app.logger.info("GET Method: analyzed-file was triggered.")
+    app.logger.info("GET Method: search-files was triggered.")
 
-    filename = request.args.get('filename')
-    if filename:
-        file = file_controller.search_analyzed_file_by_filename(filename)
+    search_query = request.args.get('search_query')
+    if search_query:
+        result = file_controller.search_by_query(search_query)
 
-        if file:
-            response = jsonify({'files': [file]})
+        if result is None:
+            response = jsonify({'result': "Invalid query"})
             response.status_code = 200
         else:
-            response = jsonify({'files': []})
+            response = jsonify({'result': result})
             response.status_code = 200
         return response
     else:
