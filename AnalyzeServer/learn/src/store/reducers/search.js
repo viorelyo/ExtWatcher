@@ -14,7 +14,7 @@ function reduceSearchFiles(response, searchQuery, prevState) {
   let searchResults = response.files;
   if (prevState.query === searchQuery) {
     const prevResults = prevState.results || [];
-    searchResults = prevResults.concat(searchResults);
+    searchResults = prevResults;
   }
   return {
     query: searchQuery,

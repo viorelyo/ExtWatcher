@@ -5,15 +5,43 @@ import { withRouter } from "react-router-dom";
 import * as searchActions from "../../store/actions/search";
 import { getSearchResults } from "../../store/reducers/search";
 import { getSearchParam } from "../../services/url";
+import { Loader, Header, Divider, Segment, Icon } from "semantic-ui-react";
+
+import FilesTable from "../../components/FilesTable/FilesTable";
 
 class Search extends React.Component {
   render() {
-    return <div>TODO</div>;
+    let content;
+    if (this.searchFound()) {
+      content = <FilesTable files={this.props.searchResults} />;
+    } else {
+      content = (
+        <Segment placeholder>
+          <Header icon>
+            <Icon name="search" />
+            We don't have any files matching your query.
+          </Header>
+        </Segment>
+      );
+    }
+
+    return (
+      <div>
+        <Loader active={this.shouldShowLoader()} size="large">
+          Loading
+        </Loader>
+
+        <Header size="huge" content="Search results" />
+        <Divider />
+
+        {content}
+      </div>
+    );
   }
 
   componentDidMount() {
     if (!this.getSearchQuery()) {
-      this.props.history.push("/");
+      this.props.history.push("/stats");
     }
     this.searchFiles();
   }
@@ -25,6 +53,19 @@ class Search extends React.Component {
   searchFiles() {
     const searchQuery = this.getSearchQuery();
     this.props.searchFiles(searchQuery);
+  }
+
+  shouldShowLoader() {
+    if (!this.props.searchResults) {
+      return true;
+    }
+    return false;
+  }
+
+  searchFound() {
+    if (this.props.searchResults) {
+      return !(this.props.searchResults.length === 0);
+    }
   }
 }
 
