@@ -60,6 +60,7 @@ class TopMenu extends Component {
                   <option value="filename=" />
                   <option value="type=" />
                   <option value="datetime=" />
+                  <option value="result=" />
                 </datalist>
               </Form.Field>
             </Form>

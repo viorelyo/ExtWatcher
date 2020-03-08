@@ -11,7 +11,7 @@ export default function(state = {}, action) {
 }
 
 function reduceSearchFiles(response, searchQuery, prevState) {
-  let searchResults = response.files;
+  let searchResults = response.result;
   if (prevState.query === searchQuery) {
     const prevResults = prevState.results || [];
     searchResults = prevResults;

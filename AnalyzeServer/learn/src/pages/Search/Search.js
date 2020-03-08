@@ -11,9 +11,20 @@ import FilesTable from "../../components/FilesTable/FilesTable";
 
 class Search extends React.Component {
   render() {
+    const result = this.checkQuery() ? this.props.searchResults : [];
+
     let content;
-    if (this.searchFound()) {
-      content = <FilesTable files={this.props.searchResults} />;
+    if (!this.checkQuery()) {
+      content = (
+        <Segment placeholder>
+          <Header icon>
+            <Icon name="search" />
+            Your query is invalid.
+          </Header>
+        </Segment>
+      );
+    } else if (this.resultsFound()) {
+      content = <FilesTable files={result} />;
     } else {
       content = (
         <Segment placeholder>
@@ -57,15 +68,25 @@ class Search extends React.Component {
 
   shouldShowLoader() {
     if (!this.props.searchResults) {
-      return true;
+      if (this.checkQuery()) return true;
     }
     return false;
   }
 
-  searchFound() {
+  resultsFound() {
     if (this.props.searchResults) {
-      return !(this.props.searchResults.length === 0);
+      if (this.checkQuery()) {
+        return !(this.props.searchResults.length === 0);
+      }
     }
+    return true;
+  }
+
+  checkQuery() {
+    if (this.props.searchResults === "Invalid query") {
+      return false;
+    }
+    return true;
   }
 }
 

@@ -35,7 +35,7 @@ function EventsFeed(props) {
         break;
     }
 
-    return <Feed>{eventType}</Feed>;
+    return <Feed key={event.content}>{eventType}</Feed>;
   });
 
   return <div>{events}</div>;
