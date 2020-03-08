@@ -93,11 +93,11 @@ def get_file_by_name():
         file = file_controller.search_analyzed_file_by_filename(filename)
 
         if file:
-            response = jsonify({'files': file})
+            response = jsonify({'files': [file]})
             response.status_code = 200
         else:
-            response = jsonify({"message": "Filename not found."})
-            response.status_code = 404
+            response = jsonify({'files': []})
+            response.status_code = 200
         return response
     else:
         response = jsonify({"message": "Request does not contain filename parameter."})
