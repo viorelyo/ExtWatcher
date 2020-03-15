@@ -6,7 +6,7 @@ import { getAllFiles } from "../../store/reducers/file";
 
 import StatisticsContent from "./StatisticsContent/StatisticsContent";
 
-export class Statistics extends React.Component {
+class Statistics extends React.Component {
   render() {
     return <StatisticsContent showLoader={this.shouldShowLoader()} />;
   }

@@ -6,6 +6,7 @@ import AppLayout from "./components/AppLayout/AppLayout";
 
 import Home from "./pages/Home/Home";
 import Statistics from "./pages/Statistics/Statistics";
+import Analyze from "./pages/Analyze/Analyze";
 import Search from "./pages/Search/Search";
 import UnknownPage from "./pages/UnknownPage/UnknownPage";
 
@@ -16,7 +17,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/stats" component={Statistics} />
-          {/* <Route path="/analyze" component={Analyze} /> */}
+          <Route path="/analyze" component={Analyze} />
           {/* <Route path="/downloads" component={Downloads} /> */}
           <Route
             path="/results"
