@@ -1,6 +1,7 @@
+import os
 from app import app
-from flask import request, jsonify
-from Common.constants import ALLOWED_EXTENSIONS
+from flask import request, jsonify, send_file
+from Common.constants import ALLOWED_EXTENSIONS, SERVICE_FOR_DOWNLOAD
 from Common.components import file_controller, validator, file_utils
 
 
@@ -105,6 +106,12 @@ def get_file_by_name():
         return response
 
 
+@app.route('/download/service.zip')
+def download_service():
+    path = os.path.join(app.config['DOWNLOAD_FOLDER'], SERVICE_FOR_DOWNLOAD)
+    return send_file(path, as_attachment=True)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
-    # app.run(host= '0.0.0.0', debug=False)
+    # app.run(debug=True)
+    app.run(host= '0.0.0.0', debug=False)

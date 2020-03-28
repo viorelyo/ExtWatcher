@@ -1,4 +1,5 @@
 UPLOAD_FOLDER = "Resources/uploads"
+DOWNLOAD_FOLDER = "Resources/downloads"
 LOG_FILE = "Resources/logs/serverLogs.log"
 
 DB_FILE = "Resources/db/files_db.json"
@@ -20,3 +21,5 @@ UPLOAD_REQUEST_TYPE = "upload"
 SUBMIT_REQUEST_TYPE = "submit"
 
 QUERY_KEYWORDS = {"filename", "hash", "datetime", "type", "result"}
+
+SERVICE_FOR_DOWNLOAD = "logo.jpg"
