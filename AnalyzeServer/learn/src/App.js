@@ -9,6 +9,7 @@ import Statistics from "./pages/Statistics/Statistics";
 import Analyze from "./pages/Analyze/Analyze";
 import Search from "./pages/Search/Search";
 import UnknownPage from "./pages/UnknownPage/UnknownPage";
+import Downloads from "./pages/Downloads/Downloads";
 
 class App extends Component {
   render() {
@@ -17,8 +18,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/stats" component={Statistics} />
-          <Route path="/analyze" component={Analyze} />
-          {/* <Route path="/downloads" component={Downloads} /> */}
+          <Route exact path="/analyze" component={Analyze} />
+          <Route exact path="/downloads" component={Downloads} />
           <Route
             path="/results"
             render={() => <Search key={this.props.location.key} />}

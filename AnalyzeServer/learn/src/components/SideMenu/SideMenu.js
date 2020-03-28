@@ -35,7 +35,7 @@ export class SideMenu extends React.Component {
           location={this.props.location}
         />
         <SideMenuItem
-          path="/download"
+          path="/downloads"
           label="Download"
           icon="download"
           location={this.props.location}
