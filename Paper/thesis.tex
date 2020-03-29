@@ -1,0 +1,136 @@
+% TODO Remove when DONE
+% Template Tutorial 
+% https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_2):_Page_Layout
+
+
+\documentclass[a4paper,12pt]{report}
+
+\usepackage{algorithmic}
+\usepackage{algorithm} 
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{comment} 
+\usepackage{epsfig} 
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{geometry} 
+\usepackage{graphicx}
+\usepackage[colorlinks]{hyperref} 
+\usepackage[latin1]{inputenc}
+\usepackage{multicol}
+\usepackage{multirow} 
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{subfigure}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{xcolor}
+
+\geometry{a4paper,top=3cm,left=2cm,right=2cm,bottom=3cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\textsl{\leftmark}}
+\fancyfoot[L]{Diploma 2019-2020}
+\fancyfoot[R]{\thepage}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{%
+  \color{black}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{%
+  \color{black}\leaders\hrule height \footrulewidth\hfill}}
+
+\hypersetup{
+	pdftitle={artTitle},
+	pdfauthor={name},
+	pdfkeywords={pdf, latex, tex, ps2pdf, dvipdfm, pdflatex},
+	bookmarksnumbered,
+	pdfstartview={FitH},
+	urlcolor=cyan,
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=blue,
+}
+% \pagestyle{plain}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\linespread{1}
+\makeindex
+
+
+\begin{document}
+
+\begin{titlepage}
+\sloppy
+\begin{center}
+BABE\c S BOLYAI UNIVERSITY, CLUJ NAPOCA, ROM\^ ANIA
+
+FACULTY OF MATHEMATICS AND COMPUTER SCIENCE
+
+SPECIALIZATION COMPUTER SCIENCE IN GERMAN
+
+\vspace{6cm}
+
+\Huge \textbf{Cloud based Malware Detection using Machine Learning}
+
+\vspace{1cm}
+
+\normalsize -- Diploma thesis --
+\end{center}
+
+\vspace{5cm}
+
+\begin{flushright}
+\Large{\textbf{Author}}\\
+Viorel GURDIS
+\end{flushright}
+
+\vspace{4cm}
+
+\begin{center}
+2020
+\end{center}
+
+\end{titlepage}
+
+\pagenumbering{gobble}
+
+\begin{abstract}
+	Text of abstract. Short info about: project relevance/importance, inteligent methods used for solving, data involved in the numerical experiments; conclude by the the results obtained.
+\end{abstract}
+
+
+\tableofcontents
+
+\newpage
+
+\listoftables
+\listoffigures
+\listofalgorithms
+
+\newpage
+
+\setstretch{1.5}
+
+\newpage
+
+\pagenumbering{arabic}
+
+\include{chapters/introduction}
+\include{chapters/problem}
+\include{chapters/sota}
+\include{chapters/approach}
+\include{chapters/applic}
+\include{chapters/conclusions}
+
+\bibliographystyle{plain}
+\bibliography{BibAll}
+
+\end{document}
