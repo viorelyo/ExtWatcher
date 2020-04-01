@@ -3,15 +3,15 @@
 Beginning with the first reported occurences of the malware, the security researchers have made a huge effort to prevent the harmful behavior. Over the years malware has evolved in different forms and of course the antivirus industry has developed more complex detection solutions. Since PDF documents became a good target for cybercriminals, more and more specialists pay attention to the analysis of dangerous PDFs. Integration of so many analysis tools in a single antivirus software has a negative impact on computers performance. For this reason, the cybersecurity field attaches importance to Cloud Computing. In the following sections we will analyze other academic and industrial approaches for transfer of antimalware engines to the cloud and some docummented detection techniques of malicious PDFs.
 
 
-
 \section{Cloud based malware detection}
 \label{section:relatedWorkCloud}
-% virustotal
-% bitdefender sandbox analyzer
-% academic paper PDF + Cloud
-
 In the field of Cloud solutions for malware detection, there is sparsed amount of shared academic works. As compensation, in the antivirus industry there is a fast growing interest for high computation to run more advanced and complex detection algorithms, which is provided by Cloud Computation. \par
-An important example is \textbf{VirusTotal} \cite{virustotal}, a popular Cloud application developed by Hispasec Sistemas, that aggregates more than 70 antivirus engines and makes them publicly available for scanning uploaded files. From the user perspective, this is an excellent application, that can extract metadata of the submitted file and can identify any dubious signal. The provided result represents a comparation between analysis verdicts of cybersecurity market leaders. Of course this is an advantage in terms of the scanning result and respectively a gain regarding spent computational time.
+An important example is \textbf{VirusTotal} \cite{virustotal}, a popular Cloud application developed by Hispasec Sistemas, that aggregates more than 50 antivirus engines and makes them publicly available for scanning uploaded files. From the user perspective, this is an excellent application, that can extract metadata of the submitted file and can identify any dubious signal. The provided result represents a comparation between analysis verdicts of cybersecurity market leaders. Of course this is an advantage in terms of the scanning result and respectively a gain regarding spent computational time. On average it takes aprox. 55 seconds to upload and analyze a 400KB file. VirusTotal is also helping to maintain the global cybersecurity at a high level, by sharing all the submitted suspicious files with the security researchers. Thereby the antivirus engines will be permanently improved. \par
+\textbf{Sandbox Analyzer} is another antimalware cloud solution developed by Bitdefender \cite{bdSandbox}. It's approach is a bit different, because it
+ensures the security on a private network, where the Bitdefender product is installed, thus not being available for public access. It's operating principle is also specific, by preventing the execution of threats on an endpoint and automatically sending of harmful files to the Cloud. After extra analysis in the Cloud, the Sandbox Analyzer can take remediation action based on the verdict. In that way, malicious files get disinfected, quarantined or deleted. One of the benefits for this solution is in-depth analysis of malicious files in an isolated environment, rather than on user's machine. Thereby the risk for performance implication, as well as the risk of accidental run of malware on an endpoint machine are eliminated. At the core of Sandbox Analyzer, there are Machine Learning algorithms and dynamic behavior analysis techniques that are constantly improved to detect fresh threats.
+
+% TODO maybe add this https://bradscholars.brad.ac.uk/bitstream/handle/10454/16043/Version%203.3%20-%20Thesis.pdf?sequence=1&isAllowed=y
+
 
 \section{Detection of malicious PDF}
 \label{section:relatedWorkML}
