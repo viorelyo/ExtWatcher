@@ -1,9 +1,17 @@
 \chapter{Scientific Problem}
 \label{section:scientificProblem}
 
-
 \section{Problem definition}
 \label{section:problemDefinition}
+The purpose of the research in this thesis consists in approaching some alternative methods to replace classic file scanning techniques. Particularly, our target is to demonstrate that Machine Learning algorithms can be used as an efficient mechanism for malicios PDF files detection. Additionally, we want to present a framework that can remotely analyze suspicious PDF files by applying earlier mentioned performant algorithms. This framework has several advantages: 
+\begin{itemize}
+    \item Takes on the complicated task of applying classification model for uploaded files and giving the analysis result to the users.
+    \item It is designed to be deployed as a Cloud Application on a powerfull server that can handle multiple requests at the same time, lacking users care about having high specifications for their computers.
+    \item Guarantees the privacy of the scanned documents. The algorithms doesn't require the documents content in order to decide whether they are malicios or benign. Also, after analysis process, none of the documents are stored on the Cloud.
+    \item Keeps the detection algorithms up-to-date. It won't be the users responsability anymore to regularly update the software antivirus installed on their computers. 
+    \item Provides a generic implementation for analyzing uploaded files. The support for a new file extension to be scanned, can be effortlessly added by adding a classifier Machine Learning model for the wanted file format.
+\end{itemize}
+Integrating both Machine Learning and Cloud Computing into Cybersecurity should provide a significant progress to this field.
 
 
 \section{Background processes in Microsoft Windows}
