@@ -14,35 +14,62 @@ The purpose of the research in this thesis consists in approaching some alternat
 Integrating both Machine Learning and Cloud Computing into Cybersecurity should provide a significant progress to this field. \par
 
 
-In order to fully automate the process of detection malicious PDF files, our application provides a tool (currently has support only on Microsoft Windows) that independently uploads files to the Cloud Service, waits for analysis results and takes appropiate protective measures. In the following we will introduce some operating system concepts that helped us to achieve the expected behavior for our application.
+In order to fully automate the process of detection malicious PDF files, our application provides a tool (currently has support only for Microsoft Windows) that independently uploads detected files to the Cloud Service, waits for analysis results and takes appropiate protective measures. In the following we will introduce some operating system concepts that helped us to achieve the expected behavior for our application.
 
 \section{Background processes in Microsoft Windows}
 \label{section:backgroundProc}
 % https://www.2brightsparks.com/resources/articles/understanding-sessions-in-windows.html
 In computing, a background process is a process\footnote{a container for a set of resources used when executing the instance of the program} that runs independently and doesn't require any user involvement. Usually it has the task of system monitoring and sending any types of notifications to the user. Each operating system has its own principle of implementation for background processes. We will have an in-depth look at background processes in Microsoft Windows, which are called \textbf{Windows Services}. According \cite{winInternals} these services are started by a central utility - \textit{Services Control Manager} at the boot-time\footnote{the period when a computer is starting} of the computer and they don't have any graphical interface. For security and safety reasons, specifically to prevent user applications from accessing Windows Services that could run with high privileges, Windows OS creates a new session for each logged in user, reserving \textit{Session 0} for non-interactive services. The mentioned features make Windows Services suitable for long-running functionality, whose operation doesn't interesect with other users work on the same computer. The support for creating a service is provided by \textbf{.NET Framework}, its features being possible to access by using one of Microsoft's high-level programming language \CSharp.
 
-\section{Filesystem monitoring}
+\section{File System monitoring}
 \label{section:filesystem}
+In the field of operating systems, a file system is aimed to store data in form of files in a long-term storage. Before being stored on physical devices, data that is created and saved by applications in User-Mode, goes through a chain of drivers from Kernel-Mode. This principle is adopted in many operating systems, inclusively in Microsoft Windows (see Figure \ref{filterDriver}). In order to track every change on the computer's file system, we need a monitoring mechanism. Throughout the development of Windows, serveral technologies have been implemented for integration by software engineers, including: File System Filter Drivers, Update Sequence Number Journal (\textit{USN Journal}), Event Tracing for Windows (\textit{ETW}), \textit{FileSystemWatcher} Class from .NET. In this section we are focusing on two of the most popular Windows file system monitoring mechanisms: Minifilter drivers managed by \textit{Filter Manager} and \textit{FileSystemWatcher}. \par
+\textbf{Windows Filter Manager} is a Kernel-Mode driver that intercepts every file system I/O operation and can extend the functionality of the requested operation through each minifilter driver that is registered to it (see Figure \ref{filterDriver}). The order of attachement of each minifilter is identified by an altitude\footnote{unique identifier assigned by Microsoft that determines when a minifilter is loaded}, thus avoiding interleaving the functionality of callback routines of each minifilter. Windows Driver Kit (\textit{WDK}) provides the necessary SDK\footnote{collection of software development tools} for developing minifilter drivers, which are most suitable for Backup agents, Encrpytion managers and Antivirus filters. For more details consult \cite{msdn}. \par
 
-$\ldots$ (see Figure \ref{netFramework})
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/filterDriver.png}}  
+	\caption{Simplified I/O stack from Windows \cite{msdn}}
+	\label{filterDriver}
+\end{figure}
 
-\begin{figure}[ht]
+Compared to the previous described technology, which is complex for development and mantaining, \textbf{FileSystemWatcher} is a class from .NET that makes file system monitoring straightforward to implement. According to \cite{dotNetFramework}, this class represents a wrapper over Win32 SDK \textit{ReadDirectoryChangesW} function, which is also used by Windows Explorer to monitor folder changes. By being provided by .NET, it is clear, that FileSystemWatcher can be used in User-Mode for development (see Figure \ref{netFramework}). 
+
+\begin{figure}[H]
 	\centerline{\includegraphics[scale=0.5]{figures/NetFramework.png}}  
 	\caption{Relationship between .NET and Windows OS \cite{winInternals}}
 	\label{netFramework}
 \end{figure}
 
+To configure a working instance of this class, we need to specify a couple of properties, such as \textit{Path} (for indicating the folder to monitor), \textit{NotifyFilters} (for specifieng what kind of file changes to monitor) and \textit{EnableRaisingEvents} (to start/stop monitoring process). Also we need to attach the corresponding events that we want to receive (see Table \ref{supportedEvents}).
+
+\begin{table}[H]
+	\caption{Events supported by FileSystemWatcher}
+	\label{supportedEvents}
+		\centering
+            \begin{tabular}{l | l}
+                
+				\textbf{Event} & \textbf{Occuring time} \\
+				\hline
+ 				Created & When a new file is created or is moved into monitored folder \\
+ 				Changed & When a file has its content or file attributes modified \\
+ 				Deleted & When a file is removed or is moved out of monitored folder \\
+                Renamed & When the name of the file get changed\\
+                 
+			\end{tabular}
+\end{table}
+
+Earlier we mentioned that minifilter drivers live in Kernel-Mode, while FileSystemWatcher provided by .NET lives in User-Mode. One more argument in favor of FileSystemWatcher, besides the high level object-oriented programming language \CSharp that we have at our disposal over unmanaged\footnote{code executed directly by OS; does not provide any security to the application} C language, is that it's safer to run applications in User-Mode. Each application runs in isolation in User-Mode and in case of a crash, it won't affect other applications or even worse the OS itself, what can happen with a Kernel-Mode driver.
 
 \section{Analyzing PDF File Structure}
 \label{section:pdfStructure}
 
-$\ldots$ (see Figure \ref{pdfSkeleton})
+% $\ldots$ (see Figure \ref{pdfSkeleton})
 
-\begin{figure}[ht]
-	\centerline{\includegraphics[scale=0.5]{figures/PDFSkeleton.png}}  
-	\caption{Structure of PDF Format \cite{winInternals}}
-	\label{pdfSkeleton}
-\end{figure}
+% \begin{figure}[H]
+% 	\centerline{\includegraphics[scale=0.5]{figures/PDFSkeleton.png}}  
+% 	\caption{Structure of PDF Format \cite{winInternals}}
+% 	\label{pdfSkeleton}
+% \end{figure}
 
 
 \section{Malware in PDF}
