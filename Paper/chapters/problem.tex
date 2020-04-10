@@ -40,16 +40,16 @@ Compared to the previous described technology, which is complex for development 
 	\label{netFramework}
 \end{figure}
 
-To configure a working instance of this class, we need to specify a couple of properties, such as \textit{Path} (for indicating the folder to monitor), \textit{NotifyFilters} (for specifieng what kind of file changes to monitor) and \textit{EnableRaisingEvents} (to start/stop monitoring process). Also we need to attach the corresponding events that we want to receive (see Table \ref{supportedEvents}).
+To configure a working instance of this class, we need to specify a couple of properties, such as \textit{Path} (for indicating the folder to monitor), \textit{NotifyFilters} (for specifieng what kind of file changes to monitor) and \textit{EnableRaisingEvents} (to start/stop monitoring process). Also we need to attach the corresponding events that we want to receive (see Table \ref{table:supportedEvents}).
 
 \begin{table}[H]
 	\caption{Events supported by FileSystemWatcher}
-	\label{supportedEvents}
+	\label{table:supportedEvents}
 		\centering
             \begin{tabular}{l | l}
                 
 				\textbf{Event} & \textbf{Occuring time} \\
-				\hline
+				\hline 
  				Created & When a new file is created or is moved into monitored folder \\
  				Changed & When a file has its content or file attributes modified \\
  				Deleted & When a file is removed or is moved out of monitored folder \\
@@ -58,18 +58,21 @@ To configure a working instance of this class, we need to specify a couple of pr
 			\end{tabular}
 \end{table}
 
-Earlier we mentioned that minifilter drivers live in Kernel-Mode, while FileSystemWatcher provided by .NET lives in User-Mode. One more argument in favor of FileSystemWatcher, besides the high level object-oriented programming language \CSharp that we have at our disposal over unmanaged\footnote{code executed directly by OS; does not provide any security to the application} C language, is that it's safer to run applications in User-Mode. Each application runs in isolation in User-Mode and in case of a crash, it won't affect other applications or even worse the OS itself, what can happen with a Kernel-Mode driver.
+Earlier we mentioned that minifilter drivers live in Kernel-Mode, while FileSystemWatcher provided by .NET lives in User-Mode. One more argument in favor of FileSystemWatcher, besides the high level object-oriented programming language \CSharp that we have at our disposal over unmanaged\footnote{code executed directly by OS; does not provide any security to the application} C language, is that it's safer to run applications in User-Mode. Each application runs in isolation in User-Mode and in case of a crash, it won't affect other applications or even worse the OS itself, what can happen with a Kernel-Mode driver. Even the smallest error that occurs in a driver can cause BSOD\footnote{"Blue Screen of Death", error screen displayed by Windows in case of fatal system crash}. 
 
+\newpage
 \section{Analyzing PDF File Structure}
 \label{section:pdfStructure}
+In this section we are going to understand PDF structure which is a foundation stone of identifieng backdoors\footnote{a malicious method by which a system bypass is hidden} in this file format. \par
+PDF was first developed by Adobe in the 1990's with many version been released afterwards. Its initial purpose was to allow to present various types of data, including: text, images, webpage links etc. regardless of the environments it was opened in. As explained in \cite{pdfReference}, PDF files consist of objects, which are of eight types: Boolean values, Numbers (integer and real), Strings, Names, Arrays, Dictionaries, Streams and the Null object. Each PDF document should begin with a header that identifies it as a \textit{PDF} and includes the version number \code{\%PDF-1.7}. The document should also end in a certain way - with the signature \code{\%\%EOF}. After the header the objects are declared.
 
-% $\ldots$ (see Figure \ref{pdfSkeleton})
 
-% \begin{figure}[H]
-% 	\centerline{\includegraphics[scale=0.5]{figures/PDFSkeleton.png}}  
-% 	\caption{Structure of PDF Format \cite{winInternals}}
-% 	\label{pdfSkeleton}
-% \end{figure}
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.4]{figures/PDFSkeleton.png}}  
+	\caption{Structure of PDF Format \cite{winInternals}}
+	\label{pdfSkeleton}
+\end{figure}
 
 
 \section{Malware in PDF}
