@@ -64,13 +64,13 @@ Earlier we mentioned that minifilter drivers live in Kernel-Mode, while FileSyst
 \section{Analyzing PDF File Structure}
 \label{section:pdfStructure}
 In this section we are going to understand PDF structure which is a foundation stone of identifieng backdoors\footnote{a malicious method by which a system bypass is hidden} in this file format. \par
-PDF was first developed by Adobe in the 1990's with many version been released afterwards. Its initial purpose was to allow to present various types of data, including: text, images, webpage links etc. regardless of the environments it was opened in. As explained in \cite{pdfReference}, PDF files consist of objects, which are of eight types: Boolean values, Numbers (integer and real), Strings, Names, Arrays, Dictionaries, Streams and the Null object. Each PDF document should begin with a header that identifies it as a \textit{PDF} and includes the version number \code{\%PDF-1.7}. The document should also end in a certain way - with the signature \code{\%\%EOF}. After the header the objects are declared.
-
+PDF was first developed by Adobe in the 1990's with many version been released afterwards. Its initial purpose was to allow to present various types of data, including: text, images, webpage links etc. regardless of the environments it was opened in. As explained in \cite{pdfReference}, PDF files consist of objects, which are of eight types: Boolean values, Numbers (integer and real), Strings, Names, Arrays, Dictionaries, Streams and the Null object. Each PDF document should begin with a header that identifies it as a \textit{PDF} and includes the version number \code{\%PDF-1.7}. The document should also end in a certain way - with the signature \code{\%\%EOF} (see Figure \ref{pdfSkeleton}). After header the objects are declared, that can contain necessary information for rendering the document. One of the most important objects is the stream, that can store an unlimited size sequence of bytes. Usually streams are used for storing text, but they can also store executable code, i.e., checkbox for agreement of \textit{Terms and Conditions}. Streams can contain the optional entry \code{/Filter}, which is aimed for compression and encryption of data inside streams. Next comes the Cross-Reference Table (\textit{Xref}), which 
+determines the location of existing objects in PDF. The last section of the file is \textit{Trailer}, that contains the metadata of the file, e.g., size of the file, number of objects, the id of the root object, etc. Hence it becomes clear, that PDF documents are parsed from the end to the start.
 
 
 \begin{figure}[H]
 	\centerline{\includegraphics[scale=0.4]{figures/PDFSkeleton.png}}  
-	\caption{Structure of PDF Format \cite{winInternals}}
+	\caption{Structure of PDF Format \cite{logrhythm}}
 	\label{pdfSkeleton}
 \end{figure}
 
@@ -78,6 +78,7 @@ PDF was first developed by Adobe in the 1990's with many version been released a
 \section{Malware in PDF}
 \label{section:malwareInPDF}
 % Since PDF documents became a well known solution for information sharing, they also became a good target for cybercriminals.
+% Bonuses like JS etc. https://scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=1683&context=etd_projects makes it vulnerable
 
 \section{Machine Learning for Malware Detection}
 \label{section:mlForMalware}
