@@ -3,7 +3,7 @@
 % https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_2):_Page_Layout
 
 
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt, twoside]{report}
 
 \usepackage{algorithmic}
 \usepackage{algorithm} 
@@ -36,9 +36,9 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\textsl{\leftmark}}
-\fancyfoot[L]{Diploma 2019-2020}
-\fancyfoot[R]{\thepage}
+\fancyhead[RO, LE]{\textsl{\leftmark}}
+\fancyfoot[LO, RE]{Diploma 2019-2020}
+\fancyfoot[LE, RO]{\thepage}
 
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.5pt}

@@ -3,11 +3,11 @@
 
 \section{Problem definition}
 \label{section:problemDefinition}
-The purpose of the research in this thesis consists in approaching some alternative methods to replace classic file scanning techniques. Particularly, our target is to demonstrate that Machine Learning algorithms can be used as an efficient mechanism for malicios PDF files detection. Additionally, we want to present a framework that can remotely analyze suspicious PDF files by applying earlier mentioned performant algorithms. This framework has several advantages: 
+The purpose of the research in this thesis consists in approaching some alternative methods to replace classic file scanning techniques. Particularly, our target is to demonstrate that Machine Learning algorithms can be used as an efficient mechanism for malicious PDF files detection. Additionally, we want to present a framework that can remotely analyze suspicious PDF files by applying earlier mentioned performant algorithms. This framework has several advantages: 
 \begin{itemize}
     \item Takes on the complicated task of applying classification model for uploaded files and giving the analysis result to the users.
     \item It is designed to be deployed as a Cloud Application on a powerfull server that can handle multiple requests at the same time, lacking users care about having high specifications for their computers.
-    \item Guarantees the privacy of the scanned documents. The algorithms doesn't require the documents content in order to decide whether they are malicios or benign. Also, after analysis process, none of the documents are stored on the Cloud.
+    \item Guarantees the privacy of the scanned documents. The algorithms doesn't require the documents content in order to decide whether they are malicious or benign. Also, after analysis process, none of the documents are stored on the Cloud.
     \item Keeps the detection algorithms up-to-date. It won't be the users responsability anymore to regularly update the software antivirus installed on their computers. 
     \item Provides a generic implementation for analyzing uploaded files. The support for a new file extension to be scanned, can be effortlessly added by adding a classifier Machine Learning model for the wanted file format.
 \end{itemize}
@@ -53,7 +53,7 @@ To configure a working instance of this class, we need to specify a couple of pr
  				Created & When a new file is created or is moved into monitored folder \\
  				Changed & When a file has its content or file attributes modified \\
  				Deleted & When a file is removed or is moved out of monitored folder \\
-                Renamed & When the name of the file get changed\\
+                Renamed & When the name of the file get changed \\
                  
 			\end{tabular}
 \end{table}
@@ -67,7 +67,6 @@ In this section we are going to understand PDF structure which is a foundation s
 PDF was first developed by Adobe in the 1990's with many version been released afterwards. Its initial purpose was to allow to present various types of data, including: text, images, webpage links etc. regardless of the environments it was opened in. As explained in \cite{pdfReference}, PDF files consist of objects, which are of eight types: Boolean values, Numbers (integer and real), Strings, Names, Arrays, Dictionaries, Streams and the Null object. Each PDF document should begin with a header that identifies it as a \textit{PDF} and includes the version number \code{\%PDF-1.7}. The document should also end in a certain way - with the signature \code{\%\%EOF} (see Figure \ref{pdfSkeleton}). After header the objects are declared, that can contain necessary information for rendering the document. One of the most important objects is the stream, that can store an unlimited size sequence of bytes. Usually streams are used for storing text, but they can also store executable code, i.e., checkbox for agreement of \textit{Terms and Conditions}. Streams can contain the optional entry \code{/Filter}, which is aimed for compression and encryption of data inside streams. Next comes the Cross-Reference Table (\textit{Xref}), which 
 determines the location of existing objects in PDF. The last section of the file is \textit{Trailer}, that contains the metadata of the file, e.g., size of the file, number of objects, the id of the root object, etc. Hence it becomes clear, that PDF documents are parsed from the end to the start.
 
-
 \begin{figure}[H]
 	\centerline{\includegraphics[scale=0.4]{figures/PDFSkeleton.png}}  
 	\caption{Structure of PDF Format \cite{logrhythm}}
@@ -77,14 +76,40 @@ determines the location of existing objects in PDF. The last section of the file
 
 \section{Malware in PDF}
 \label{section:malwareInPDF}
-% Since PDF documents became a well known solution for information sharing, they also became a good target for cybercriminals.
-% Bonuses like JS etc. https://scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=1683&context=etd_projects makes it vulnerable
+Over the years PDF format has evolved and now it has support not just for text and images, but also for editable forms, animations and even 3D graphics. All of these features made PDF a great solution for information sharing. Meanwhile it also became a good target for cybercriminals, malware being easily embedded into PDF documents and widespread through different types of communication, e.g., HTTP, emails, etc. (see Figure \ref{pdfmalware})
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.5]{figures/maliciousPDF.png}}  
+	\caption{Top malicious file types - H1 2019 \cite{pdfattack}}
+	\label{pdfmalware}
+\end{figure}
+
+Malicious PDF can be classified into three categories: \textit{reader exploitation}, \textit{feature abuse}, \textit{phishing attacks}. Every year numerous vulnerabilities related to most used PDF readers, e.g., Adobe Reader, Acrobat Reader, Chrome, are reported. Before these weaknesses are patched\footnote{applying changes to fix bugs or errors in a software program}, attackers create exploits to execute arbitrary code, when PDF is opened with one of the vulnerable application. Phishing attacks are more difficult to detect, because in the context of PDF documents, they aren't infected, instead the social engineering is used in order to psychologically enforce someone to click on malicious links written in the documents. Another frequently used attack vector involves misusing the PDF extra-functionalities, such as running malicious code when file is opened, stealing sensitive information and sending to remote addresses, downloading infected executables and so on. Pursuant to \cite{xakepPDF}, it's usually the fault of embedded Javascript code, whose intentions could be wrong, but as seen in Table \ref{table:pdfentries} there are also several standard PDF entries, which seem to be interesting in terms of malware hunting. However, when searching for them we should not forget about the possibility of obfuscation using hex code, in which, for example, \code{/Launch} can turn into \code{/L0x61unc0x68}. Encrypting the streams and strings is another often applied "trick" to complicate the analysis work for both antiviruses and researchers. A PDF document from which it is impossible to copy text or which can not be printed, is such a obfuscated sample.
+
+\begin{table}[H]
+	\caption{Standard PDF Entries whose functionality can be abused}
+	\label{table:pdfentries}
+		\centering
+            \begin{tabular}{l | l}
+                
+				\textbf{Entry} & \textbf{Functionality} \\
+				\hline 
+				\code{/JavaScript} & Sets JavaScript code to be executed \\
+ 				\code{/OpenAction}, \code{/Names}, \code{/AcroForm}, \code{/Action}, \code{/AA} & Defines a script or an action to be automatically run \\
+ 				\code{/Launch} & Runs a program or opens a document \\
+ 				\code{/URI} & Accesses a resource by its URL \\
+ 				\code{/SubmitForm}, \code{/GoToR} & Can send data to indicated URL \\
+ 				\code{/ObjStm} & Hides objects inside Streams \\
+                 
+			\end{tabular}
+\end{table}
+
 
 \section{Machine Learning for Malware Detection}
 \label{section:mlForMalware}
 
-\section{Benefits of Cloud Computing}
-\label{section:cloudComputing}
+% \section{Benefits of Cloud Computing}
+% \label{section:cloudComputing}
 % Using a cloud-based anti-virus makes it much easier to manage, especially as there's no need to constantly update software on multiple devices. However, it is worth bearing in mind that installing anti-virus to combat malware can only be one part of an overall IT security policy.
 % https://www.redhat.com/en/topics/cloud-native-apps/what-are-cloud-applications
 % Simply put, a cloud application is software that users access primarily through the internet, meaning at least some of it is managed by a server, not the user’s local machine. This basic definition doesn’t fully describe how cloud applications have reshaped markets and business models, though. If designed well, cloud applications can offer a user experience like a program installed entirely on a local machine, but with reduced resource needs, more convenient updating, and the ability to access functionality across different devices.
@@ -94,7 +119,7 @@ determines the location of existing objects in PDF. The last section of the file
 %Advantages:
 % Fast computation to run more advanced and complex detection algorithms
 % More accurate detection with a large-size signature database
-% Address zero-day vulnerabilitie
+% Address zero-day vulnerabilities
 % Cloud-based malware detection vs. local detection
 %  Transmission delay, computation speed, detection accuracy, storage cost
 %  User competition vs. cooperation in the malware detection
