@@ -90,7 +90,7 @@ Malicious PDF can be classified into three categories: \textit{reader exploitati
 	\caption{Standard PDF Entries whose functionality can be abused}
 	\label{table:pdfentries}
 		\centering
-            \begin{tabular}{l | l}
+            \begin{tabular}{p{7cm} | p{8cm}}
                 
 				\textbf{Entry} & \textbf{Functionality} \\
 				\hline 
@@ -107,6 +107,34 @@ Malicious PDF can be classified into three categories: \textit{reader exploitati
 
 \section{Machine Learning for Malware Detection}
 \label{section:mlForMalware}
+Machine Learning (\textit{ML}) algorithms are increasingly used in various fields of science due to their fast adaptability to the new arising problems. Cybersecurity is one of these areas, where the complexion and the assortment of attacks are daily raising. It becomes convenient to put ML into practice because of the large amount of collected data (application logs, network traffic scans, etc.), which can be processed using statistics techniques and can be transformed into models for making future predictions based on the new incoming inputs. This solution reduces the costs for continuous analysis, leaving the hard work on powerful computers, whose high performance don't require nowadays huge investments. Also it helps businesses more efficient prevent potential threats and automates routine tasks, allowing security teams to focus on implementing new detection techniques to advance ML algorithms. \par 
+As presented in \cite{mlsec}, Machine Learning's use cases in security can be splitted into two types: \textit{anomaly detection} and \textit{pattern recognition}, thus these solutions are used to solve following specific security issues: spam detection (filters are applied on emails, webpages in order to detect patterns of usual phishing attacks), malware catching (polymorphic malwares such as Trojan\footnote{malware that is disguised as benign software to avoid detection}, Spyware\footnote{malware that is aimed to collect information without permission of the user}, Ransomware\footnote{malware that restricts access to personal data} etc. is recognized based on their behavior), account takeover spot (such kind of anomaly is detected, because of multiple tries when gaining access to someone's account) and many others. For more detailed information about used Machine Learning techniques in Cybersecurity consult Table \ref{table:mlAlgos}.
+
+\begin{table}[H]
+	\caption{Application of Machine Learning to Cybersecurity problems}
+	\label{table:mlAlgos}
+		\centering
+            \begin{tabular}{p{3cm} || p{5cm} | p{3cm} | p{4cm}}
+                
+				\textbf{Technique} & \textbf{Explanation} & \textbf{Algorithm} & \textbf{Cybersecurity problem} \\
+				\hline \hline
+				\texttt{Classification} & Separation into different categories & K-Nearest Neighbors (\code{KNN}), Support Vector Machine(\code{SVM}), Random Forest & Spam filtering \\
+				\hline
+				\texttt{Regression} & Prediction of future values based on previous ones & Linear Regression (\code{LR}) & Fraud detection \\
+				\hline
+				\texttt{Association Rule Learning} & Recommendation based on past experience & Equivalence Class Clustering and bottom-up Lattice Traversal (\code{ECLAT}) & Incident response (suggest a policy to apply in case of a particular incident) \\
+				\hline
+				\texttt{Clustering} & Grouping into unknown categories based on similar features & \code{K-Means} & Detection of polymorphic malwares \\
+				\hline
+				\texttt{Generative Model} & Generation based on known distribution & Markov Chains & Vulnerability scanning \\
+				
+			\end{tabular}
+\end{table}
+
+%Over-reliance on AI in cybersecurity can create a false sense of safety, Marty adds. That's why, in addition to judiciously applied algorithms, his firm employs cybersecurity experts, data scientists and psychologists. As with all current artificial intelligence, machine learning supplements and enhances human efforts, rather than replacing them. 
+
+% “AI is going to become more prevalent in security. It's maturing,” CrowdStrike Founder and CEO George Kurtz said in late 2018. “AI is a feature, not a company. It's going to play a role in solving a specific problem. But not every problem can be solved with AI.
+
 
 % \section{Benefits of Cloud Computing}
 % \label{section:cloudComputing}
