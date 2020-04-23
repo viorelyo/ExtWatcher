@@ -36,6 +36,18 @@ In the following subsections we will touch upon algorithms and techniques we hav
 \end{figure}
 
 \subsection{Feature Selection}
+As we already know, Machine Learning is based on mathematical concepts, hence the algorithms consist of performing mathematical operations to identify patterns in data. In order to use our dataset as input for ML algorithms, first of all we need to bring the data in an appropiate form. Therefor the most relevant data from a PDF document should be extracted and transformed into a vectorized form. As already seen in Table \ref{table:pdfentries}, there are several standard PDF entries which can be used for malicious intentions. For featurizing PDF documents we have used \textit{PDFiD} from \textit{PDF Tools} suite \cite{pdftools}, which is a Python script that selects 22 features from a PDF file, including keywords commonly found in malicious documents, name obfuscations etc. The output of the script is a list of PDF entries and their occurences (see Figure \ref{pdfidoutput}). Before turning this featurized form of the PDF file into input for ML algorithms, the data should be normalized to [0, 1] range. This is an important step in order to avoid ML issues when features are on drastically different scales (see \cite{mlCookbook}). The vectorized form of the PDF document is built by applying the \textit{Min-Max Normalization} (\ref{eq:1}) strategy on the array of features extracted by \textit{PDFiD}.
+
+\begin{equation}
+	\label{eq:1}
+	z = \frac{x - min(x)}{max(x) - min(x)}
+\end{equation}
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/pdfidoutput.png}}  
+	\caption{Example of results of \textit{PDFiD} applied on a benign PDF file (left) and on a malicious one (right)}
+	\label{pdfidoutput}
+\end{figure}
 
 \subsection{Classification Techniques}
 \subsection{Performance Evaluation}
@@ -48,5 +60,4 @@ In the following subsections we will touch upon algorithms and techniques we hav
 \cite{zeltser}
 \subsection{Python Flask}
 \subsection{Scikit-learn Machine Learning Library}
-\cite{mlCookbook} 
 \subsection{ReactJS Framework}
