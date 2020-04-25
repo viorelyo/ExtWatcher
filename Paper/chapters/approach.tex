@@ -56,8 +56,20 @@ As we already know, Machine Learning is based on mathematical concepts, hence th
 \section{Used technologies}
 \label{section:technologies}
 \subsection{Microsoft .NET Framework}
+As previously mentioned in sections \ref{section:backgroundProc} and \ref{section:filesystem}, our application is going to have a help tool for Windows based computers that will automatically detect new downloaded PDF documents, upload them to our Cloud Analyzer and take action (keep/delete) on that files corresponding to their category (benign/malicious). This tool will take the form of a Windows Service which will start running at the boot-time of the computer in the Session 0 (see section \ref{section:backgroundProc}) and will communicate with an application responsible for notifying users through Windows notifications (see Figure \ref{winserviceDesign}). 
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/winService.png}}  
+	\caption{Architecture's outline of the help tool for Windows}
+	\label{winserviceDesign}
+\end{figure}
+
+Microsoft \textbf{.NET Framework} provides all the necessary Classes for creating the described tool. This framework represents a solution for standardization of application development on Windows operating system. Prior to the introduction of .NET Framework, the developers mostly used COMs\footnote{Component Objcet Model (COM) is a model of reusable software introduced by Microsoft in 1993} as a solution for code reuse. However, COM requires developers to write boilerplate code in order to turn their business logic into a reusable component, including memory clean up, reference counting etc, whence result a lot of errors. .NET Framework allow developers to focus on writing the business logic, while it is dealing with the memory management and is providing consistent exception-handling mechanisms. For example, in our application we implemented several .NET interfaces to achieve the expected behavior without having to manage a lot of low-level details. To create a Windows Service, we derived our class from \code{System.ServiceProcess.ServiceBase} and we had to override it's \code{OnStart}, \code{OnStop} methods. Because a service runs in Session 0, it means that it does not have support for user interface. Yet the application is intended to push Windows notifications and to ensure this functionality we had to treat our tool as a client-server application. The Windows service establishes an interprocess communication with the client \textit{Tray Notification App} when a user logs in. For this mechanism the WCF\footnote{Windows Communication Foundation (WCF) is a set an API in the .NET Framework for building connected, service-oriented applications} framework is integrated, which allows sending data as asynchronous messages from one endpoint to another. WCF was chosen as communication layer because it provides the \textit{duplex} message exchanging pattern, where two processes establish a secure TCP connection and can send data in both directions. To make this working, it is necessary to just define used entities for communication as \textit{Data Contracts}, that will later serialize the metadata by the WCF serialization engine. Another important component that lies at the core of the WCF service is the monitor class that inherits from .NET \code{System.IO.FileSystemWatcher}. It's behavior was described in section \ref{section:filesystem} and basically we use it to monitor user's specified folders and to send events to the users via the WCF communication. At the top level, in order to catch sent events from the Windows Service, a hidden WPF\footnote{Windows Presentation Foundation (WPF) is a UI framework for desktop applications from .NET Framework} application starts communication with the service at the user's login. When a PDF document is downloaded into monitored folder the Windows Service throws an event that is displayed to the user in form of a Windows System Tray Notification.
+
+% Before putting to disposition of the user this tool, we had to create an installer (++ winService)
+
 \subsection{PDF Tools and Metasploit Framework}
 \cite{zeltser}
-\subsection{Python Flask}
 \subsection{Scikit-learn Machine Learning Library}
+\subsection{Python Flask}
 \subsection{ReactJS Framework}
