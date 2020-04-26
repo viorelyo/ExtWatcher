@@ -50,8 +50,10 @@ As we already know, Machine Learning is based on mathematical concepts, hence th
 \end{figure}
 
 \subsection{Classification Techniques}
+% p. 8 tsukermann book
 \subsection{Performance Evaluation}
 \subsection{Experiment}     % Metasploit + Kali
+\cite{zeltser}
 
 \section{Used technologies}
 \label{section:technologies}
@@ -68,8 +70,14 @@ Microsoft \textbf{.NET Framework} provides all the necessary Classes for creatin
 
 % Before putting to disposition of the user this tool, we had to create an installer (++ winService)
 
-\subsection{PDF Tools and Metasploit Framework}
-\cite{zeltser}
 \subsection{Scikit-learn Machine Learning Library}
+It would be extremely inefficient to always reimplement each Machine Learning algorithm that is required for solving a specific problem. \textbf{Scikit-learn} is one of the well known and largely used ML libraries, that came across as a solution for code reusability and performance optimization. This open-source library was created above the already prepared "ecosystem" for Data Science - \textit{Python}. Even Python is just a programming language, there are a plenty of created libraries using Python, that are used on a daily basis by scientists. In terms of efficiency there are no doubts, that Scikit-learn would give way to other ML libraries. And all this beacause of it's underlying technologies. At the core it integrates:
+	\begin{itemize}
+		\item \textit{Cython} - a compiled language that can bind compiled libraries, reaching high performance of the CPU;
+		\item \textit{Numpy} - optimized Python module for working with large multidimensional arrays;
+		\item \textit{Scipy} - a large collection of efficient algorithms for linear algebra, interpolation etc.
+	\end{itemize}
+Till now, the Scikit-learn developers have supplied the library with various supervised and unsupervised algorithms, such as: regression, clustering, classification algorithms, as well as: Random forest, Support Vector Machine etc. It is a perfect solution for both academic and commercial projects, because of the simple API that it provides, thus the generic implementation of the algorithms can be adapted to personal purposes.
+
 \subsection{Python Flask}
 \subsection{ReactJS Framework}
