@@ -5,7 +5,7 @@ In this chapter we are going to have an in-depth look at the architecture of our
 
 \section{Design}
 \label{section:design}
-\textit{ExtWatcher} is a software application assembled from multiple components with different used technologies (see Figure \ref{deployment}). In the following we will introduce you into it's implementation design starting from the low level and we will explain what role each component plays in the context of providing a truly effective security solution. 
+\textit{ExtWatcher} is a software application assembled from multiple components using different technologies (see Figure \ref{deployment}). In the following we will introduce you into it's implementation design starting from the low level and we will explain what role each component plays in the context of providing a truly effective security solution. 
 
 \begin{figure}[H]
 	\centerline{\includegraphics[scale=0.4]{figures/deployTech.png}}  
@@ -13,10 +13,12 @@ In this chapter we are going to have an in-depth look at the architecture of our
 	\label{deployment}
 \end{figure}
 
+The core of the entire software application is the \textit{Cloud Analyzer}, which provides the security measure against malicious PDF documents. ExtWatcher has two different, independent approaches for getting access to the Cloud Analyzer. The first one implies automatic file detection and requires the installation of \textit{ExtWatcher Service}, which will establish a connection through HTTP to the Cloud Analyzer and will remove instantly detected malicious files from the user's computer. The second approach is an \textit{out-of-the-box} functionality, user being able to analyze a file by accessing the Cloud Analyzer Dashboard (web graphical user interface) and entering the URL of the file. The dashboard submits the URL to the Cloud Analyzer and the later downloads the file, classifies it and sends back the verdict. This solution is fit for mobile devices, as it requires no additional installation, ExtWatcher Service having support just for Windows OS at the moment. \par
+In order to properly work, our application requires permanent Internet connection, because the core of analysis is remotely located. The advantage of this is the fact that cloud servers are better at applying Machine Learning models for malware detection, thereby reducing the workload of personal computers. 
 
 
 
-\section{Windows Service}
+\section{ExtWatcher Service}
 \label{section:winService}
 
 % Before putting to disposition of the user this tool, we had to create an installer (++ winService)
