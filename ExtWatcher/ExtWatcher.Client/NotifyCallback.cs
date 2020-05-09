@@ -25,7 +25,7 @@ namespace ExtWatcher.Client
             //Console.WriteLine(e.FileName);
             //Console.WriteLine(e.Date);
 
-            _trayMenu.ShowNotification(e.FileName + " " + e.Date);
+            _trayMenu.ShowNotification(e.FileName);
         }
     }
 }
