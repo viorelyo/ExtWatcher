@@ -74,21 +74,24 @@ Microsoft \textbf{.NET Framework} provides all the necessary Classes for creatin
 
 \subsection{Scikit-learn Machine Learning Library}
 It would be extremely inefficient to always reimplement each Machine Learning algorithm that is required for solving a specific problem. \textbf{Scikit-learn} is one of the well known and largely used ML libraries, that came across as a solution for code reusability and performance optimization. This open-source library was created above the already prepared "ecosystem" for Data Science - \textit{Python}. Even Python is just a programming language, there are a plenty of created libraries using Python, that are used on a daily basis by scientists. In terms of efficiency there are no doubts, that Scikit-learn would give way to other ML libraries. And all this beacause of it's underlying technologies. At the core it integrates:
-	\begin{itemize}
-		\item \textit{Cython} - a compiled language that can bind compiled libraries, reaching high performance of the CPU;
-		\item \textit{Numpy} - optimized Python module for working with large multidimensional arrays;
-		\item \textit{Scipy} - a large collection of efficient algorithms for linear algebra, interpolation etc.
-	\end{itemize}
+
+\begin{itemize}
+	\item \textit{Cython} - a compiled language that can bind compiled libraries, reaching high performance of the CPU;
+	\item \textit{Numpy} - optimized Python module for working with large multidimensional arrays;
+	\item \textit{Scipy} - a large collection of efficient algorithms for linear algebra, interpolation etc.
+\end{itemize}
+
 Till now, the Scikit-learn developers have supplied the library with various supervised and unsupervised algorithms, such as: regression, clustering, classification algorithms, as well as: Random forest, Support Vector Machine etc. It is a perfect solution for both academic and commercial projects, because of the simple API that it provides, thus the generic implementation of the ML algorithms can be adapted to personal purposes. Also, Scikit-learn integrates well with other Python libraries, that consistently simplify the data analyisis process. Some of these libraries are: 
-	\begin{itemize}
-		\item \textit{Pandas} - offers optimized data structures (\textit{DataFrames}) for manipulation of large datasets. We could simpy apply \textit{Min-Max Normalization} (see \ref{subsection:featureSelection}) on entire loaded dataset from a raw CSV file.
-		\item \textit{Matplotlib} - used for data visualization and plotting. Learning Curves of the classifier can be better analyzed from a visual representation.
-	\end{itemize}
+
+\begin{itemize}
+	\item \textit{Pandas} - offers optimized data structures (\textit{DataFrames}) for manipulation of large datasets. We could simpy apply \textit{Min-Max Normalization} (see \ref{subsection:featureSelection}) on entire loaded dataset from a raw CSV file.
+	\item \textit{Matplotlib} - used for data visualization and plotting. Learning Curves of the classifier can be better analyzed from a visual representation.
+\end{itemize}
 
 
 \subsection{Python Flask}
 As soon as the heart of our application came to life - the ML model for detecting malicious PDFs we needed a way to make it publicly accessible. \textbf{Flask} is a microframework for web applications that helped us to make it possible. Comparing to other web frameworks, Flask is focused more on simplicity and extensibility, making the development much more oriented on solving own business case. This leightweight framework has no in-built database abstraction layer or object-relational mapping and neither any form validation or authentication, instead it supports third-party libraries that provide all enumerated functionalities and even more. Flask core includes basic functionality required by all web applications and gives an abstraction for creating request-response mechanism based on \textit{Werkzeug} library, which provides a collection of utilities for WSGI\footnote{Web Server Gateway Interface (WSGI) is a specification that describes the communication pattern between a web server and web applications} applications. Other implementation details can be easily integrated based on personal preferences. For example we used a NoSQL database in our application, having the possibility to choose from a large variaty of available mechanisms for data storage. \par
-The created web service respects the requirements of a RESTful architectural design, Flask framework providing a simple mechanism for specifying routing and HTTP methods. For demonstration purposes we have listed below a minimalistic example of a REST HTTP Method (processes a file sent over a POST request and returns a JSON result) showing the Flask simplicity. One of the major advantages of this framework is the compatibility supported by nowadays giants of Cloud Computing. Our created web framework that exposes methods for uploading and PDF files and analyzing them, as well as visualizing history of scanned files, can be later deployed to Cloud services such as: Google Cloud Platform, IBM Bluemix, Microsoft Azure etc. \\ 
+The created web service respects the requirements of a RESTful architectural design, Flask framework providing a simple mechanism for specifying routing and HTTP methods. For demonstration purposes we have listed below a minimalistic example of a REST HTTP Method (processes a file sent over a POST request and returns a JSON result) showing the Flask simplicity. One of the major advantages of this framework is the compatibility supported by nowadays giants of Cloud Computing. Our created web framework that exposes methods for uploading and PDF files and analyzing them, as well as visualizing history of scanned files, can be later deployed to Cloud services such as: Google Cloud Platform, IBM Bluemix, Microsoft Azure etc. \\
 
 \begin{python}
 from flask import Flask, jsonify, request

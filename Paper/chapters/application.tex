@@ -48,12 +48,35 @@ The above described flow can be visualized in Fig. \ref{sequence}. The implement
 \label{section:cloudApi}
 Next we will finally cover the core of our product - the Cloud Analyzer. As mentioned in section \ref{section:design}, there are multiple ways to access the core, as it is a Cloud based solution. The first two methods are straightforward and make the use of the Cloud application intuitive. Nevertheless we designed our API keeping in mind the REST\footnote{REpresentational State Transfer (REST)} architecture. As effect, we have a strong separation between server and client side, thus giving the oportunity to our API to be integrated in multiple ways. Beside the \textit{visual} method (Web Dashboard Interface) and the \textit{automation} method (ExtWatcher Service), this framework can be adapted to more use-cases. The custom client can access it via exposed REST interface, no limitations being currently applied. This independence of the Cloud Analyzer assured by RESTful design makes it flexible and portable, that permitting to configure it in different types of environments. It was not the purpose of this thesis to deploy the framework to any Cloud Services, but it was a main goal to achieve it's portability and the ease of configuration. \par 
 As it was clear, that our framework is going to be a resource for just retrieving data from it, without requiring any information about client's state, we fulfilled another REST paradigm - \textit{Stateless}. Due to this, the application achieves scalability and performance, communication between client and server being simple and not relying on implementation of interfaces. The pattern of interchanging data is based on requests and responses, where the HTTP communication protocol is used. \par
-In order to retrieve information about a PDF file, the \textit{ExtWatcher Service} uses a \texttt{POST} HTTP method to upload the file to the framework. The request contains two main parts: \textit{Header}, which contains all the information about the request, in our case the content type of the body: \texttt{application/pdf}; and the \textit{Body}, which basically contains the content of the uploaded file. Specifying the content type is really importantat, because that ensures that the server is able to process the request. Once the PDF is uploaded to the server, it is being analyzed by applying ML model for predicting the file maliciousness. The result together with a HTTP status code (\textit{200} - for successful process; \textit{400} - for bad request) is then sent back as response. \par
-The Web Dashboard's integration with the Cloud Analyzer is a bit different. Mostly it accesses the server in order to retrieve stored information about previous analyses. That is achieved via \texttt{GET} HTTP methods. The response is in JSON format and can be easily processd by Javascript client in order to offer an intuitive visualization of it. An in-depth particularization about all exposed methods from our framework can be studied in the Table \ref{}.
+In order to retrieve information about a PDF file, the \textit{ExtWatcher Service} uses a \code{POST} HTTP method to upload the file to the framework. The request contains two main parts: \textit{Header}, which contains all the information about the request, in our case the content type of the body: \texttt{application/pdf}; and the \textit{Body}, which basically contains the content of the uploaded file. Specifying the content type is really importantat, because that ensures that the server is able to process the request. Once the PDF is uploaded to the server, first of all, the MD5 hash of the file is calculated to check in the database if the same file was not already analyzed. If the hash is not found, file is being analyzed by applying ML model for predicting the file maliciousness. The result together with a HTTP status code (\textit{200} - for successful process; \textit{400} - for bad request) is then sent back as response. \par
+The Web Dashboard's integration with the Cloud Analyzer is a bit different. Mostly it accesses the server in order to retrieve stored information about previous analyses. That is achieved via \code{GET} HTTP methods. The response is in JSON format and can be easily processd by Javascript client in order to offer an intuitive visualization of it. An in-depth particularization of all exposed methods from our framework can be studied in the Table \ref{table:rest}.
 
-% Tabel cu toate metodele din REST + tip de metoda + ce face
-
-
+\begin{table}[H]
+	\caption{REST Resources of the Cloud Analyzer API}
+	\label{table:rest}
+	\centering
+	\begin{tabular}{p{5cm} | c | p{9cm}}
+		\toprule
+		
+		\textbf{Resource} & \textbf{Method} & \textbf{Purpose} \\
+		\hline 
+		\texttt{/api/file-upload} & \code{POST} & Uploading files for analysis  \\
+		\hline
+		\texttt{/api/url-submit} & \code{POST} & Submitting URL to a file that should be downloaded and analyzed  \\
+		\hline
+		\texttt{/api/feed} & \code{GET} & Retrieve the history of events (who and what kind of analysis type started)  \\
+		\hline
+		\texttt{/api/analyzed-files} & \code{GET} & Obtain a list of informations about all analyzed files \\
+		\hline
+		\texttt{/api/search-files} & \code{GET} & Search files using queries for filtering by different file attributes \\
+		\hline
+		\texttt{/api/extwatcher-service} & \code{GET} & Download ExtWatcher Service Installer\\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+		
+		
 \section{Dashboard Interface}
 \label{section:dashboard}
 
@@ -61,4 +84,44 @@ The Web Dashboard's integration with the Cloud Analyzer is a bit different. Most
 	\centerline{\includegraphics[scale=0.7]{figures/usecaseGUI.png}}  
 	\caption{Use Case Diagram showing interaction between User and Cloud Analyzer using web GUI}
 	\label{usecase}
+\end{figure}
+
+ExtWatcher offers also an intelligent solution for interacting with the Cloud Analyzer API and to visualize the data that passed through it. This is a Web Dashboard with the help of which users can interact with the API from any device, be it laptop or smartphone. An overview of the Dashboard capabilities is presented in Figure \ref{usecase}. It was implemented separately from the server, so it calls just the API methods it requires, without being forced to implement a concrete server interface. The connection between these two is established via HTTP protocol and mostly the Dashboard works with the \code{GET} methods to access the server's resources (see Table \ref{table:rest}) and to present them to users. At the moment, any user that accesses the Dashboard, has the possibility to view statistics about all files ever scanned, including file details such as: filetype, MD5 hash of the file, filename, date when it was scanned and result of analysis (see Figure \ref{screenshot:infotable}). 
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/infotable.png}}  
+	\caption{Screenshot of the ExtWatcher Dashboard table of file informations}
+	\label{screenshot:infotable}
+\end{figure}
+
+Also the dashboard presents a "feed", that serves as a history of using the Cloud Analyzer (see Figure \ref{screenshot:feed}). It includes information about how each file came to be analyzed: by being uploaded by the ExtWatcher Service or by manually submitting the URL of the file, as well as information about the IP the file was originated from.
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/feed.png}}  
+	\caption{Screenshot of the ExtWatcher Dashboard activity feed}
+	\label{screenshot:feed}
+\end{figure}
+
+Of course, to simplify the interaction with this web application, it provides also a \textit{searchbar}. The user can quickly find information about any file, by specifying a basic search query (see Figure \ref{screenshot:searchbar}).
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.6]{figures/searchbar.png}}  
+	\caption{Screenshot of the ExtWatcher Dashboard searchbar and types of search queries}
+	\label{screenshot:searchbar}
+\end{figure}
+
+For those users who adopt the autumatic detection and submission to the Cloud Analyzer approach, using \textit{ExtWatcher Service}, the Windows Installer can be downloaded directly from the Dashboard (see Figure \ref{screenshot:installer}). 
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.45]{figures/installer.png}}  
+	\caption{Screenshot of the ExtWatcher Dashboard download page for ExtWatcher Service Installer}
+	\label{screenshot:installer}
+\end{figure}
+
+However, we took in consideration the alternative case, when not all users would prefer this method or some just don't have a computer with Windows OS (single OS for which ExtWatcher Service has support yet). There is another method to analyze PDF files directly from the web Dashboard. The user should just specify the URL of the file he wants to analyze and the rest workload is taken by the Cloud Analyzer. In this way, the user can be confident that no PDF file can harm his device, because it is first downloaded by the Cloud Analyzer and is analyzed on a remote, safe environment. After the analysis result is showed, the user can decide what to do with that file (see Figure \ref{screenshot:analyze}).
+
+\begin{figure}[H]
+	\centerline{\includegraphics[scale=0.35]{figures/analyze.png}}  
+	\caption{Screenshot of the ExtWatcher Dashboard analyze page}
+	\label{screenshot:analyze}
 \end{figure}
