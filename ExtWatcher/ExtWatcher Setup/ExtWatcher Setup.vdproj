@@ -21,6 +21,30 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1C30ADB7D502F0DADFF86E3ED5AB8F75"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2A03FCB2D02140E4AFDF510F76D2393B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3159C224C1F3E070CC030B43A2E9854B"
+        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3159C224C1F3E070CC030B43A2E9854B"
+        "OwnerKey" = "8:_1C30ADB7D502F0DADFF86E3ED5AB8F75"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4C19AA2878224AD1BCE064093EA95BF5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -34,25 +58,7 @@
         "Entry"
         {
         "MsmKey" = "8:_4F7DAE4983340A1981F933A4BB60C862"
-        "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
-        "OwnerKey" = "8:_C381FF6738614A128B930E6030F3B058"
+        "OwnerKey" = "8:_1C30ADB7D502F0DADFF86E3ED5AB8F75"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -63,14 +69,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C381FF6738614A128B930E6030F3B058"
+        "MsmKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1C30ADB7D502F0DADFF86E3ED5AB8F75"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3159C224C1F3E070CC030B43A2E9854B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -83,24 +101,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_071257D2E5F948EE8E48D09EE90E7FB5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFF48A6C776044D0AC8FC17A9D039B93"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C381FF6738614A128B930E6030F3B058"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7FBE7EB53286313C5170E87ADD993933"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -268,6 +268,88 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C30ADB7D502F0DADFF86E3ED5AB8F75"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ExtWatcher.WCF.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1C30ADB7D502F0DADFF86E3ED5AB8F75"
+                    {
+                    "Name" = "8:ExtWatcher.WCF.Service.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ExtWatcher.WCF.Service.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A03FCB2D02140E4AFDF510F76D2393B"
+            {
+            "SourcePath" = "8:icon.ico"
+            "TargetName" = "8:icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3159C224C1F3E070CC030B43A2E9854B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ExtWatcher.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_3159C224C1F3E070CC030B43A2E9854B"
+                    {
+                    "Name" = "8:ExtWatcher.Common.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ExtWatcher.Common.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C19AA2878224AD1BCE064093EA95BF5"
             {
             "SourcePath" = "8:..\\ExtWatcher.Client\\client_config\\setup.config"
@@ -319,37 +401,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7FBE7EB53286313C5170E87ADD993933"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ExtWatcher.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_7FBE7EB53286313C5170E87ADD993933"
-                    {
-                    "Name" = "8:ExtWatcher.Common.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ExtWatcher.Common.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80F21B1981C84ED8825556523B9943E5"
             {
             "SourcePath" = "8:..\\ExtWatcher\\service_config\\setup.config"
@@ -368,37 +419,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C381FF6738614A128B930E6030F3B058"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ExtWatcher.WCF.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C381FF6738614A128B930E6030F3B058"
-                    {
-                    "Name" = "8:ExtWatcher.WCF.Service.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ExtWatcher.WCF.Service.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -491,7 +511,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ExtWatcher"
         "ProductCode" = "8:{CF2D1606-E8EB-49A1-A70B-D17A45FF0C7E}"
-        "PackageCode" = "8:{45D5923B-96F0-4797-ACE1-389007DEDA6F}"
+        "PackageCode" = "8:{C0D9E3FE-7F3E-4FB5-87A3-719E065268D4}"
         "UpgradeCode" = "8:{D5C47072-3125-4B2C-8FA3-F47F4C1A3E71}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -508,7 +528,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_2A03FCB2D02140E4AFDF510F76D2393B"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -1012,7 +1032,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_071257D2E5F948EE8E48D09EE90E7FB5"
             {
-            "SourcePath" = "8:..\\ExtWatcher.Client\\obj\\Release\\ExtWatcher.Client.exe"
+            "SourcePath" = "8:..\\ExtWatcher.Client\\obj\\Debug\\ExtWatcher Service.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
@@ -1040,7 +1060,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EFF48A6C776044D0AC8FC17A9D039B93"
             {
-            "SourcePath" = "8:..\\ExtWatcher\\obj\\Release\\ExtWatcher.exe"
+            "SourcePath" = "8:..\\ExtWatcher\\obj\\Debug\\ExtWatcher.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FB4CF2AB121244B6A7475D3C1754DBBC"
