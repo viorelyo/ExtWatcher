@@ -106,7 +106,7 @@ def get_file_by_name():
         return response
 
 
-@app.route('/download/service.zip')
+@app.route('/api/extwatcher-service', methods=['GET'])
 def download_service():
     path = os.path.join(app.config['DOWNLOAD_FOLDER'], SERVICE_FOR_DOWNLOAD)
     return send_file(path, as_attachment=True)
