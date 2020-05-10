@@ -26,8 +26,8 @@ const extra = (
 
 function download() {
   var link = document.createElement("a");
-  link.download = "service.zip";
-  link.href = "http://localhost:5000/download/service.zip";
+  link.download = "extwatcher-service.zip";
+  link.href = "http://localhost:5000/api/extwatcher-service";
   link.click();
 }
 
