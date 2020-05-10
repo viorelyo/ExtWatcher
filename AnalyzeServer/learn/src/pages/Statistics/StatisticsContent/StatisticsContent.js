@@ -1,10 +1,11 @@
 import React from "react";
-import { Loader } from "semantic-ui-react";
+import { Loader, Divider, Grid } from "semantic-ui-react";
 import { getAllFiles } from "../../../store/reducers/file";
 import { connect } from "react-redux";
 
 import FilesTable from "../../../components/FilesTable/FilesTable";
-import FileCounter from "../../../components/FileCounter/FileCounter";
+import PieChartComponent from "../../../components/Charts/PieChartComponent";
+import RadarChartComponent from "../../../components/Charts/RadarChartComponent";
 
 class StatisticsContent extends React.Component {
   render() {
@@ -16,7 +17,16 @@ class StatisticsContent extends React.Component {
           Loading
         </Loader>
 
-        <FileCounter files={allFiles} />
+        <Grid stackable>
+          <Grid.Column width={8}>
+            <PieChartComponent files={allFiles} />
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <RadarChartComponent files={allFiles} />
+          </Grid.Column>
+        </Grid>
+
+        <Divider />
         <FilesTable files={allFiles} />
       </div>
     );
@@ -29,7 +39,7 @@ class StatisticsContent extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    allFiles: getAllFiles(state)
+    allFiles: getAllFiles(state),
   };
 }
 

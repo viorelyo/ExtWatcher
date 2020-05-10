@@ -25,7 +25,7 @@ class Statistics extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    allFiles: getAllFiles(state)
+    allFiles: getAllFiles(state),
   };
 }
 

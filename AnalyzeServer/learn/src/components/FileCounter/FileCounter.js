@@ -12,8 +12,6 @@ function FilesTable(props) {
         <Statistic.Label>Files</Statistic.Label>
         <Statistic.Value>{props.files.length}</Statistic.Value>
       </Statistic>
-
-      <Divider />
     </div>
   );
 }

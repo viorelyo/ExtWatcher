@@ -1,58 +1,104 @@
-import React from "react";
-import { Table, Image, Accordion } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Table, Image } from "semantic-ui-react";
 import "./FilesTable.scss";
+
 import { CellType } from "./ResultCellType/CellType";
+import { BonusFileInfo } from "./BonusFileInfo";
 
 import pdf from "../../assets/images/pdf.svg";
 
-function FilesTable(props) {
-  if (!props.files || !props.files.length) {
-    return <div />;
+class FilesTable extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expandedRows: [],
+    };
   }
 
-  // const fileItems = props.files.map(file => {
-  //   let type;
-  //   switch (file.filetype) {
-  //     case "pdf":
-  //       type = pdf;
-  //       break;
-  //     default:
-  //       type = pdf;
-  //       break;
-  //     //TODO new supported filetypes will be added here
-  //   }
+  handleRowClick(rowId) {
+    const currentExpandedRows = this.state.expandedRows;
+    const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
 
-  //   return (
-  //     <Table.Row key={file.file_hash}>
-  //       <Table.Cell collapsing>
-  //         <Image src={type} size="mini" centered />
-  //       </Table.Cell>
-  //       <Table.Cell collapsing textAlign="center">
-  //         {file.file_hash}
-  //       </Table.Cell>
-  //       <Table.Cell textAlign="center">{file.filename}</Table.Cell>
-  //       <Table.Cell textAlign="center">26/02/2020 - 23:03:00</Table.Cell>
-  //       <CellType type={file.verdict} />
-  //     </Table.Row>
-  //   );
-  // });
+    const newExpandedRows = isRowCurrentlyExpanded
+      ? currentExpandedRows.filter((id) => id !== rowId)
+      : currentExpandedRows.concat(rowId);
 
-  return (
-    <Table celled selectable>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell textAlign="center">Filetype</Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">MD5</Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">Filename</Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">Date</Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">Result</Table.HeaderCell>
+    this.setState({ expandedRows: newExpandedRows });
+  }
+
+  renderItemDetails(file) {
+    return <BonusFileInfo file={file} />;
+  }
+
+  renderItem(file, index) {
+    const clickCallback = () => this.handleRowClick(index);
+
+    let type;
+    switch (file.filetype) {
+      case "pdf":
+        type = pdf;
+        break;
+      default:
+        type = pdf;
+        break;
+      //TODO new supported filetypes will be added here
+    }
+
+    const itemRows = [
+      <Table.Row onClick={clickCallback} key={"row-data-" + index}>
+        <Table.Cell collapsing>
+          <Image src={type} size="mini" centered />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          {file.file_hash}
+        </Table.Cell>
+        <Table.Cell textAlign="center">{file.filename}</Table.Cell>
+        <Table.Cell textAlign="center">{file.datetime}</Table.Cell>
+        <CellType type={file.result} />
+      </Table.Row>,
+    ];
+
+    if (this.state.expandedRows.includes(index)) {
+      itemRows.push(
+        <Table.Row key={"row-expanded-" + index}>
+          <Table.Cell colSpan="5">{this.renderItemDetails(file)}</Table.Cell>
         </Table.Row>
-      </Table.Header>
+      );
+    }
 
-      <Accordion
+    return itemRows;
+  }
+
+  render() {
+    if (!this.props.files || !this.props.files.length) {
+      return <div />;
+    }
+
+    let allItemRows = [];
+    this.props.files.forEach((file, index) => {
+      const perItemRows = this.renderItem(file, index);
+      allItemRows = allItemRows.concat(perItemRows);
+    });
+
+    return (
+      <Table celled selectable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell textAlign="center">Filetype</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">MD5</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">Filename</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">Date</Table.HeaderCell>
+            <Table.HeaderCell textAlign="center">Result</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        {/* ======= Buggy implementation of Semantic-UI Library. Maybe later will be fixed. ====== */}
+
+        {/* <Accordion
         fluid={true}
         as={Table.Body}
-        panels={props.files.map(file => {
+        panels={this.props.files.map((file) => {
           let type;
           switch (file.filetype) {
             case "pdf":
@@ -77,19 +123,22 @@ function FilesTable(props) {
                 </Table.Cell>,
                 <Table.Cell textAlign="center">{file.filename}</Table.Cell>,
                 <Table.Cell textAlign="center">{file.datetime}</Table.Cell>,
-                <CellType type={file.result} />
-              ]
+                <CellType type={file.result} />,
+              ],
             },
             content: {
-              children: [<Image src={type} size="massive" />]
-            }
+              children: [
+                  <BonusFileInfo file={file} key={file.file_hash} />
+              ],
+            },
           };
         })}
-      />
+      /> */}
 
-      {/* <Table.Body>{fileItems}</Table.Body> */}
-    </Table>
-  );
+        <Table.Body>{allItemRows}</Table.Body>
+      </Table>
+    );
+  }
 }
 
 export default FilesTable;
