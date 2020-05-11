@@ -1,0 +1,14 @@
+@import "../../styles/shared.scss";
+
+.app-layout {
+  // & > *:not(:first-child) {
+  padding-top: $topmenu-height + 15px;
+  padding-left: 10em;
+  padding-bottom: 5em;
+  padding-right: 5em;
+
+  // }
+  .ui.loader.active {
+    margin-left: 4em;
+  }
+}
