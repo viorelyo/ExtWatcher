@@ -64,7 +64,7 @@ const panels = [
 
 function Downloads() {
   return (
-    <Grid>
+    <Grid stackable>
       <Grid.Column floated="left" width={5}>
         <Statistic size="small">
           <Statistic.Value>5,550</Statistic.Value>

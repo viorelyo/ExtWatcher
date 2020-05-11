@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "./Chart.scss";
 
 class PieChartComponent extends Component {
