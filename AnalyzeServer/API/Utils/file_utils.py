@@ -42,3 +42,13 @@ class FileUtils:
         elif filename[0] == "'":
             filename = re.findall("'([^']*)'", filename)[0]
         return filename
+
+    @staticmethod
+    def get_file_size(filepath):
+        size_bytes = os.path.getsize(filepath)
+
+        for unit in ['B','KB','MB']:
+            if abs(size_bytes) < 1024.0:
+                return "%3.1f %s" % (size_bytes, unit)
+            size_bytes /= 1024.0
+        return "%.1f %s" % (size_bytes, 'GB')

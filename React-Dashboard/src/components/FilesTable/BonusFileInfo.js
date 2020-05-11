@@ -10,7 +10,7 @@ export function BonusFileInfo(props) {
             <Icon name="time" />
             <Header.Content>
               Process time
-              <Header.Subheader>{props.file.analysis_time} s</Header.Subheader>
+              <Header.Subheader>{props.file.analysis_time.toFixed(2)} s</Header.Subheader>
             </Header.Content>
           </Header>
         </Grid.Column>
@@ -19,7 +19,7 @@ export function BonusFileInfo(props) {
             <Icon name="save" />
             <Header.Content>
               Size
-              <Header.Subheader>112 MB</Header.Subheader>
+              <Header.Subheader>{props.file.filesize}</Header.Subheader>
             </Header.Content>
           </Header>
         </Grid.Column>

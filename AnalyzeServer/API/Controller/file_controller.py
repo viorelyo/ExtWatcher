@@ -64,7 +64,7 @@ class FileController:
         # If file is in DB it shouldn't be reanalyzed
         file_data = self.file_repo.get_file_by_filehash(file_hash)
         if file_data is None:
-            self.file_repo.add_file(file_hash, filename, self.file_utils.extract_file_extension(filename))
+            self.file_repo.add_file(file_hash, filename, self.file_utils.extract_file_extension(filename), self.file_utils.get_file_size(filepath))
 
             result = self.analyzer.process(filepath)
             result, analysis_time = self.__get_result(result)
