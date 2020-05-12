@@ -98,7 +98,8 @@ namespace ExtWatcher.WCF.Service.Controller
                             if (t.Status == TaskStatus.RanToCompletion)
                             {
                                 var response = t.Result;
-                                
+                                Logger.WriteToLog(String.Format("Response of the submit request: '{0}'.", response.ToString()));
+
                                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                                 {
                                     string rawResponse = response.Content.ReadAsStringAsync().Result;
@@ -109,10 +110,18 @@ namespace ExtWatcher.WCF.Service.Controller
                                     { 
                                         isFileMalicious = false;
                                     }
-                                    else
+                                    else if (statusFromServer.Contains(Constants.StatusFromServerMalicious))
                                     {
                                         isFileMalicious = true;
                                     }
+                                    else
+                                    {
+                                        isFileMalicious = false;
+                                    }
+                                }
+                                else
+                                {
+                                    isFileMalicious = false;
                                 }
                             }
                             fileStream.Close();

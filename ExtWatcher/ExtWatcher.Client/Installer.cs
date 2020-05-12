@@ -26,7 +26,7 @@ namespace ExtWatcher.Client
         {
             base.Commit(savedState);
 
-            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+            FileStream stream = new FileStream(@"C:\ExtWatcher-InstallLog.log", FileMode.Append, FileAccess.Write);
             using (var writer = new StreamWriter(stream))
             {
                 writer.WriteLine("Client - Commit");
@@ -35,7 +35,7 @@ namespace ExtWatcher.Client
 
             try
             {
-                string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ExtWatcher.Client.exe";
+                string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ExtWatcher Service.exe";
 
                 // Start App after Install finishes
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
@@ -55,7 +55,8 @@ namespace ExtWatcher.Client
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
             base.OnBeforeUninstall(savedState);
-            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+
+            FileStream stream = new FileStream(@"C:\ExtWatcher-UninstallLog.log", FileMode.Append, FileAccess.Write);
             using (var writer = new StreamWriter(stream))
             {
                 writer.WriteLine("Client - OnBeforeUninstall");
@@ -64,7 +65,7 @@ namespace ExtWatcher.Client
 
             try
             {
-                string appName = "ExtWatcher.Client";
+                string appName = "ExtWatcher Service";
 
                 // Stop running instances of App
                 foreach (var proc in Process.GetProcessesByName(appName))
@@ -81,7 +82,8 @@ namespace ExtWatcher.Client
         public override void Uninstall(IDictionary savedState)
         {
             base.Uninstall(savedState);
-            FileStream stream = new FileStream(@"C:\install\log.log", FileMode.Append, FileAccess.Write);
+
+            FileStream stream = new FileStream(@"C:\ExtWatcher-UninstallLog.log", FileMode.Append, FileAccess.Write);
             using (var writer = new StreamWriter(stream))
             {
                 writer.WriteLine("Client - Uninstall");
@@ -90,7 +92,7 @@ namespace ExtWatcher.Client
 
             try
             {
-                string appName = "ExtWatcher.Client";
+                string appName = "ExtWatcher Service";
 
                 // Stop running instances of App
                 foreach (var proc in Process.GetProcessesByName(appName))
