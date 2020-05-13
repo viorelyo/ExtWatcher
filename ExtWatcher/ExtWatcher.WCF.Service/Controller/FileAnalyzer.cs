@@ -60,27 +60,30 @@ namespace ExtWatcher.WCF.Service.Controller
         }
 
         /// <summary>
-        /// Set attributes for file as Hidden. Blocks fullcontrol on file.
+        /// Set attributes for file as Hidden. (DEPRECATED: Blocks fullcontrol on file.)S
         /// </summary>
         private void BlockFile()
         {
-            string adminUserName = Environment.UserName;
+            Logger.WriteToLog(String.Format("Blocking file: '{0}'.", fileToBeAnalyzed));
 
             File.SetAttributes(fileToBeAnalyzed, File.GetAttributes(fileToBeAnalyzed) | FileAttributes.Hidden);
-            FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
-            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
-            fs.AddAccessRule(fsa);
-            File.SetAccessControl(fileToBeAnalyzed, fs);
+
+            // -------- DEPRECATED ------
+            //string adminUserName = Environment.UserName;
+            //FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
+            //FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
+            //fs.AddAccessRule(fsa);
+            //File.SetAccessControl(fileToBeAnalyzed, fs);
         }
 
         private bool SubmitFile()
         {
             bool isFileMalicious = false;
 
-            Logger.WriteToLog(String.Format("Submitting file: '{0}'.", fileToBeAnalyzed));
+            Logger.WriteToLog(String.Format("Creating submit request for file: '{0}'.", fileToBeAnalyzed));
             try
             {
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))
                 {
                     // Open fileStream by blocking share of file to other processes
                     var fileStream = File.Open(fileToBeAnalyzed, FileMode.Open, FileAccess.Read, FileShare.None);
@@ -92,6 +95,8 @@ namespace ExtWatcher.WCF.Service.Controller
 
                     BlockFile();
 
+                    Logger.WriteToLog(String.Format("Submitting file: '{0}' to '{1}'.", fileToBeAnalyzed, Constants.CloudAnalyzerURL));
+                    Logger.WriteToLog(String.Format("Content: '{0}' to '{1}'.", content.Headers.ToString(), content.ToString()));
                     var task = httpClient.PostAsync(Constants.CloudAnalyzerURL, content)
                         .ContinueWith(t =>
                         {
@@ -142,12 +147,14 @@ namespace ExtWatcher.WCF.Service.Controller
 
         private void TakeAction(bool isFileMalicious)
         {
-            string adminUserName = Environment.UserName;
+            Logger.WriteToLog(String.Format("Taking corresponding action on file: '{0}' with status '{1}'.", fileToBeAnalyzed, isFileMalicious));
 
-            FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
-            FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
-            fs.RemoveAccessRule(fsa);
-            File.SetAccessControl(fileToBeAnalyzed, fs);
+            // -------- DEPRECATED ------
+            //string adminUserName = Environment.UserName;
+            //FileSecurity fs = File.GetAccessControl(fileToBeAnalyzed);
+            //FileSystemAccessRule fsa = new FileSystemAccessRule(adminUserName, FileSystemRights.FullControl, AccessControlType.Deny);
+            //fs.RemoveAccessRule(fsa);
+            //File.SetAccessControl(fileToBeAnalyzed, fs);
 
             if (isFileMalicious)
             {
