@@ -52,11 +52,33 @@ As we already know, Machine Learning is based on mathematical concepts, hence th
 	\label{pdfidoutput}
 \end{figure}
 
-\subsection{Classification Techniques}
-% p. 8 tsukermann book
+\subsection{Classification Technique}
+As we have successfully created the dataset by vectorizing each PDF from our collection and setting a label for each one (everything saved as a CSV file), the next steps would be feeding the dataset to a ML classifier and training a model. According to our application's requirements, a PDF file should pass through a binary classification, so the analyzed files can be only \texttt{malicious} or \texttt{benign}, respectively a supervised strategy was chosen. The model, that is the goal of creation when applying Machine Learning, is able to perform tasks that it has not been explicitly implemented to execute. First of all we splitted the dataset into training data and 30 \% were allocated for testing data. The training data is used to fit the model, so that the resulting trained model could be used to predict the correct verdict on previously unseen metadata. \par 
+Above all existing classification algorithm, \textbf{Random Forests} was selected because of its effective classification capability and the ease of use. Under the hood, this algorithm gives the classification result based on ensembling the results from multiple decision trees. First a random subset from training data is selected. At each split point $m$ features from $n$ available are randomly selected ($m \leqslant n$) and the optimal split point from $m$ features is picked ($m = \sqrt{n}$ is recommended). This step is repeated until an individual tree is trained and each result represents the vote of a decision tree. These votes are combined to give an unified final classification result of the Random Forest technique.
+Even the training process is computationally expensive, once the classification model is constructed, categorizing is quickly executed. In order to make our API, that integrates this model, more efficient, we used the Python module - \texttt{pickle} to dump the virtual model into a file saved to disk. The process of refitting the model before using it to predict is much more time consuming than just loading the already fitted model form the disk.
+
+
+\subsection{Experiment}
+Before putting the chosen classification algorithm into work we definetely had to take several aspects into consideration. The most important of them is the environment where the model is trained. When working with malicious samples it is crucial to ensure that the personal computer integrity will not be affected. The instructions defined in Lenny Zeltser's articles \cite{zeltser} helped us to set up an isolated laboratory environment for our \textit{experiment}. First of all we used VMware to create a virtual machine (VM), where we installed a Linux distribution. In this way no physical machine could be damaged and the lightweight OS keeps the performance unimpacted. For further performance evaluations the allocated hardware specifications for the VM should be taken into consideration: \textit{RAM = 3GB}, \textit{CPU = 4 processor cores}. The communication with the development computer is through a shared folder, where the collection of PDFs, as well as the source code for training model were dropped. After configuring all the required libraries, the network adapter of the VM was completely removed, so that it could not establish any conexion to external sources in case of any malicious behavior. Also a snapshot of the set up environment was taken. This is another huge advantage of a virtual machine: in case of accidental opening of a malicious file, we could easily revert to a safe snapshot. \par 
+After the classification model was successfully created, we decided to simulate a cyberattack using a malicious PDF file, in order to test the model prediction in a pseudo-real life scenario. Metasploit\footnote{a penetration testing framework} was used for injecting a malicious payload into an innocent looking file. After uploading the file to our analyzer, the classification result was as expected - \texttt{malicious}.
+
+
 \subsection{Performance Evaluation}
-\subsection{Experiment}     % Metasploit + Kali
-\cite{zeltser}
+As performance estimators for evaluating the strengths of the obtained classification model we have selected the following metrics: 
+
+\begin{equation}
+	Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+
+\begin{equation}
+	Recall = \frac{TP}{TP + FN}
+\end{equation}
+
+
+
+
+% Classifier Performance Comparison + maybe add SVM (file:///C:/Users/viorel/Desktop/Bachelor/Resources/Malicious_PDF_Detection_ACSAC_12.pdf)
+
 
 \section{Used technologies}
 \label{section:technologies}
@@ -90,7 +112,7 @@ Till now, the Scikit-learn developers have supplied the library with various sup
 
 
 \subsection{Python Flask}
-As soon as the heart of our application came to life - the ML model for detecting malicious PDFs we needed a way to make it publicly accessible. \textbf{Flask} is a microframework for web applications that helped us to make it possible. Comparing to other web frameworks, Flask is focused more on simplicity and extensibility, making the development much more oriented on solving own business case. This leightweight framework has no in-built database abstraction layer or object-relational mapping and neither any form validation or authentication, instead it supports third-party libraries that provide all enumerated functionalities and even more. Flask core includes basic functionality required by all web applications and gives an abstraction for creating request-response mechanism based on \textit{Werkzeug} library, which provides a collection of utilities for WSGI\footnote{Web Server Gateway Interface (WSGI) is a specification that describes the communication pattern between a web server and web applications} applications. Other implementation details can be easily integrated based on personal preferences. For example we used a NoSQL database in our application, having the possibility to choose from a large variaty of available mechanisms for data storage. \par
+As soon as the heart of our application came to life - the ML model for detecting malicious PDFs we needed a way to make it publicly accessible. \textbf{Flask} is a microframework for web applications that helped us to make it possible. Comparing to other web frameworks, Flask is focused more on simplicity and extensibility, making the development much more oriented on solving own business case. This lightweight framework has no in-built database abstraction layer or object-relational mapping and neither any form validation or authentication, instead it supports third-party libraries that provide all enumerated functionalities and even more. Flask core includes basic functionality required by all web applications and gives an abstraction for creating request-response mechanism based on \textit{Werkzeug} library, which provides a collection of utilities for WSGI\footnote{Web Server Gateway Interface (WSGI) is a specification that describes the communication pattern between a web server and web applications} applications. Other implementation details can be easily integrated based on personal preferences. For example we used a NoSQL database in our application, having the possibility to choose from a large variaty of available mechanisms for data storage. \par
 The created web service respects the requirements of a RESTful architectural design, Flask framework providing a simple mechanism for specifying routing and HTTP methods. For demonstration purposes we have listed below a minimalistic example of a REST HTTP Method (processes a file sent over a POST request and returns a JSON result) showing the Flask simplicity. One of the major advantages of this framework is the compatibility supported by nowadays giants of Cloud Computing. Our created web framework that exposes methods for uploading and PDF files and analyzing them, as well as visualizing history of scanned files, can be later deployed to Cloud services such as: Google Cloud Platform, IBM Bluemix, Microsoft Azure etc. \\
 
 \begin{python}
