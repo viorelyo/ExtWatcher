@@ -37,10 +37,23 @@ PDF is created by objects: `PDF-файлы состоят в основном и
 
 
 ## TODO
-- [ ] How RandomForest is working?
+- [x] How RandomForest is working?
 - [ ] Why extracted_features shouldn't be normalized?
 - [x] Test DataCreator on full dataset + (maybe) time measure
 - [ ] Add matplotlib for training + etc. (?ROC?)
 - [x] Confusion Matrix? (**FPs** How many where correct detected)
 - [ ] Use metasploit to generate malicious PDF && test ML on it
 - [ ] Find more samples (Clean + Javascript), SWFs etc. (**https://www.hybrid-analysis.com/** , **https://github.com/hslatman/awesome-threat-intelligence#research** , **https://www.pdfscripting.com/public/Free-Sample-PDF-Files-with-scripts.cfm** , **https://tetra4d.com/pdf-samples/**)
+
+
+## Experiment Setup
+0. Ubuntu VM (CPU: 4 Processor units; RAM: 3GB)
+1. python3 -m venv venv;    source venv/bin/activate;   pip install -r requirements.txt
+2. create snapshot after moving entire dataset to Ubuntu + install dependencies
+3. Remove network
+4. unzip -j f.zip -d malicious / benign (use password from email)
+5. Count files in dataset: 
+    `malicious` = 10982 (-2 invalids)
+    `benign` = 9154 (-1 invalid)
+6. Create dataset.csv from feature_extraction - Creation time = `1777.6196780204773` (20134 entries in CSV)
+7. Train model - Creation time = `?`

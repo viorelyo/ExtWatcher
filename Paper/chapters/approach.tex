@@ -64,7 +64,7 @@ After the classification model was successfully created, we decided to simulate 
 
 
 \subsection{Performance Evaluation}
-As performance estimators for evaluating the strengths of the obtained classification model we have selected the following metrics: 
+As performance estimators for evaluating the strengths of the obtained classification model we have selected the following metrics, where \textit{TP} stands for True Positives, \textit{FP} - False Positives, \textit{FN} - False Negatives and \textit{TN} - True Negatives: 
 
 \begin{equation}
 	Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
@@ -74,7 +74,13 @@ As performance estimators for evaluating the strengths of the obtained classific
 	Recall = \frac{TP}{TP + FN}
 \end{equation}
 
+\begin{equation}
+	F1-Score = \frac{2 \cdot Precision \cdot Recall}{Precision + Recall}
+\end{equation}
 
+Additionally we generate a confusion matrix to observe the presence of FP and FN.
+
+% Add confusion matrix
 
 
 % Classifier Performance Comparison + maybe add SVM (file:///C:/Users/viorel/Desktop/Bachelor/Resources/Malicious_PDF_Detection_ACSAC_12.pdf)
