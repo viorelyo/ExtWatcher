@@ -53,7 +53,7 @@
 \newcommand{\CSharp}{{\settoheight{\dimen0}{C}C\kern-.05em \resizebox{!}{\dimen0}{\raisebox{\depth}{\textbf{\#}}}}}
 \newcommand{\code}[1]{\texttt{#1}}
 
-\providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} #1}
+\providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} \texttt{#1}}
 
 \hypersetup{
 	pdftitle={artTitle},
@@ -116,7 +116,7 @@
 \pagenumbering{gobble}
 
 \begin{abstract}
-	Under the guise of seeming harmless, PDF documents are used on a daily basis. It is enough for one PDF to be malicious and the entire network affiliated to an institution becomes compromised. A measure to combat the described situation is having a real time protection installed on the computer. In this thesis we will go through a new approach that implies transfering complex detection algorithms from user's computers to a remote service, whose only task is analyzing suspicios uploaded PDF documents. Consequently the computers that will use this solution get rid of additional workload while still maintaining the system secure.
+	PDF documents are one of the most popular file formats used for information exchange. People trust this format and open these files as soon as they come into their possession, but few know the risks to which they expose the integrity of their computers. For already many years PDF files became a frequently used attack vector for compromising the security of entire networks.  This paper will introduce you into some of the currently known PDF attack techniques. Our work is aimed to research if the Machine Learning algorithms can successfully reinforce the classical antiviruses at analyzing malicious PDF documents. We provide an alternative security solution, which could take the responsibility of the hard task of malware analysis to an isolated, high-performant environment in the Cloud. Detected harmful PDF documents will be immediately removed from the computer and users should not worry about their data privacy nor computer performance. \\
 
 	\keywords{Cybersecurity, Machine Learning, Cloud Application, Malicious PDF}
 \end{abstract}
