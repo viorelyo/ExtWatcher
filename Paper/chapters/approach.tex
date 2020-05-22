@@ -5,20 +5,20 @@ For solving the problem of detecting malicious PDF documents, we came with a Mac
 
 \section{Dataset}
 \label{section:dataset}
-The first step in building the optimal \textit{ML} model was to create a dataset which would train the classifier. Our target was to collect malicious and benign PDF samples used in real life scenarios. Circa 70\% of the clean and malicious documents were downloaded from the online malware repository \textit{Contagio} \cite{contagio}, which provides samples collected from various open sources. Nevertheless, for more recent malicious PDFs we used VirusTotal \cite{virustotal}, Hybrid Analysis \cite{hybridanalysis} and VirSCAN \cite{virscan}, that allow searching files by their hash (\textit{MD5}, \textit{SHA1}, \textit{SHA256}). Some of them provide access to the entire file collection so that we can order them by upload date and search for the most recent uploaded harmful files. Many clean samples were collected from public sources using Google Search Operators, i.e., \code{filetype:pdf}, for restricting search results of PDF files. Additionally, we completed the dataset with more than 100 clean interactive PDF files, that contain embedded 3D Widgets, incorporated JavaScript games etc. These clean samples should train the ML model, so as to correctly classify files even in corner cases. 
+The first step in building the optimal \textit{ML} model was to create a dataset which would train the classifier. Our target was to collect malicious and benign PDF samples used in real life scenarios. Circa 80\% of the clean and malicious documents were downloaded from the online malware repository \textit{Contagio} \cite{contagio}, which provides samples collected from various open sources. Nevertheless, for more recent malicious PDFs we used VirusTotal \cite{virustotal}, Hybrid Analysis \cite{hybridanalysis} and VirSCAN \cite{virscan}, that allow searching files by their hash (\textit{MD5}, \textit{SHA1}, \textit{SHA256}). Some of them provide access to the entire file collection so that we can order them by upload date and search for the most recent uploaded harmful files. Many clean samples were collected from public sources using Google Search Operators, i.e., \code{filetype:pdf}, for restricting search results of PDF files. Additionally, we completed the dataset with more than 100 clean interactive PDF files, that contain embedded 3D Widgets, incorporated JavaScript games etc. These clean samples should train the ML model, so as to correctly classify files even in corner cases. 
 
 \begin{table}[H]
 	\caption{Dataset of PDF samples}
 	\label{table:pdfSamples}
         \centering
-            \begin{tabular}{p{2.5cm} p{9.5cm}}
+            \begin{tabular}{p{2.5cm} p{9.5cm} p{1.5cm}}
                 \toprule
                 
-				\textbf{Category} & \textbf{Source} \\
+				\textbf{Category} & \textbf{Source} & \textbf{Count} \\
 				\hline 
-                \texttt{benign} & Contagio, Google Queries, Tetra4D, PdfScripting \\
+                \texttt{benign} & Contagio, Google Queries, Tetra4D, PdfScripting  & 9.153 \\
                 \hline
-				\texttt{malicious} & Contagio, VirusTotal, Hybrid Analysis, VirSCAN \\
+				\texttt{malicious} & Contagio, VirusTotal, Hybrid Analysis, VirSCAN & 10.982 \\
                 
                 \bottomrule
 			\end{tabular}
@@ -53,18 +53,40 @@ As we already know, Machine Learning is based on mathematical concepts, hence th
 \end{figure}
 
 \subsection{Classification Technique}
-As we have successfully created the dataset by vectorizing each PDF from our collection and setting a label for each one (everything saved as a CSV file), the next steps would be feeding the dataset to a ML classifier and training a model. According to our application's requirements, a PDF file should pass through a binary classification, so the analyzed files can be only \texttt{malicious} or \texttt{benign}, respectively a supervised strategy was chosen. The model, that is the goal of creation when applying Machine Learning, is able to perform tasks that it has not been explicitly implemented to execute. First of all we splitted the dataset into training data and 30 \% were allocated for testing data. The training data is used to fit the model, so that the resulting trained model could be used to predict the correct verdict on previously unseen metadata. \par 
-Above all existing classification algorithm, \textbf{Random Forests} was selected because of its effective classification capability and the ease of use. Under the hood, this algorithm gives the classification result based on ensembling the results from multiple decision trees. First a random subset from training data is selected. At each split point $m$ features from $n$ available are randomly selected ($m \leqslant n$) and the optimal split point from $m$ features is picked ($m = \sqrt{n}$ is recommended). This step is repeated until an individual tree is trained and each result represents the vote of a decision tree. These votes are combined to give an unified final classification result of the Random Forest technique.
+As we have successfully created the dataset by vectorizing each PDF from our collection and setting a label for each one (everything saved as a CSV file), the next steps would be feeding the dataset to a ML classifier and training a model. According to our application's requirements, a PDF file should pass through a binary classification, so the analyzed files can be only \texttt{malicious} or \texttt{benign}, respectively a supervised strategy was chosen. The model, that is the goal of creation when applying Machine Learning, is able to perform tasks that it has not been explicitly implemented to execute. First of all we splitted the dataset into training data and 30\% were allocated for testing data. The training data is used to fit the model, so that the resulting trained model could be used to predict the correct verdict on previously unseen metadata. \par 
+Above all existing classification algorithm, \textbf{Random Forest} was selected because of its effective classification capability and the ease of use. Under the hood, this algorithm gives the classification result based on ensembling the results from multiple decision trees. First a random subset from training data is selected. At each split point $m$ features from $n$ available are randomly selected ($m \leqslant n$) and the optimal split point from $m$ features is picked ($m = \sqrt{n}$ is recommended). This step is repeated until an individual tree is trained and each result represents the vote of a decision tree. These votes are combined to give an unified final classification result of the Random Forest technique.
 Even the training process is computationally expensive, once the classification model is constructed, categorizing is quickly executed. In order to make our API, that integrates this model, more efficient, we used the Python module - \texttt{pickle} to dump the virtual model into a file saved to disk. The process of refitting the model before using it to predict is much more time consuming than just loading the already fitted model form the disk.
 
 
 \subsection{Experiment}
-Before putting the chosen classification algorithm into work we definetely had to take several aspects into consideration. The most important of them is the environment where the model is trained. When working with malicious samples it is crucial to ensure that the personal computer integrity will not be affected. The instructions defined in Lenny Zeltser's articles \cite{zeltser} helped us to set up an isolated laboratory environment for our \textit{experiment}. First of all we used VMware to create a virtual machine (VM), where we installed a Linux distribution. In this way no physical machine could be damaged and the lightweight OS keeps the performance unimpacted. For further performance evaluations the allocated hardware specifications for the VM should be taken into consideration: \textit{RAM = 3GB}, \textit{CPU = 4 processor cores}. The communication with the development computer is through a shared folder, where the collection of PDFs, as well as the source code for training model were dropped. After configuring all the required libraries, the network adapter of the VM was completely removed, so that it could not establish any conexion to external sources in case of any malicious behavior. Also a snapshot of the set up environment was taken. This is another huge advantage of a virtual machine: in case of accidental opening of a malicious file, we could easily revert to a safe snapshot. \par 
+Before putting the chosen classification algorithm into work we definetely had to take several aspects into consideration. The most important of them is the environment where the model is trained. When working with malicious samples it is crucial to ensure that the personal computer integrity will not be affected. The instructions defined in Lenny Zeltser's articles \cite{zeltser} helped us to set up an isolated laboratory environment for our \textit{experiment}. First of all we used VMware to create a virtual machine (VM), where we installed a Linux distribution. In this way no physical machine could be damaged and the lightweight OS keeps the performance unimpacted. For further performance evaluations (see Table \ref{table:performance}), the allocated hardware specifications for the VM should be taken into consideration: \textit{RAM = 3GB}, \textit{CPU = 4 processor cores}. The communication with the development computer is through a shared folder, where the collection of PDFs, as well as the source code for training model were dropped. After configuring all the required libraries, the network adapter of the VM was completely removed, so that it could not establish any conexion to external sources in case of any malicious behavior. Also a snapshot of the set up environment was taken. This is another huge advantage of a virtual machine: in case of accidental opening of a malicious file, we could easily revert to a safe snapshot. \par 
+
+\begin{table}[H]
+	\caption{Run times on training model on described dataset}
+	\label{table:performance}
+        \centering
+            \begin{tabular}{p{5cm} c}
+                \toprule
+                
+				\textbf{Operation} & \textbf{Time} \\
+				\hline 
+				\textit{Feature Extraction} & 29 min \\
+				\hline 
+				\textit{Classifier Training} & 0.405 sec \\
+				\hline
+				\textit{Classification} & 0.07 sec \\
+
+                \bottomrule
+			\end{tabular}
+\end{table}
+
 After the classification model was successfully created, we decided to simulate a cyberattack using a malicious PDF file, in order to test the model prediction in a pseudo-real life scenario. Metasploit\footnote{a penetration testing framework} was used for injecting a malicious payload into an innocent looking file. After uploading the file to our analyzer, the classification result was as expected - \texttt{malicious}.
 
 
 \subsection{Performance Evaluation}
 As performance estimators for evaluating the strengths of the obtained classification model we have selected the following metrics, where \textit{TP} stands for True Positives, \textit{FP} - False Positives, \textit{FN} - False Negatives and \textit{TN} - True Negatives: 
+
+\newpage
 
 \begin{equation}
 	Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
@@ -75,16 +97,67 @@ As performance estimators for evaluating the strengths of the obtained classific
 \end{equation}
 
 \begin{equation}
+	Precision = \frac{TP}{TP + FP}
+\end{equation}
+
+\begin{equation}
 	F1-Score = \frac{2 \cdot Precision \cdot Recall}{Precision + Recall}
 \end{equation}
 
-Additionally we generate a confusion matrix to observe the presence of FP and FN.
+% Confusion matrix
+\begin{center}
+	\begin{tikzpicture}[scale=2] %font=\scriptsize
+		% Draw Basic Box
+		\draw[thick] (0,0) -- (2.2,0);
+		\draw[thick] (0,0) -- (0, 2.2);
+		\draw[thick] (2.2,2.2) -- (2.2, 0);
+		\draw[thick] (2.2,2.2) -- (0, 2.2);
 
-% Add confusion matrix
+		% Draw Box Ticks
+		\draw[thick] (-0.3, 1.1) -- (2.2, 1.1);
+		\draw[thick] (1.1, 0) -- (1.1, 2.5);
 
+		% Box Labels
+		% -- left side
+		\coordinate[label=left:benign] (p1) at (-0.1,1.6);
+		\coordinate[label=left:malicious] (p2) at (-0.1,0.4);
+
+		% -- top side
+		\coordinate[label=above:benign] (p3) at (0.55, 2.2);
+		\coordinate[label=above:malicious] (p4) at (1.65, 2.2);
+
+		% -- overall headers
+		\coordinate[label=above:\textbf{Predicted}] (p5) at (1.1, 2.5);
+		\coordinate[label=left:\textbf{Actual}] (p6) at (-0.3, 1.1);
+
+		% Category Values
+		\coordinate[label={TP$\,=2708$}] (TP) at (0.55, 1.50);
+		\coordinate[label={FP$\,=1$}] (FP) at (1.65, 1.50);
+		\coordinate[label={FN$\,=2$}] (FN) at (0.55, 0.40);
+		\coordinate[label={TN$\,=3329$}] (TN) at (1.65, 0.40);
+	\end{tikzpicture}
+\end{center}
+
+Additionally we generated a confusion matrix to observe the presence of FP and FN. The results of testing on 6640 samples (30\% of the dataset) show an accuracy of \textbf{99,95\%} for the trained model using \textit{Random Forest Classifier} with 100 estimators. Of course there are some minor corner cases, when the detection fails: 2 files were detected as benign while they are malicious and 1 benign file was predicted as malicious. However, the overall results (see Table \ref{table:results}) demonstrate that the obtained model can be efficiently applied for malicious PDF files detection.
+
+\begin{table}[H]
+	\caption{Random Forest Classifier performance results}
+	\label{table:results}
+        \centering
+            \begin{tabular}{c c c}
+                \toprule
+                
+				\textbf{Accuracy} & \textbf{Recall} & \textbf{F1-Score} \\
+				\hline 
+                0.995 & 0.9992 & 0.9994 \\
+                
+                \bottomrule
+			\end{tabular}
+\end{table}
 
 % Classifier Performance Comparison + maybe add SVM (file:///C:/Users/viorel/Desktop/Bachelor/Resources/Malicious_PDF_Detection_ACSAC_12.pdf)
 
+\newpage
 
 \section{Used technologies}
 \label{section:technologies}
@@ -109,7 +182,7 @@ It would be extremely inefficient to always reimplement each Machine Learning al
 	\item \textit{Scipy} - a large collection of efficient algorithms for linear algebra, interpolation etc.
 \end{itemize}
 
-Till now, the Scikit-learn developers have supplied the library with various supervised and unsupervised algorithms, such as: regression, clustering, classification algorithms, as well as: Random forest, Support Vector Machine etc. It is a perfect solution for both academic and commercial projects, because of the simple API that it provides, thus the generic implementation of the ML algorithms can be adapted to personal purposes. Also, Scikit-learn integrates well with other Python libraries, that consistently simplify the data analyisis process. Some of these libraries are: 
+Till now, the Scikit-learn developers have supplied the library with various supervised and unsupervised algorithms, such as: regression, clustering, classification algorithms, as well as: Random Forest, Support Vector Machine etc. It is a perfect solution for both academic and commercial projects, because of the simple API that it provides, thus the generic implementation of the ML algorithms can be adapted to personal purposes. Also, Scikit-learn integrates well with other Python libraries, that consistently simplify the data analyisis process. Some of these libraries are: 
 
 \begin{itemize}
 	\item \textit{Pandas} - offers optimized data structures (\textit{DataFrames}) for manipulation of large datasets. We could simpy apply \textit{Min-Max Normalization} (see \ref{subsection:featureSelection}) on entire loaded dataset from a raw CSV file.
@@ -119,7 +192,9 @@ Till now, the Scikit-learn developers have supplied the library with various sup
 
 \subsection{Python Flask}
 As soon as the heart of our application came to life - the ML model for detecting malicious PDFs we needed a way to make it publicly accessible. \textbf{Flask} is a microframework for web applications that helped us to make it possible. Comparing to other web frameworks, Flask is focused more on simplicity and extensibility, making the development much more oriented on solving own business case. This lightweight framework has no in-built database abstraction layer or object-relational mapping and neither any form validation or authentication, instead it supports third-party libraries that provide all enumerated functionalities and even more. Flask core includes basic functionality required by all web applications and gives an abstraction for creating request-response mechanism based on \textit{Werkzeug} library, which provides a collection of utilities for WSGI\footnote{Web Server Gateway Interface (WSGI) is a specification that describes the communication pattern between a web server and web applications} applications. Other implementation details can be easily integrated based on personal preferences. For example we used a NoSQL database in our application, having the possibility to choose from a large variaty of available mechanisms for data storage. \par
-The created web service respects the requirements of a RESTful architectural design, Flask framework providing a simple mechanism for specifying routing and HTTP methods. For demonstration purposes we have listed below a minimalistic example of a REST HTTP Method (processes a file sent over a POST request and returns a JSON result) showing the Flask simplicity. One of the major advantages of this framework is the compatibility supported by nowadays giants of Cloud Computing. Our created web framework that exposes methods for uploading and PDF files and analyzing them, as well as visualizing history of scanned files, can be later deployed to Cloud services such as: Google Cloud Platform, IBM Bluemix, Microsoft Azure etc. \\
+The created web service respects the requirements of a RESTful architectural design, Flask framework providing a simple mechanism for specifying routing and HTTP methods. For demonstration purposes we have listed below a minimalistic example of a REST HTTP Method (processes a file sent over a POST request and returns a JSON result) showing the Flask simplicity. One of the major advantages of this framework is the compatibility supported by nowadays giants of Cloud Computing. Our created web framework that exposes methods for uploading and PDF files and analyzing them, as well as visualizing history of scanned files, can be later deployed to Cloud services such as: Google Cloud Platform, IBM Bluemix, Microsoft Azure etc. 
+
+\newpage
 
 \begin{python}
 from flask import Flask, jsonify, request
