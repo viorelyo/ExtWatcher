@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+from urllib.parse import urlparse
 import mimetypes
 from app import app
 
@@ -18,11 +19,16 @@ class FileUtils:
     @staticmethod
     def get_file_type(submitted_url):
         app.logger.info("Retrieving filetype from submitted url: '{}'".format(submitted_url))
-        response = requests.get(submitted_url)
-        content_type = response.headers.get('content-type')
-        extension = mimetypes.guess_extension(content_type)
-        if extension is None:
-            return None
+        # Method 1: extract extension from URL (not safe)
+        path = urlparse(submitted_url).path
+        extension = os.path.splitext(path)[1]
+        if not extension:
+            # Method 2: extract extension from mime types
+            response = requests.get(submitted_url)
+            content_type = response.headers.get('content-type')
+            extension = mimetypes.guess_extension(content_type)
+            if extension is None:
+                return None
         return extension[1:]        # remove "." from file extension
 
     @staticmethod
