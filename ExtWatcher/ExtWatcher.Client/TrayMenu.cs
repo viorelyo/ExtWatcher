@@ -23,7 +23,7 @@ namespace ExtWatcher.Client
             //menuExitItem.Click += new System.EventHandler(this.menuExitItem_Click);
 
             //_notifyIcon.ContextMenu = contextMenu;
-            _notifyIcon.Text = "ExtWatcher";
+            _notifyIcon.Text = "ExtWatcherService";
             _notifyIcon.Visible = true; 
 
             // Extracts your app's icon and uses it as notify icon

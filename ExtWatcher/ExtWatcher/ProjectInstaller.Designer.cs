@@ -39,8 +39,8 @@
             // 
             // serviceInstaller
             // 
-            this.serviceInstaller.Description = "ExtWatcher Service";
-            this.serviceInstaller.DisplayName = "ExtWatcher";
+            this.serviceInstaller.Description = "The Windows Service for ExtWatcher Service Application.";
+            this.serviceInstaller.DisplayName = "ExtWatcherService";
             this.serviceInstaller.ServiceName = "ExtWatcherService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 

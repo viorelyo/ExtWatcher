@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ExtWatcher.Common.Contract;
 using ExtWatcher.Common.Utils;
 
@@ -25,7 +26,7 @@ namespace ExtWatcher.Client
             //Console.WriteLine(e.FileName);
             //Console.WriteLine(e.Date);
 
-            _trayMenu.ShowNotification(e.FileName);
+            _trayMenu.ShowNotification(Path.GetFileName(e.FileName));
         }
     }
 }
