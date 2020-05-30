@@ -17,7 +17,7 @@ namespace ExtWatcher.Client
             _trayMenu = new TrayMenu();
         }
 
-        public void OnFileCreatedEvent(FileEventArgs e)
+        public void OnSentNotification(FileEventArgs e)
         {
             Logger.WriteToLog(String.Format("FileCreatedEvent fired. Info: '{0}', '{1}'", e.Folder, e.FileName));
 
@@ -26,7 +26,7 @@ namespace ExtWatcher.Client
             //Console.WriteLine(e.FileName);
             //Console.WriteLine(e.Date);
 
-            _trayMenu.ShowNotification(Path.GetFileName(e.FileName));
+            _trayMenu.ShowNotification(Path.GetFileName(e.FileName), e.AnalysisStatus);
         }
     }
 }

@@ -4,7 +4,6 @@ using ExtWatcher.Common.Utils;
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,18 +11,19 @@ namespace ExtWatcher.WCF.Service.Controller
 {
     public class FileAnalyzer
     {
-        private string fileToBeAnalyzed;
+        private string _fileToBeAnalyzed;
 
         public FileAnalyzer(FileEventArgs args)
         {
-            fileToBeAnalyzed = Path.Combine(args.Folder, args.FileName);
+            _fileToBeAnalyzed = Path.Combine(args.Folder, args.FileName);
             WaitReady();
         }
 
-        public void Analyze()
+        public FileAnalysisStatus Analyze()
         {
-            bool isMalicious = SubmitFile();
-            TakeAction(isMalicious);
+            FileAnalysisStatus status = SubmitFile();
+            TakeAction(status);
+            return status;
         }
 
         /// <summary>
@@ -32,16 +32,16 @@ namespace ExtWatcher.WCF.Service.Controller
         /// </summary>
         private void WaitReady()
         {
-            Logger.WriteToLog(String.Format("Waiting until file: '{0}' is available (full moved to location).", fileToBeAnalyzed));
+            Logger.WriteToLog(String.Format("Waiting until file: '{0}' is available (full moved to location).", _fileToBeAnalyzed));
             while (true)
             {
                 try
                 {
-                    using (Stream stream = File.Open(fileToBeAnalyzed, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    using (Stream stream = File.Open(_fileToBeAnalyzed, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
                         if (stream != null)
                         {
-                            Logger.WriteToLog(String.Format("File: '{0}' is ready.", fileToBeAnalyzed));
+                            Logger.WriteToLog(String.Format("File: '{0}' is ready.", _fileToBeAnalyzed));
                             break;
                         }
                     }
@@ -55,7 +55,7 @@ namespace ExtWatcher.WCF.Service.Controller
                 catch (UnauthorizedAccessException)
                 {
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
         }
 
@@ -64,9 +64,9 @@ namespace ExtWatcher.WCF.Service.Controller
         /// </summary>
         private void BlockFile()
         {
-            Logger.WriteToLog(String.Format("Blocking file: '{0}'.", fileToBeAnalyzed));
+            Logger.WriteToLog(String.Format("Blocking file: '{0}'.", _fileToBeAnalyzed));
 
-            File.SetAttributes(fileToBeAnalyzed, File.GetAttributes(fileToBeAnalyzed) | FileAttributes.Hidden);
+            File.SetAttributes(_fileToBeAnalyzed, File.GetAttributes(_fileToBeAnalyzed) | FileAttributes.Hidden);
 
             // -------- DEPRECATED ------
             //string adminUserName = Environment.UserName;
@@ -76,26 +76,26 @@ namespace ExtWatcher.WCF.Service.Controller
             //File.SetAccessControl(fileToBeAnalyzed, fs);
         }
 
-        private bool SubmitFile()
+        private FileAnalysisStatus SubmitFile()
         {
-            bool isFileMalicious = false;
+            FileAnalysisStatus fileStatus = FileAnalysisStatus.Unknown;
 
-            Logger.WriteToLog(String.Format("Creating submit request for file: '{0}'.", fileToBeAnalyzed));
+            Logger.WriteToLog(String.Format("Creating submit request for file: '{0}'.", _fileToBeAnalyzed));
             try
             {
                 using (var httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))
                 {
                     // Open fileStream by blocking share of file to other processes
-                    var fileStream = File.Open(fileToBeAnalyzed, FileMode.Open, FileAccess.Read, FileShare.None);
-                    var fileInfo = new FileInfo(fileToBeAnalyzed);
+                    var fileStream = File.Open(_fileToBeAnalyzed, FileMode.Open, FileAccess.Read, FileShare.None);
+                    var fileInfo = new FileInfo(_fileToBeAnalyzed);
 
                     var content = new MultipartFormDataContent();
-                    content.Headers.Add("filePath", fileToBeAnalyzed);
-                    content.Add(new StreamContent(fileStream), "\"file\"", String.Format("{0}", fileToBeAnalyzed));
+                    content.Headers.Add("filePath", _fileToBeAnalyzed);
+                    content.Add(new StreamContent(fileStream), "\"file\"", String.Format("{0}", _fileToBeAnalyzed));
 
                     BlockFile();
 
-                    Logger.WriteToLog(String.Format("Submitting file: '{0}' to '{1}'.", fileToBeAnalyzed, Constants.CloudAnalyzerURL));
+                    Logger.WriteToLog(String.Format("Submitting file: '{0}' to '{1}'.", _fileToBeAnalyzed, Constants.CloudAnalyzerURL));
                     Logger.WriteToLog(String.Format("Content: '{0}' to '{1}'.", content.Headers.ToString(), content.ToString()));
                     var task = httpClient.PostAsync(Constants.CloudAnalyzerURL, content)
                         .ContinueWith(t =>
@@ -108,27 +108,36 @@ namespace ExtWatcher.WCF.Service.Controller
                                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                                 {
                                     string rawResponse = response.Content.ReadAsStringAsync().Result;
-                                    Logger.WriteToLog(String.Format("Server response for file: '{0}' : '{1}'.", fileToBeAnalyzed, rawResponse));
+                                    Logger.WriteToLog(String.Format("Server response for file: '{0}' : '{1}'.", _fileToBeAnalyzed, rawResponse));
 
                                     string statusFromServer = rawResponse.Split(':')[1];
                                     if (statusFromServer.Contains(Constants.StatusFromServerBenign))
                                     { 
-                                        isFileMalicious = false;
+                                        fileStatus = FileAnalysisStatus.Benign;
                                     }
                                     else if (statusFromServer.Contains(Constants.StatusFromServerMalicious))
                                     {
-                                        isFileMalicious = true;
+                                        fileStatus = FileAnalysisStatus.Malicious;
                                     }
                                     else
                                     {
-                                        isFileMalicious = false;
+                                        fileStatus = FileAnalysisStatus.Unknown;
                                     }
                                 }
                                 else
                                 {
-                                    isFileMalicious = false;
+                                    fileStatus = FileAnalysisStatus.Aborted;
                                 }
                             }
+                            else if (t.Status == TaskStatus.Faulted)
+                            {
+                                Logger.WriteToLog("Server unreachable.");
+                                fileStream.Close();
+                                fileStream.Dispose();
+
+                                fileStatus = FileAnalysisStatus.Aborted;
+                            }
+
                             fileStream.Close();
                             fileStream.Dispose();
                         });
@@ -139,15 +148,16 @@ namespace ExtWatcher.WCF.Service.Controller
             {
                 Logger.WriteToLog("Unable to submit file.");
                 Logger.WriteToLog(ex);
-                return false;
+
+                return FileAnalysisStatus.Aborted;
             }
-           
-            return isFileMalicious;
+
+            return fileStatus;
         }
 
-        private void TakeAction(bool isFileMalicious)
+        private void TakeAction(FileAnalysisStatus analysisStatus)
         {
-            Logger.WriteToLog(String.Format("Taking corresponding action on file: '{0}' with status '{1}'.", fileToBeAnalyzed, isFileMalicious));
+            Logger.WriteToLog(String.Format("Taking corresponding action on file: '{0}' with status '{1}'.", _fileToBeAnalyzed, FileAnalysisStatusExtension.ToString(analysisStatus)));
 
             // -------- DEPRECATED ------
             //string adminUserName = Environment.UserName;
@@ -156,17 +166,17 @@ namespace ExtWatcher.WCF.Service.Controller
             //fs.RemoveAccessRule(fsa);
             //File.SetAccessControl(fileToBeAnalyzed, fs);
 
-            if (isFileMalicious)
+            if (analysisStatus == FileAnalysisStatus.Malicious)
             {
-                Logger.WriteToLog(String.Format("File: '{0}' is malicious. Deleting it.", fileToBeAnalyzed));
-                File.Delete(fileToBeAnalyzed);
+                Logger.WriteToLog(String.Format("File: '{0}' is malicious. Deleting it.", _fileToBeAnalyzed));
+                File.Delete(_fileToBeAnalyzed);
             }
             else
             {
-                Logger.WriteToLog(String.Format("File: '{0}' is benign. Unblocking it.", fileToBeAnalyzed));
+                Logger.WriteToLog(String.Format("Unblocking file: '{0}'.", _fileToBeAnalyzed));
 
-                FileAttributes attr = File.GetAttributes(fileToBeAnalyzed) & ~FileAttributes.Hidden;
-                File.SetAttributes(fileToBeAnalyzed, attr);
+                FileAttributes attr = File.GetAttributes(_fileToBeAnalyzed) & ~FileAttributes.Hidden;
+                File.SetAttributes(_fileToBeAnalyzed, attr);
             }
         }
     }

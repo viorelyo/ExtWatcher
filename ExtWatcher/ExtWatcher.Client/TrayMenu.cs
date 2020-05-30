@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtWatcher.Common.Contract;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
@@ -48,10 +49,21 @@ namespace ExtWatcher.Client
             System.Windows.Application.Current.Shutdown();      // Calls Application_Exit()
         }
 
-        public void ShowNotification(string Info)
+        public void ShowNotification(string Info, FileAnalysisStatus status)
         {
             // Shows a notification with specified message and title
-            _notifyIcon.ShowBalloonTip(3000, String.Format("Scanning \"{0}\"", Info), "File is blocked. Waiting for results.", ToolTipIcon.Info);
+            switch (status)
+            {
+                case FileAnalysisStatus.Unknown:
+                    _notifyIcon.ShowBalloonTip(2000, String.Format("Scanning \"{0}\"", Info), "File is blocked. Waiting for results.", ToolTipIcon.Info);
+                    return;
+                case FileAnalysisStatus.Malicious:
+                    _notifyIcon.ShowBalloonTip(2000, String.Format("Malicious \"{0}\"", Info), "File was removed.", ToolTipIcon.Warning);
+                    return;
+                case FileAnalysisStatus.Aborted:
+                    _notifyIcon.ShowBalloonTip(2000, String.Format("Aborted scanning \"{0}\"", Info), "You are on your own :(", ToolTipIcon.Error);
+                    return;
+            }
         }
     }
 }
