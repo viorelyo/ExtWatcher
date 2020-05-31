@@ -6,6 +6,7 @@ using ExtWatcher.WCF.Service.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.ServiceModel;
 using System.Threading;
 
@@ -17,12 +18,27 @@ namespace ExtWatcher.WCF.Service
         private Core.Monitor _monitor = Core.Monitor.Create();
         private ConcurrentDictionary<Guid, Client> _clients = new ConcurrentDictionary<Guid, Client>();
         private List<Thread> _fileAnalyzersThreads = new List<Thread>();
+        private string _cloudAnalyzerURL;
 
         public void Start(string folderToMonitor)
         {
             Logger.WriteToLog("Starting NotifyEndpoint.");
             _monitor.Add(folderToMonitor);
+            LoadCloudAnalyzerURL();
             _monitor.Start();
+        }
+
+        private void LoadCloudAnalyzerURL()
+        {
+            try
+            {
+                _cloudAnalyzerURL = ConfigurationManager.AppSettings["extwatcher:CloudAnalyzerURL"];
+            }
+            catch (ConfigurationErrorsException e)
+            {
+                Logger.WriteToLog("Could not extract Cloud Analyzer URL from config file.");
+                Logger.WriteToLog(e);
+            }
         }
 
         public void Stop(string folderToMonitor)
@@ -64,7 +80,7 @@ namespace ExtWatcher.WCF.Service
                 { 
                     Logger.WriteToLog("Starting a new FileAnalyzerThread.");
 
-                    FileAnalyzer fileAnalyzer = new FileAnalyzer(e);
+                    FileAnalyzer fileAnalyzer = new FileAnalyzer(_cloudAnalyzerURL, e);
                     FileAnalysisStatus analysisStatus = fileAnalyzer.Analyze();
                     e.AnalysisStatus = analysisStatus;
 

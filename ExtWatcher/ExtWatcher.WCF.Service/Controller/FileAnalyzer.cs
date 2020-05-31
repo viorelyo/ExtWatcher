@@ -12,9 +12,11 @@ namespace ExtWatcher.WCF.Service.Controller
     public class FileAnalyzer
     {
         private string _fileToBeAnalyzed;
+        private string _analyzerURL;
 
-        public FileAnalyzer(FileEventArgs args)
+        public FileAnalyzer(string _cloudAnalyzerURL, FileEventArgs args)
         {
+            _analyzerURL = _cloudAnalyzerURL;
             _fileToBeAnalyzed = Path.Combine(args.Folder, args.FileName);
             WaitReady();
         }
@@ -95,9 +97,9 @@ namespace ExtWatcher.WCF.Service.Controller
 
                     BlockFile();
 
-                    Logger.WriteToLog(String.Format("Submitting file: '{0}' to '{1}'.", _fileToBeAnalyzed, Constants.CloudAnalyzerURL));
+                    Logger.WriteToLog(String.Format("Submitting file: '{0}' to '{1}'.", _fileToBeAnalyzed, _analyzerURL));
                     Logger.WriteToLog(String.Format("Content: '{0}' to '{1}'.", content.Headers.ToString(), content.ToString()));
-                    var task = httpClient.PostAsync(Constants.CloudAnalyzerURL, content)
+                    var task = httpClient.PostAsync(_analyzerURL, content)
                         .ContinueWith(t =>
                         {
                             if (t.Status == TaskStatus.RanToCompletion)
