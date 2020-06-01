@@ -50,5 +50,21 @@
 7. npm install redux-thunk
 * npm start
 
+
+# Configuration for Win10 VM
+1. Use official VM for edge (Win10) Passw0rd!
+2. https://zeltser.com/free-malware-analysis-windows-vm/
+3. Disable updates (https://www.youtube.com/watch?v=NGOvZhMqDf8)
+4. Optimize using Win 10 (https://www.youtube.com/watch?v=44scuC1FYRg)
+5. Important - Adjust visual effect for max performance
+6. Disable Defender
+7. Install VmTools
+8. Shared folder: check map as network drive (vmware)
+9. Take snapshot
+
+Unrelated settings:
+1. Enable System notifications
+2. Make chrome ask download location
+
 #### Resources
 1. `https://www.youtube.com/watch?v=06pWsB_hoD4` (React Architecture)

@@ -80,13 +80,15 @@ namespace ExtWatcher.WCF.Service.Controller
 
         private FileAnalysisStatus SubmitFile()
         {
-            FileAnalysisStatus fileStatus = FileAnalysisStatus.Unknown;
+            FileAnalysisStatus fileStatus = FileAnalysisStatus.Aborted;
 
             Logger.WriteToLog(String.Format("Creating submit request for file: '{0}'.", _fileToBeAnalyzed));
             try
             {
                 using (var httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))
                 {
+                    httpClient.Timeout = Timeout.InfiniteTimeSpan;
+
                     // Open fileStream by blocking share of file to other processes
                     var fileStream = File.Open(_fileToBeAnalyzed, FileMode.Open, FileAccess.Read, FileShare.None);
                     var fileInfo = new FileInfo(_fileToBeAnalyzed);
@@ -123,7 +125,7 @@ namespace ExtWatcher.WCF.Service.Controller
                                     }
                                     else
                                     {
-                                        fileStatus = FileAnalysisStatus.Unknown;
+                                        fileStatus = FileAnalysisStatus.Aborted;
                                     }
                                 }
                                 else
