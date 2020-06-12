@@ -7,6 +7,6 @@ namespace ExtWatcher.Common.Interface
     public interface INotifyCallback
     {
         [OperationContract]
-        void OnFileCreatedEvent(FileEventArgs e);
+        void OnSentNotification(FileEventArgs e);
     }
 }

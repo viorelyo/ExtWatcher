@@ -21,7 +21,7 @@ namespace ExtWatcher.Client
         public App()
         {
             //CheckIfAnotherInstanceNotRunning();
-            WaitForServiceToStart();
+            WaitForServiceToStart();                // TO BE COMMENTED IN TESTING ENVIRONMENTS
 
             var nc = new NotifyCallback();
             nc.InitTrayMenu();

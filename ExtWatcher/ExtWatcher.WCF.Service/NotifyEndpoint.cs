@@ -6,6 +6,7 @@ using ExtWatcher.WCF.Service.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.ServiceModel;
 using System.Threading;
 
@@ -17,12 +18,27 @@ namespace ExtWatcher.WCF.Service
         private Core.Monitor _monitor = Core.Monitor.Create();
         private ConcurrentDictionary<Guid, Client> _clients = new ConcurrentDictionary<Guid, Client>();
         private List<Thread> _fileAnalyzersThreads = new List<Thread>();
+        private string _cloudAnalyzerURL;
 
         public void Start(string folderToMonitor)
         {
             Logger.WriteToLog("Starting NotifyEndpoint.");
             _monitor.Add(folderToMonitor);
+            LoadCloudAnalyzerURL();
             _monitor.Start();
+        }
+
+        private void LoadCloudAnalyzerURL()
+        {
+            try
+            {
+                _cloudAnalyzerURL = ConfigurationManager.AppSettings["extwatcher:CloudAnalyzerURL"];
+            }
+            catch (ConfigurationErrorsException e)
+            {
+                Logger.WriteToLog("Could not extract Cloud Analyzer URL from config file.");
+                Logger.WriteToLog(e);
+            }
         }
 
         public void Stop(string folderToMonitor)
@@ -42,15 +58,20 @@ namespace ExtWatcher.WCF.Service
             _monitor.FileEvent += new FileEventHandler(OnFileEvent);
         }
 
-        private void OnFileEvent(object sender, FileEventArgs e)
+        private void SendNotificationToAllClients(FileEventArgs e)
         {
-            RemoveInvalidClients();
-            
             foreach (var client in _clients)
             {
                 // Create a new thread for each client in order to send the notification
                 ThreadPool.QueueUserWorkItem(NotifyThreadProc, NotifyThreadStateInfo.Create(client.Value, e));
             }
+        }
+
+        private void OnFileEvent(object sender, FileEventArgs e)
+        {
+            RemoveInvalidClients();
+
+            SendNotificationToAllClients(e);
 
             // Analyze each file on a separate Thread 
             var _fileAnalyzerThread = new Thread(new ThreadStart(() => 
@@ -59,11 +80,14 @@ namespace ExtWatcher.WCF.Service
                 { 
                     Logger.WriteToLog("Starting a new FileAnalyzerThread.");
 
-                    FileAnalyzer fileAnalyzer = new FileAnalyzer(e);
-                    fileAnalyzer.Analyze();
+                    FileAnalyzer fileAnalyzer = new FileAnalyzer(_cloudAnalyzerURL, e);
+                    FileAnalysisStatus analysisStatus = fileAnalyzer.Analyze();
+                    e.AnalysisStatus = analysisStatus;
+
+                    SendNotificationToAllClients(e);
                 }
                 catch (Exception ex)
-                {
+                { 
                     Logger.WriteToLog("Exception caught in FileAnalyzerThread.");
                     Logger.WriteToLog(ex);
                 }
@@ -87,8 +111,9 @@ namespace ExtWatcher.WCF.Service
 
             try
             {
-                Logger.WriteToLog(String.Format("[NotifyThreadPool] Notifying client with GUID: '{0}', Info: '{1}'", stateInfo.Client.Id, stateInfo.Args.FileName));
-                stateInfo.Client.Callback.OnFileCreatedEvent(stateInfo.Args);
+                Logger.WriteToLog(String.Format("[NotifyThreadPool] Notifying client with GUID: '{0}', Info: '{1}', Status: '{2}'", 
+                    stateInfo.Client.Id, stateInfo.Args.FileName, FileAnalysisStatusExtension.ToString(stateInfo.Args.AnalysisStatus)));
+                stateInfo.Client.Callback.OnSentNotification(stateInfo.Args);
             }
             catch (TimeoutException)
             {
