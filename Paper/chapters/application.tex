@@ -33,13 +33,23 @@ After ExtWatcher Service is up, it should guarantee the security of the user's c
 	\item \texttt{malicious} - Windows Service should immediately remove the file from the disk.
 \end{itemize}
 
-The above described flow can be visualized in Fig. \ref{sequence}. The implementation design of ExtWatcher Service takes in consideration further evolution of our product. So, it can be easily configured using same \texttt{setup.config} to monitor more file extensions, when the Cloud Analyzer will contain support for analyzing more file formats.
+The above described flow can be visualized in Figure \ref{sequence}. The implementation design of ExtWatcher Service takes in consideration further evolution of our product. So, it can be easily configured using same \texttt{setup.config} to monitor more file extensions, when the Cloud Analyzer will contain support for analyzing more file formats.
+
 
 \begin{figure}[H]
-	\centerline{\includegraphics[scale=0.55]{figures/notification.png}}  
-	\caption{Screenshot of the System Notification sent by ExtWatcher Service}
-	\label{screenshot:notification}
+    \centering
+    \subfloat[In progess notification]{{\includegraphics[scale=0.5]{figures/notification.png}}}%
+    \qquad
+    \subfloat[Scanning result notifications]{{\includegraphics[scale=0.5]{figures/trayStatuses.png}}}%
+    \caption{Screenshots of the System Notifications sent by ExtWatcher Service}
+    \label{screenshot:notification}
 \end{figure}
+
+% \begin{figure}[H]
+% 	\centerline{\includegraphics[scale=0.55]{figures/notification.png}}  
+% 	\caption{Screenshots of the System Notifications sent by ExtWatcher Service}
+% 	\label{screenshot:notification}
+% \end{figure}
 
 \newpage
 
