@@ -22,4 +22,4 @@ SUBMIT_REQUEST_TYPE = "submit"
 
 QUERY_KEYWORDS = {"filename", "hash", "datetime", "type", "result"}
 
-SERVICE_FOR_DOWNLOAD = "logo.jpg"
+SERVICE_FOR_DOWNLOAD = "setup.zip"
