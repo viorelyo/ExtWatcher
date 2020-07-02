@@ -1,4 +1,4 @@
-<p align="center"><img src="/Logos/2.png" width="100"></p>  
+<p align="center"><img src="/Logos/2.jpg" width="100"></p>  
 
 # ExtWatcher
 Cloud based framework for detecting malicious files using Machine Learning.
@@ -28,9 +28,9 @@ By assembling more components into ExtWatcher, we came up with a more complex so
 ## Demos
 - Windows Service + System Tray App
 
-<p align="center"><img src="/Paper/figures/notification.png" width="400"></p>  
+<p align="center"><img src="/Paper/figures/notification.png" width="250"></p>  
 
-<p align="center"><img src="/Paper/figures/trayStatuses.png" width="600"></p>  
+<p align="center"><img src="/Paper/figures/trayStatuses.png" width="500"></p>  
 
 
 - ExtWatcher Dashboard
