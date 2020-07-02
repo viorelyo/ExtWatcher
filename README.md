@@ -1,4 +1,4 @@
-<p align="center"><img src="/Logos/2.png" width="100"></p>  
+<p align="center"><img src="/Logos/2.jpg" width="250"></p>  
 
 # ExtWatcher
 Cloud based framework for detecting malicious files using Machine Learning.
@@ -23,16 +23,20 @@ By assembling more components into ExtWatcher, we came up with a more complex so
 
 ## Links
 [Thesis](./Thesis/Thesis.pdf)  
+<<<<<<< HEAD
 [Presentation](./Thesis/Cloud_Based_Malicious_PDF_Detection_Using Machine_Learning.pdf)   
+=======
+[Presentation]("./Thesis/Cloud Based Malicious PDF Detection Using Machine Learning.pdf")   
+>>>>>>> 347ce07753329cf0fa472210345ed612415ebc59
 
 ## Demos
 - Windows Service + System Tray App
 
-<p align="center"><img src="/Paper/figures/notification.png" width="400"></p>  
+<p align="center"><img src="/Paper/figures/notification.png" width="300"></p>  
 
-<p align="center"><img src="/Paper/figures/trayStatuses.png" width="600"></p>  
+<p align="center"><img src="/Paper/figures/trayStatuses.png" width="470"></p>  
 
 
 - ExtWatcher Dashboard
 
-<img src="/Paper/figures/dashboard.gif" width="900">
+<img src="/Paper/figures/dashboard.gif" width="960">
