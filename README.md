@@ -23,7 +23,7 @@ By assembling more components into ExtWatcher, we came up with a more complex so
 
 ## Links
 [Thesis](./Thesis/Thesis.pdf)  
-[Presentation](./Thesis/Cloud Based Malicious PDF Detection Using Machine Learning.pdf)   
+[Presentation]("./Thesis/Cloud Based Malicious PDF Detection Using Machine Learning.pdf")   
 
 ## Demos
 - Windows Service + System Tray App
