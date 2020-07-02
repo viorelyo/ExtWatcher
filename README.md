@@ -35,4 +35,4 @@ By assembling more components into ExtWatcher, we came up with a more complex so
 
 - ExtWatcher Dashboard
 
-<img src="/Paper/figures/dashboard.gif" width="900">
+<img src="/Paper/figures/dashboard.gif" width="960">
