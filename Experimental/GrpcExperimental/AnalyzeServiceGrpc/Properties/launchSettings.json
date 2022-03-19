@@ -1,13 +1,14 @@
 ﻿{
   "profiles": {
     "AnalyzeServiceGrpc": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:5122;https://localhost:7122",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "commandName": "Project",
+        "dotnetRunMessages": true,
+        "launchBrowser": false,
+        //"applicationUrl": "http://localhost:5122;https://localhost:7122",
+        "externalUrlConfiguration": true,       // url listen can be configured programatically / from appsettings.json
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        }
     }
   }
 }

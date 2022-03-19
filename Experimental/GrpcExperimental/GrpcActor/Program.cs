@@ -2,7 +2,6 @@
 using GrpcActor;
 using System.Net;
 
-
 var handler = new Http3Handler(new HttpClientHandler());
 
 var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions() { HttpHandler = handler });

@@ -15,3 +15,6 @@ Migrating AnalyzeServer to microservice architecture using gPRC framework over H
 
 ## TODO
 - [ ] benchmarking framework (REST vs gRPC over HTTP/3)
+- [ ] Get rid of warning - overriden urls 
+	* [](https://stackoverflow.com/questions/58090842/configurekestrel-conflict-with-appsettings)
+	* [](https://stackoverflow.com/questions/51738893/removing-kestrel-binding-warning)
