@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcActor";
+
+package analyzer;
+
+service Analyzer {
+	rpc UploadFile (stream AnalyzeFileRequest) returns (AnalyzeFileResponse);
+}
+
+message AnalyzeFileMetadata {
+	string file_name = 1;
+}
+
+message AnalyzeFileRequest {
+	AnalyzeFileMetadata metadata = 1;
+	bytes data = 2;
+}
+
+message AnalyzeFileResponse {
+	bool is_malicious = 1;
+}
