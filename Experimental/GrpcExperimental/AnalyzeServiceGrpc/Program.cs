@@ -2,11 +2,18 @@ using AnalyzeServiceGrpc.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using System.Net;
 using Prometheus;
+using Elasticsearch.Net;
+using Nest;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+
+// Add elasticsearch service
+builder.Services.AddSingleton<IAnalysisFileService, AnalysisFileElasticSearchService>();
+builder.Services.AddElasticSearch(builder.Configuration);
+
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
     options.Listen(IPAddress.Any, 5001, listenOptions =>
@@ -23,7 +30,6 @@ var app = builder.Build();
 app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseGrpcMetrics();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
