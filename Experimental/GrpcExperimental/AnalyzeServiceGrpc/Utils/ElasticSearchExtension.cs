@@ -13,6 +13,8 @@ namespace AnalyzeServiceGrpc.Services
             var settings = new ConnectionSettings(new Uri(url))
                 .DefaultIndex(defaultIndex);
 
+            settings.EnableHttpCompression();
+
             var client = new ElasticClient(settings);
             services.AddSingleton<IElasticClient>(client);
 

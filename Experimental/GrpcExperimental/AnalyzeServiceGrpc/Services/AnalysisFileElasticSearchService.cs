@@ -21,14 +21,13 @@ namespace AnalyzeServiceGrpc.Services
 
         public async Task<AnalysisFile> GetAnalysisFileByHashAsync(string hash)
         {
-            var res = await _elasticClient.GetAsync(new DocumentPath<AnalysisFile>(hash));
-            return res.Source;
-        }
-
-        public async Task<IEnumerable<AnalysisFile>> GetAnalysisFilesAsync()
-        {
-            var res = await _elasticClient.SearchAsync<AnalysisFile>(f => f.From(0).Size(1000).MatchAll()); // TODO the hell?
-            return res.Documents;
+            var res = await _elasticClient.SearchAsync<AnalysisFile>(
+                s => s.Query(
+                    q => q.Match(
+                        p => p
+                        .Field("hash")
+                        .Query(hash))));
+            return res.Documents.First();
         }
     }
 }

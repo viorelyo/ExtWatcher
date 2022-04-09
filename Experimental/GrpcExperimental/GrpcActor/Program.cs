@@ -1,28 +1,51 @@
 ﻿using Google.Protobuf;
+using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcActor;
 using System.Net;
+using System.Security.Cryptography;
 
 var handler = new Http3Handler(new HttpClientHandler());
 
 var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions() { HttpHandler = handler });
 var client = new Analyzer.AnalyzerClient(channel);
 
+using var md5 = MD5.Create();
+
+await using var readStream = File.OpenRead("test.dat");
+var fileHash = BitConverter.ToString(md5.ComputeHash(readStream)).Replace("-", "");
+
+var analyzeFileMetadata = new AnalyzeFileMetadata
+{
+    Hash = fileHash,
+    FileName = "test.dat",
+    Size = (ulong)readStream.Length
+};
+
+try
+{
+    var analyzeResult = client.GetAnalyzeResultByFileMetadata(analyzeFileMetadata);
+    Console.WriteLine(analyzeResult.ToString());
+    return;
+}
+catch (RpcException ex)
+{
+    Console.WriteLine(ex.Status);
+}
+
 Console.WriteLine("Starting uploading");
+readStream.Position = 0;
+
 var call = client.UploadFile();
 
 Console.WriteLine("Uploding file metadata");
 await call.RequestStream.WriteAsync(
     new AnalyzeFileRequest
     {
-        Metadata = new AnalyzeFileMetadata
-        {
-            FileName = "test.dat"
-        }
+        Metadata = analyzeFileMetadata
     });
 
 var buffer = new byte[1024 * 32];
-await using var readStream = File.OpenRead("test.dat");
 
 while (true)
 {

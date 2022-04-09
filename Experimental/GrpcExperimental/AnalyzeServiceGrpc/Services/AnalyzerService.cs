@@ -23,6 +23,17 @@ namespace AnalyzeServiceGrpc.Services
             _uploadDirPath = _config["UploadDirPath"];
         }
 
+        public override async Task<AnalyzeFileResponse> GetAnalyzeResultByFileMetadata(AnalyzeFileMetadata request, ServerCallContext context)
+        {
+            var analysisResult = await _analysisFileService.GetAnalysisFileByHashAsync(request.Hash);
+            if (analysisResult == null)
+            {
+                throw new RpcException(new Status(StatusCode.Unavailable, "AnalyzeResult not found for given hash"));
+            }
+
+            return new AnalyzeFileResponse { IsMalicious = analysisResult.IsMalicious };
+        }
+
         public override async Task<AnalyzeFileResponse> UploadFile(IAsyncStreamReader<AnalyzeFileRequest> requestStream, ServerCallContext context)
         {
             var tmpId = Path.GetRandomFileName();
@@ -31,17 +42,15 @@ namespace AnalyzeServiceGrpc.Services
 
             await using var writeStream = File.Create(Path.Combine(tmpUploadPath, "data.bin"));
 
-            string fileNameMetadata = "";
+            AnalyzeFileMetadata? fileMetadata = null;
 
             await foreach (var msg in requestStream.ReadAllAsync())
             {
                 if (msg.Metadata != null)
                 {
-                    _logger.LogWarning("writing metadata");
-
-                    fileNameMetadata = msg.Metadata.ToString();
-                    await File.WriteAllTextAsync(Path.Combine(tmpUploadPath, "metadata.json"), fileNameMetadata);
                     // TODO
+                    fileMetadata = msg.Metadata;
+                    //await File.WriteAllTextAsync(Path.Combine(tmpUploadPath, "metadata.json"), fileMetadata.ToString());
                 }
 
                 if (msg.Data != null)
@@ -50,16 +59,29 @@ namespace AnalyzeServiceGrpc.Services
                 }
             }
 
+            // TODO analyze file here
+            bool isMalicious = true;
+            AnalyzeFileResponse analyzeFileResponse = new AnalyzeFileResponse { IsMalicious = isMalicious };
+
+            if (fileMetadata == null)
+            {
+                _logger.LogError("Got null fileMetadata :O");
+                return analyzeFileResponse;
+            }
+
             await _analysisFileService.AddAnalysisFileAsync(
                 new AnalysisFile
                 {
-                    Hash = "random01",
-                    Name = fileNameMetadata,
+                    Hash = fileMetadata.Hash,
+                    Name = fileMetadata.FileName,
+                    Size = fileMetadata.Size,
+                    IsMalicious = isMalicious,
                     InsertTime = DateTime.Now,
+                    
                     // TODO rest of fields
                 });
 
-            return new AnalyzeFileResponse { IsMalicious = false };
+            return analyzeFileResponse;
         }
     }
 }

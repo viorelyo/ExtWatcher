@@ -5,11 +5,14 @@ option csharp_namespace = "GrpcActor";
 package analyzer;
 
 service Analyzer {
+	rpc GetAnalyzeResultByFileMetadata (AnalyzeFileMetadata) returns (AnalyzeFileResponse);
 	rpc UploadFile (stream AnalyzeFileRequest) returns (AnalyzeFileResponse);
 }
 
 message AnalyzeFileMetadata {
-	string file_name = 1;
+	string hash = 1;
+	string file_name = 2;
+	uint64 size = 3;
 }
 
 message AnalyzeFileRequest {
