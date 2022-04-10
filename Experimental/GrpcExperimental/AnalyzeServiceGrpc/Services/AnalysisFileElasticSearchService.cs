@@ -19,7 +19,7 @@ namespace AnalyzeServiceGrpc.Services
             await _elasticClient.IndexDocumentAsync(analysisFile);
         }
 
-        public async Task<AnalysisFile> GetAnalysisFileByHashAsync(string hash)
+        public async Task<AnalysisFile?> GetAnalysisFileByHashAsync(string hash)
         {
             var res = await _elasticClient.SearchAsync<AnalysisFile>(
                 s => s.Query(
@@ -27,6 +27,12 @@ namespace AnalyzeServiceGrpc.Services
                         p => p
                         .Field("hash")
                         .Query(hash))));
+
+            if (!res.Documents.Any())
+            {
+                return null;
+            }
+
             return res.Documents.First();
         }
     }
