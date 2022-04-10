@@ -9,6 +9,7 @@
 - grpc benchmarking
 - rest benchmarking
 - metrics + grafana?
+- elasticsearch storage
 
 ## Links
 - [performance comparing between rest and grpc](https://stackoverflow.com/questions/44877606/is-grpchttp-2-faster-than-rest-with-http-2)

@@ -3,7 +3,9 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 
 ## Overview
 * **AnalyzeServiceGrpc** - grpc microservice
-* **GrpcActor** - client for minimal communication testing
+* **GrpcActor** - client for minimal grpc(http/3) communication testing
+* **AnalyzeServiceRest** - REST API
+* **RestActor** - client for minimal rest api(http/1.1) communication testing
 
 ## Dependencies
 * **Prometheus 2.34.0**
@@ -11,6 +13,9 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 * **Elasticsearch 7.13.0**
 
 ## Links
+#### Win11
+- [configuration & optimization](https://beebom.com/how-speed-up-windows-11/)
+
 #### gRPC over QUIC
 - [HTTP/3 configuration on Windows 11](./win-http3-config.md)
 - [gRPC performance tips](https://docs.microsoft.com/en-us/aspnet/core/grpc/performance?view=aspnetcore-6.0)
@@ -21,6 +26,9 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 - [ghz / hey / ab - benchmarking tools](https://dev.to/hiisi13/easy-ways-to-load-test-a-grpc-service-1dm3)
 - [grpc in asp.net and grafana](https://docs.microsoft.com/en-us/dotnet/architecture/grpc-for-wcf-developers/application-performance-management)
 - [Upload/Download performance with gRPC](https://github.com/grpc/grpc-dotnet/issues/1186)
+
+#### ASP.NET CORE WebAPI
+- [file upload good practices](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-6.0)
 
 #### Grafana & Prometheus
 - [example for custom prometheus metrics asp.net grpc](https://github.com/Expense-Tracker-Team/portfolio-manager)
@@ -44,8 +52,11 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 * First application start, installs a self-signed certificate for TLS coomunication into Trusted-Root-Certificate-Store
 
 
-### Utils
-- `fsutil file createnew test.dat 1048576`
+### Run Instructions
+- `elasticsearch/bin/elasticsearch.bat`  (`localhost:9200`)
+- `services.msc/grafana` 	(`localhost:3000`)
+- `prometheus/prometheus.exe`  (`localhost:9090/metrics`)
+- `AnalyzeServiceGrpc.exe`	(`localhost:5001/metrics`)
 
 
 ## TODO
@@ -59,3 +70,16 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 - [ ] Custom metrics for prometheus
 - [ ] dotnet-monitor
 - [ ] IDEA: first check by filehash, then upload pdf
+- [ ] make use of distributedache (doubtly - should behave same in python flask)
+	* [link](https://github.com/msfullstackdev/aspnetcore-elasticsearch-crud-azure/blob/master/CS.Repository/GenericRepository.cs)
+- [ ] analysis result should be bool instead of string
+- [ ] evaluate search + add time in elasticsearch to be included in perf metrics
+- [ ] grpc over quic - does not take into consideration the request timeout - open github issue on this problem
+- [ ] configure prometheus metrics for rest sln
+
+
+## Utils
+* `fsutil file createnew test.dat 1048576`
+* elasticsearch 
+	- get all items from `files` index - `http://localhost:9200/files/_search?pretty=true&q=*:*`
+	- remove all indices - `Invoke-WebRequest -method DELETE http://localhost:9200/_all`
