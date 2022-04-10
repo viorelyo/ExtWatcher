@@ -84,7 +84,7 @@ namespace GrpcActor.Core
             catch (RpcException ex)
             {
                 Console.WriteLine(ex.Status);
-                throw new AnalysisException("Could not an result");
+                throw new AnalysisException("Could not obtain an result");
             }
         }
 

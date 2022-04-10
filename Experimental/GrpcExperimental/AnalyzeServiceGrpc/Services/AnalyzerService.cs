@@ -60,6 +60,7 @@ namespace AnalyzeServiceGrpc.Services
             }
 
             // TODO analyze file here
+            // TODO calculate md5 hash here
             bool isMalicious = true;
             AnalyzeFileResponse analyzeFileResponse = new AnalyzeFileResponse { IsMalicious = isMalicious };
 
