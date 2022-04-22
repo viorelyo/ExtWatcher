@@ -4,6 +4,8 @@ using System.Net;
 using Prometheus;
 using Elasticsearch.Net;
 using Nest;
+using static AnalyzeServiceGrpc.Services.HttpRequestMiddleware;
+using AnalyzeServiceGrpc.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddGrpc();
 // Add elasticsearch service
 builder.Services.AddSingleton<IAnalysisFileService, AnalysisFileElasticSearchService>();
 builder.Services.AddElasticSearch(builder.Configuration);
+
+builder.Services.AddTransient<IMetricsRegistry, PrometheusMetricsRegistry>();
 
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
@@ -25,6 +29,16 @@ builder.WebHost.ConfigureKestrel((context, options) =>
 });
 
 var app = builder.Build();
+
+// Add middlewares
+app.UseMiddleware<HttpRequestMiddleware>();
+
+//Action<RequestProfilerModel> requestResponseHandler = requestProfilerModel =>
+//{
+//    Console.WriteLine(requestProfilerModel.Request);
+//};
+//app.UseMiddleware<RequestResponseLoggingMiddleware>(requestResponseHandler);
+
 
 // Configure prometheus metrics
 app.UseMetricServer();
