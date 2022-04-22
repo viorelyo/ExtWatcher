@@ -1,4 +1,5 @@
 using AnalyzeServiceGrpc.Services;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,10 @@ builder.Services.AddSingleton<IAnalysisFileService, AnalysisFileElasticSearchSer
 builder.Services.AddElasticSearch(builder.Configuration);
 
 var app = builder.Build();
+
+// Configure prometheus metrics
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

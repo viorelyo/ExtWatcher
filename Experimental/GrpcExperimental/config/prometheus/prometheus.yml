@@ -36,3 +36,12 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets: ["localhost:5001"]
+   
+  - job_name: "restexperimental"
+    honor_timestamps: true
+    scrape_interval: 2s
+    scrape_timeout: 2s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ["localhost:7117"]

@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="NEST" Version="7.17.0" />
+    <PackageReference Include="prometheus-net" Version="6.0.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="6.0.0" />
   </ItemGroup>
 
   <!--<ItemGroup>

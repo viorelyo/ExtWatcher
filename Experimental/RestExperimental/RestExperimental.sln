@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzeServiceRest", "AnalyzeServiceRest\AnalyzeServiceRest.csproj", "{0EA84EE6-CC3A-4BA2-B33D-C89B17FBEB1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyzeServiceRest", "AnalyzeServiceRest\AnalyzeServiceRest.csproj", "{0EA84EE6-CC3A-4BA2-B33D-C89B17FBEB1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestActor", "RestActor\RestActor.csproj", "{F68833E7-C45F-41C6-81AD-DB07076B0815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestActor", "RestActor\RestActor.csproj", "{F68833E7-C45F-41C6-81AD-DB07076B0815}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
