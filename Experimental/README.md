@@ -29,8 +29,9 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 
 #### ASP.NET CORE WebAPI
 - [file upload good practices](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-6.0)
+- [http middleware](https://gist.github.com/songzheng45/a9c672e4c990d3fe088f62ee92499c47)
 
-#### Grafana & Prometheus
+#### Grafana & Prometheus Setup
 - [example for custom prometheus metrics asp.net grpc](https://github.com/Expense-Tracker-Team/portfolio-manager)
 - [dotnet-monitor](https://devblogs.microsoft.com/dotnet/introducing-dotnet-monitor/)
 - [configure grafana, prometheus](https://dotnetos.org/blog/2021-11-22-dotnet-monitor-grafana/)
@@ -46,6 +47,16 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 - [Basic commands NEST](https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/nest-getting-started.html)
 - [CRUD example ElasticSearch ASP.NET](https://vscode.dev/github/msfullstackdev/aspnetcore-elasticsearch-crud-azure/blob/master/CS.Repository/GenericRepository.cs)
 - [Docummentation CRUD NEST](https://social.technet.microsoft.com/wiki/contents/articles/35095.crud-operation-in-elasticsearch-using-c-and-nest.aspx)
+
+#### Prometheus
+- [Custom grpc prometheus metrics example](https://github.com/Expense-Tracker-Team/portfolio-manager/tree/master/src/microservices/users/src/Api)
+- [grpc interceptor metrics](https://github.com/alefcarlos/PlusUltra.AppMetrics.Grpc/blob/master/src/PlusUltra.AppMetrics.GrpcServer/Interceptors/MetricsInterceptor.cs)
+- [grpc prometheus metrics enterprise example](https://github.com/e-conomic/csharp-grpc-prometheus)
+
+
+#### Grafana
+- [visualizing](https://docs.particular.net/samples/logging/prometheus-grafana/)
+- [cisualize prometheus histogram](https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/)
 
 
 ### AnalyzeServiceGrpc
@@ -83,3 +94,7 @@ Migrating AnalyzeServer to microservice architecture using gRPC framework over H
 * elasticsearch 
 	- get all items from `files` index - `http://localhost:9200/files/_search?pretty=true&q=*:*`
 	- remove all indices - `Invoke-WebRequest -method DELETE http://localhost:9200/_all`
+
+
+## Content for writing
+- [performance testing types](https://assertible.com/blog/web-service-performance-testing-tips-and-tools-for-getting-started)
