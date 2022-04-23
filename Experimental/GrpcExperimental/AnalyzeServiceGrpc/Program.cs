@@ -10,12 +10,17 @@ using AnalyzeServiceGrpc.Metrics;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(options =>
+{
+    // Add grpc middleware
+    options.Interceptors.Add<ServiceInterceptor>();
+});
 
 // Add elasticsearch service
 builder.Services.AddSingleton<IAnalysisFileService, AnalysisFileElasticSearchService>();
 builder.Services.AddElasticSearch(builder.Configuration);
 
+// Add custom prometheus metrics
 builder.Services.AddTransient<IMetricsRegistry, PrometheusMetricsRegistry>();
 
 builder.WebHost.ConfigureKestrel((context, options) =>
@@ -30,7 +35,7 @@ builder.WebHost.ConfigureKestrel((context, options) =>
 
 var app = builder.Build();
 
-// Add middlewares
+// Add asp.net (http) middleware
 app.UseMiddleware<HttpRequestMiddleware>();
 
 //Action<RequestProfilerModel> requestResponseHandler = requestProfilerModel =>
@@ -52,6 +57,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGrpcService<AnalyzerService>();
+
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client");
 
 app.Run();

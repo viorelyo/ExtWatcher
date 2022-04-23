@@ -1,6 +1,7 @@
 using AnalyzeServiceGrpc;
 using AnalyzeServiceGrpc.Models;
 using Grpc.Core;
+using System.Security.Cryptography;
 
 namespace AnalyzeServiceGrpc.Services
 {
@@ -60,7 +61,11 @@ namespace AnalyzeServiceGrpc.Services
             }
 
             // TODO analyze file here
-            // TODO calculate md5 hash here
+
+            using var md5 = MD5.Create();
+            writeStream.Position = 0;
+            var fileHash = BitConverter.ToString(await md5.ComputeHashAsync(writeStream)).Replace("-", "");
+
             bool isMalicious = true;
             AnalyzeFileResponse analyzeFileResponse = new AnalyzeFileResponse { IsMalicious = isMalicious };
 
@@ -73,7 +78,7 @@ namespace AnalyzeServiceGrpc.Services
             await _analysisFileService.AddAnalysisFileAsync(
                 new AnalysisFile
                 {
-                    Hash = fileMetadata.Hash,
+                    Hash = fileHash,
                     Name = fileMetadata.FileName,
                     Size = fileMetadata.Size,
                     IsMalicious = isMalicious,

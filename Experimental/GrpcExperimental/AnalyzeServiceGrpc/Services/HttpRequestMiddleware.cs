@@ -26,40 +26,42 @@ namespace AnalyzeServiceGrpc.Services
                 return;
             }
 
-            var model = new RequestProfilerModel
-            {
-                RequestTime = DateTime.Now,
-                Context = context,
-                Request = await FormatRequest(context)
-            };
+            //var model = new RequestProfilerModel
+            //{
+            //    RequestTime = DateTime.Now,
+            //    Context = context,
+            //    Request = await FormatRequest(context)
+            //};
+
+            var request = context.Request;
             
-            using (_metricsRegistry.HistogramGrpcCallsDuration())
+            using (_metricsRegistry.HistogramHttpCallsDuration(request.Method, request.Path))
             {
                 await _next(context);
 
-                model.ResponseTime = DateTime.Now;
+                //model.ResponseTime = DateTime.Now;
             }
 
             //_requestResponseHandler(model);
         }
 
-        private async Task<string> FormatRequest(HttpContext context)
-        {
-            HttpRequest request = context.Request;
+        //private async Task<string> FormatRequest(HttpContext context)
+        //{
+        //    HttpRequest request = context.Request;
 
-            return $"Http Request Information: {Environment.NewLine}" +
-                        $"Schema: {request.Scheme} {Environment.NewLine}" +
-                        $"Method: {request.Method} {Environment.NewLine}" +
-                        $"Host: {request.Host} {Environment.NewLine}" +
-                        $"Path: {request.Path} {Environment.NewLine}";
-        }
+        //    return $"Http Request Information: {Environment.NewLine}" +
+        //                $"Schema: {request.Scheme} {Environment.NewLine}" +
+        //                $"Method: {request.Method} {Environment.NewLine}" +
+        //                $"Host: {request.Host} {Environment.NewLine}" +
+        //                $"Path: {request.Path} {Environment.NewLine}";
+        //}
 
-        public class RequestProfilerModel
-        {
-            public DateTime RequestTime { get; set; }
-            public HttpContext Context { get; set; }
-            public string Request { get; set; }
-            public DateTime ResponseTime { get; set; }
-        }
+        //public class RequestProfilerModel
+        //{
+        //    public DateTime RequestTime { get; set; }
+        //    public HttpContext Context { get; set; }
+        //    public string Request { get; set; }
+        //    public DateTime ResponseTime { get; set; }
+        //}
     }
 }
