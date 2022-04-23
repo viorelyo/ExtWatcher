@@ -1,3 +1,4 @@
+using AnalyzeServiceGrpc.Metrics;
 using AnalyzeServiceGrpc.Services;
 using Prometheus;
 
@@ -15,7 +16,13 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IAnalysisFileService, AnalysisFileElasticSearchService>();
 builder.Services.AddElasticSearch(builder.Configuration);
 
+// Add custom prometheus metrics
+builder.Services.AddTransient<IMetricsRegistry, PrometheusMetricsRegistry>();
+
 var app = builder.Build();
+
+// Add asp.net (http) middleware
+app.UseMiddleware<HttpRequestMiddleware>();
 
 // Configure prometheus metrics
 app.UseMetricServer();

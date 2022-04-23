@@ -94,9 +94,10 @@ namespace GrpcActor.Core
 
             await using var readStream = File.OpenRead(_filePath);
 
+            Console.WriteLine("Uploding file metadata");
+
             var call = _client.UploadFile(_callOptions);
 
-            Console.WriteLine("Uploding file metadata");
             await call.RequestStream.WriteAsync(
                 new AnalyzeFileRequest
                 {
@@ -113,7 +114,7 @@ namespace GrpcActor.Core
                     break;
                 }
 
-                Console.WriteLine($"Uploading chunk: {count}");
+                //Console.WriteLine($"Uploading chunk: {count}");
                 await call.RequestStream.WriteAsync(
                     new AnalyzeFileRequest
                     {
@@ -121,8 +122,8 @@ namespace GrpcActor.Core
                     });
             }
 
-            Console.WriteLine("Request completed");
             await call.RequestStream.CompleteAsync();
+            Console.WriteLine("Request completed");
 
             var response = await call;
             return response.IsMalicious;
