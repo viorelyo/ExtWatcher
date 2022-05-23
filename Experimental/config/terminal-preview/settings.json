@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -20,8 +18,7 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -33,11 +30,9 @@
     "copyOnSelect": false,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "firstWindowPreference": "defaultProfile",
-    "profiles": 
-    {
+    "profiles": {
         "defaults": {},
-        "list": 
-        [
+        "list": [
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -76,8 +71,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
@@ -286,5 +280,5 @@
             "yellow": "#808000"
         }
     ],
-    "startupActions": "new-tab --title \"Benchmark\" -d c:\\Users\\User\\Desktop\\benchmark ; new-tab --title \"Prometheus\" -d c:\\Users\\User\\Desktop\\experiments\\tools\\prometheus-2.34.0.windows-amd64\\prometheus-2.34.0.windows-amd64 ; new-tab --title \"ElasticSearch\" -d c:\\Users\\User\\Desktop\\experiments\\tools\\elasticsearch-7.13.0-windows-x86_64\\elasticsearch-7.13.0\\bin ; new-tab --title \"GrpcServer\" -d c:\\Users\\User\\Desktop\\experiments\\mainrepo\\Experimental\\GrpcExperimental\\AnalyzeServiceGrpc\\bin\\Release\\net6.0"
+    "startupActions": "new-tab --title \"Benchmark\" -d c:\\Users\\User\\Desktop\\benchmark ; new-tab --title \"Prometheus\" -d c:\\Users\\User\\Desktop\\experiments\\tools\\prometheus-2.34.0.windows-amd64\\prometheus-2.34.0.windows-amd64 ; new-tab --title \"ElasticSearch\" -d c:\\Users\\User\\Desktop\\experiments\\tools\\elasticsearch-7.13.0-windows-x86_64\\elasticsearch-7.13.0\\bin ; new-tab --title \"GrpcServer\" -d c:\\Users\\User\\Desktop\\experiments\\mainrepo\\Experimental\\GrpcExperimental\\AnalyzeServiceGrpc\\bin\\Release\\net6.0 ; new-tab --title \"RestServer\" -d c:\\Users\\User\\Desktop\\experiments\\mainrepo\\Experimental\\RestExperimental\\AnalyzeServiceRest\\bin\\Release\\net6.0"
 }

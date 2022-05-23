@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RestActor": {
+      "commandName": "Project",
+      "commandLineArgs": "test.dat"
+    }
+  }
+}

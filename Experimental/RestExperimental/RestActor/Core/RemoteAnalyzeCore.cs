@@ -1,4 +1,6 @@
 ﻿using System.Security.Cryptography;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace RestActor.Core
 {
@@ -61,9 +63,19 @@ namespace RestActor.Core
                 }
 
                 var rawResponse = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine($"RawResponse: {rawResponse}");
-                // TODO Parse reponse
-                return true;
+                //Console.WriteLine($"RawResponse: {rawResponse}");
+
+                try
+                {
+                    var jsonObject = JsonNode.Parse(rawResponse).AsObject();
+                    bool scanResult = (bool)jsonObject["isMalicious"];
+                    return scanResult;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -73,13 +85,13 @@ namespace RestActor.Core
 
         private async Task<bool> SubmitFileAndAnalyzeAsync()
         {
-            Console.WriteLine("Starting uploading");
+            //Console.WriteLine("Starting uploading");
 
             var fileContent = new ByteArrayContent(File.ReadAllBytes(_filePath));
             var multipartFormDataContent = new MultipartFormDataContent();
             multipartFormDataContent.Add(fileContent, "file", Path.GetFileName(_filePath));
 
-            Console.WriteLine("Uploding file");
+            //Console.WriteLine("Uploding file");
             var response = await _client.PostAsync("submitFile", multipartFormDataContent);
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -87,10 +99,19 @@ namespace RestActor.Core
             }
 
             var rawResponse = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"RawResponse: {rawResponse}");
-            // TODO Parse reponse
+            //Console.WriteLine($"RawResponse: {rawResponse}");
 
-            return true;
+            try
+            {
+                var jsonObject = JsonNode.Parse(rawResponse).AsObject();
+                bool scanResult = (bool)jsonObject["isMalicious"];
+                return scanResult;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }
