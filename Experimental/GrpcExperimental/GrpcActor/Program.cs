@@ -12,12 +12,14 @@ var analyzeCore = new RemoteAnalyzeCore(client);
 
 try
 {
-    var isMalicious = await analyzeCore.ScanFileAsync("test.dat");
+    var isMalicious = await analyzeCore.ScanFileAsync(args[0]);
     Console.WriteLine($"ScanResult: {isMalicious}");
+    Environment.Exit(0);
 }
 catch (AnalysisException ex)
 {
     Console.WriteLine(ex);
+    Environment.Exit(1);
 }
 
-Console.ReadKey();
+//Console.ReadKey();
