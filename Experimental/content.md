@@ -6,10 +6,20 @@
 - Master: `Computation offloading of Cloud based Malicious PDF Detection service using gRPC framework over HTTP/3. Performance evaluation of RESTful API versus gRPC microservice`
 
 ## Content
-- grpc benchmarking
-- rest benchmarking
-- metrics + grafana?
 - elasticsearch storage
+- metrics (prometheus) + grafana
+- grpc over http/3 (quic) benchmarking 
+- grpc over http/2 
+- rest over http/1.1 benchmarking
+
+### Performance testing
+    * Load testing
+    * Stress testing
+    * Endurance testing
+    * Resources utilization (CPU / Memory)
+    * Custom scenarios:
+        * network switching (testing advantages of QUIC protocol - fast connection reestablishment)
+        * large files transfer
 
 ## Links
 - [performance comparing between rest and grpc](https://stackoverflow.com/questions/44877606/is-grpchttp-2-faster-than-rest-with-http-2)
