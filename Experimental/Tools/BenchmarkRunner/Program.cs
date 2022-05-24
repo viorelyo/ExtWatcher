@@ -17,6 +17,24 @@ if (createTestFile)
     fileSizeMB = Int32.Parse(args[2]);
 }
 
+var tokenSource = new CancellationTokenSource();
+var ct = tokenSource.Token;
+
+var threadCountList = new List<int>();
+
+Task threadsCounter = Task.Run(async () =>
+{
+    while (true)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        await Task.Delay(100);
+
+        threadCountList.Add(Process.GetCurrentProcess().Threads.Count);
+    }
+}, ct);
+
+
 Console.WriteLine($"Launching [{instances}] instances of: [{processPath}]");
 
 var resultsBag = new ConcurrentBag<double>();
@@ -67,24 +85,33 @@ Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.Ma
     }
 });
 
+tokenSource.Cancel();
+
+try
+{
+    await threadsCounter;
+}
+catch (OperationCanceledException)
+{
+}
+finally
+{
+    tokenSource.Dispose();
+}
+
 if (resultsBag.Count == 0)
 {
     return;
 }
 
-double totalTime = 0;
-foreach (var result in resultsBag)
-{
-    totalTime += result;
-}
-
-var averageTime = totalTime / resultsBag.Count;
-
 Console.WriteLine($"Timed out: [{timedOut}]");
 Console.WriteLine($"Failed: [{failed}]");
-Console.WriteLine($"Average time: [{averageTime}]");
+Console.WriteLine($"Average time: [{resultsBag.Average()}]");
 Console.WriteLine($"Best time: [{resultsBag.Min()}]");
 Console.WriteLine($"Worst time: [{resultsBag.Max()}]");
+Console.WriteLine();
+Console.WriteLine($"Average nr. of threads: [{threadCountList.Average()}]");
+Console.WriteLine($"Max nr. of threads: [{threadCountList.Max()}]");
 
 
 void CreateDummyFile(string fileName, long length)
