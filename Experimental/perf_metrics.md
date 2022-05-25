@@ -207,7 +207,6 @@ CPU + RAM overloaded - prometheus didn't catch up gathering the metrics -> unuse
 ==============================================================
 0. 1 instance, 100 MB binary file, unknown file - [dashboard](http://localhost:3000/dashboard/snapshot/fiY6IdGwTSZiI5YMwxX1wUteLbHvCcGP)
 ```
-Launching [1] instances of: [RestActor.exe]
 Timed out: [0]
 Failed: [0]
 Average time: [4159.4952]
@@ -239,6 +238,81 @@ Max nr. of concurrent instances: [27]
 - Request duration (AnalyzeResult): 512-1s (4.08), 4-8 (12.24), 2-4 (2.04)
 - Request duration (SubmitFile): 1.1m-2.2 (18.2), 4.1s-8.2s (1.01)
 - HTTP Requests received: All (0.734)
+
+==============================================================
+0. 1 instance, known file - [dashboard](http://localhost:3000/dashboard/snapshot/E9g8RJgTDXhrqRIlTxnvMi6eA4s7Ahat)
+```
+Timed out: [0]
+Failed: [0]
+Average time: [2250.7568]
+Best time: [2250.7568]
+Worst time: [2250.7568]
+
+Average nr. of threads: [11]
+Max nr. of threads: [11]
+Max nr. of concurrent instances: [1]
+```
+- Request duration (AnalyzeResult): 128-256
+
+1. 100 instances, known file - [dashboard](http://localhost:3000/dashboard/snapshot/K7S2U3nzW3XK8nyS7zdBtz0Clap7qMGH), [dashboard 2](http://localhost:3000/dashboard/snapshot/J8Wr7jBzvznC36ooF0nxaPtzID03k0VP)
+```
+Timed out: [0]
+Failed: [0]
+Average time: [2552.598176]
+Best time: [2199.3512]
+Worst time: [3416.0346]
+
+Average nr. of threads: [17.525862068965516]
+Max nr. of threads: [23]
+Max nr. of concurrent instances: [14]
+```
+- Request duration (AnalyzeResult): 256-512 (3.00), 4-8 (67.21), 2-4 (11.21)
+- HTTP Requests received: All (4.20)
+
+2. 100 instances, known file, min 50 threads - [dashboard](http://localhost:3000/dashboard/snapshot/Y7ltLIpSrGypW5gm7ACos8BppXfTL1XG)
+```
+Timed out: [0]
+Failed: [0]
+Average time: [7438.561425]
+Best time: [3953.5481]
+Worst time: [8444.3599]
+
+Average nr. of threads: [60.348837209302324]
+Max nr. of threads: [61]
+Max nr. of concurrent instances: [53]
+```
+- Request duration (AnalyzeResult): 64-128 (16.65), 512-1s (4), 2-4 (6.25)
+- HTTP Requests received: All (3.29)
+
+3. 1000 instances, known file - [dashboard](http://localhost:3000/dashboard/snapshot/ZO2u7kjF8lfyOfP413zw4YJTz52DeWxe), [dashboard 2](http://localhost:3000/dashboard/snapshot/Zh6UwMtIi3NUdL7ps4ZGx5Sj9SbR5XbP)
+```
+Timed out: [0]
+Failed: [0]
+Average time: [5182.830944000008]
+Best time: [2195.3547]
+Worst time: [8475.0894]
+
+Average nr. of threads: [41.877376425855516]
+Max nr. of threads: [60]
+Max nr. of concurrent instances: [52]
+```
+- Request duration (AnalyzeResult): 256-512 (28.07), 4-8 (253.71), 2-4 (206.58)
+- HTTP Requests received: All (7.28)
+
+4. 1000 instances, known file, min 100 threads - [dashboard](http://localhost:3000/dashboard/snapshot/0CpFblXUeY1WSGiTdyecds2ImGxQztFT), [dashboard 2](http://localhost:3000/dashboard/snapshot/jKcn1SStU1AF3QMw7p4hgPP5sywrqD6O)
+```
+Timed out: [0]
+Failed: [0]
+Average time: [10656.149587900005]
+Best time: [5230.7033]
+Worst time: [17750.4029]
+
+Average nr. of threads: [108.28346456692914]
+Max nr. of threads: [110]
+Max nr. of concurrent instances: [102]
+```
+- Request duration (AnalyzeResult): 4.1s-8.2s (10.14), 2-4 (195.63), 1-2 (19.26)
+- HTTP Requests received: All (9.51)
 
 
 ===========================================================================================================================================
