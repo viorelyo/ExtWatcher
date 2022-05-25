@@ -78,23 +78,23 @@ namespace GrpcActor.Core
             try
             {
                 var analyzeResult = _client.GetAnalyzeResultByFileMetadata(_analyzeFileMetadata, _callOptions);
-                Console.WriteLine(analyzeResult.ToString());
+                //Console.WriteLine(analyzeResult.ToString());
                 return analyzeResult.IsMalicious;
             }
             catch (RpcException ex)
             {
-                Console.WriteLine(ex.Status);
+                //Console.WriteLine(ex.Status);
                 throw new AnalysisException("Could not obtain an result");
             }
         }
 
         private async Task<bool> SubmitFileAndAnalyzeAsync()
         {
-            Console.WriteLine("Starting uploading");
+            //Console.WriteLine("Starting uploading");
 
             await using var readStream = File.OpenRead(_filePath);
 
-            Console.WriteLine("Uploding file metadata");
+            //Console.WriteLine("Uploding file metadata");
 
             var call = _client.UploadFile(_callOptions);
 
@@ -123,7 +123,7 @@ namespace GrpcActor.Core
             }
 
             await call.RequestStream.CompleteAsync();
-            Console.WriteLine("Request completed");
+            //Console.WriteLine("Request completed");
 
             var response = await call;
             return response.IsMalicious;
