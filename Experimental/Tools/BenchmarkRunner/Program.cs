@@ -59,7 +59,8 @@ int maxThreads = 0;
 int forUsedThreadsCount = 0;
 
 // Adapt the used minimum threads
-ThreadPool.SetMinThreads(100, 100);
+// Can be used for stress testing of the server
+//ThreadPool.SetMinThreads(20, 20);
 
 Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.MaxValue }, index => 
 {
