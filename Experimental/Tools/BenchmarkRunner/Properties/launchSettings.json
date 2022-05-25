@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BenchmarkRunner": {
+      "commandName": "Project",
+      "commandLineArgs": "GrpcActor.exe 100 1"
+    }
+  }
+}
