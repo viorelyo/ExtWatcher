@@ -11,10 +11,25 @@ string processPath = args[0];
 int instances = Int32.Parse(args[1]);
 int fileSizeMB = 1;
 bool createTestFile = args.Length > 2;
+int minThreadsCount = 0;
+bool useMinThreadsCount = args.Length > 3;
 
 if (createTestFile)
 {
     fileSizeMB = Int32.Parse(args[2]);
+}
+
+if (useMinThreadsCount)
+{
+    minThreadsCount = Int32.Parse(args[3]);
+
+    int minWorker, minIOC;
+    // Get the current settings.
+    ThreadPool.GetMinThreads(out minWorker, out minIOC);
+
+    // Adapt the used minimum threads
+    // Can be used for stress testing of the server
+    ThreadPool.SetMinThreads(minThreadsCount, minIOC);
 }
 
 var tokenSource = new CancellationTokenSource();
@@ -57,10 +72,6 @@ int failed = 0;
 
 int maxThreads = 0;
 int forUsedThreadsCount = 0;
-
-// Adapt the used minimum threads
-// Can be used for stress testing of the server
-//ThreadPool.SetMinThreads(20, 20);
 
 Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.MaxValue }, index => 
 {
@@ -157,4 +168,5 @@ void ShowHelp()
     Console.WriteLine("\t1\t- Process Path");
     Console.WriteLine("\t2\t- Instance number");
     Console.WriteLine("\t3\t- (optional) Size in MB for test file / otherwise test.dat is used");
+    Console.WriteLine("\t4\t- (optional) ThreadPool min threads");
 }
