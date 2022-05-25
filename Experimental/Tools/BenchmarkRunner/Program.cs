@@ -22,17 +22,30 @@ var ct = tokenSource.Token;
 
 var threadCountList = new List<int>();
 
-Task threadsCounter = Task.Run(async () =>
+// Runs on a single thread
+var threadsCounter = new Thread(() =>
 {
-    while (true)
+    while (!ct.IsCancellationRequested)
     {
-        ct.ThrowIfCancellationRequested();
-
-        await Task.Delay(100);
+        Thread.Sleep(100);
 
         threadCountList.Add(Process.GetCurrentProcess().Threads.Count);
     }
-}, ct);
+});
+threadsCounter.Start();
+
+// Runs on thread Pool
+//Task threadsCounter = Task.Run(async () =>
+//{
+//    while (true)
+//    {
+//        ct.ThrowIfCancellationRequested();
+
+//        await Task.Delay(100);
+
+//        threadCountList.Add(Process.GetCurrentProcess().Threads.Count);
+//    }
+//}, ct);
 
 
 Console.WriteLine($"Launching [{instances}] instances of: [{processPath}]");
@@ -42,12 +55,24 @@ var resultsBag = new ConcurrentBag<double>();
 int timedOut = 0;
 int failed = 0;
 
+int maxThreads = 0;
+int forUsedThreadsCount = 0;
+
+// Adapt the used minimum threads
+ThreadPool.SetMinThreads(100, 100);
+
 Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.MaxValue }, index => 
 {
     string testFileName = $"test.dat";
 
     try
     {
+        var max = Interlocked.Increment(ref forUsedThreadsCount);
+        if (max > maxThreads)
+        {
+            maxThreads = max;
+        }
+
         if (createTestFile)
         {
             testFileName = $"test-{index}.dat";
@@ -82,6 +107,8 @@ Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.Ma
         {
             File.Delete(testFileName);
         }
+
+        Interlocked.Decrement(ref forUsedThreadsCount);
     }
 });
 
@@ -89,7 +116,8 @@ tokenSource.Cancel();
 
 try
 {
-    await threadsCounter;
+    threadsCounter.Join();
+    //await threadsCounter;
 }
 catch (OperationCanceledException)
 {
@@ -112,6 +140,7 @@ Console.WriteLine($"Worst time: [{resultsBag.Max()}]");
 Console.WriteLine();
 Console.WriteLine($"Average nr. of threads: [{threadCountList.Average()}]");
 Console.WriteLine($"Max nr. of threads: [{threadCountList.Max()}]");
+Console.WriteLine($"Max nr. of concurrent instances: [{maxThreads}]");
 
 
 void CreateDummyFile(string fileName, long length)
