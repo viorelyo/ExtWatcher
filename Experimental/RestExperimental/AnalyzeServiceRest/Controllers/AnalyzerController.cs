@@ -40,6 +40,7 @@ namespace AnalyzeServiceRest.Controllers
             return new AnalyzeFileResponse { IsMalicious = analysisResult.IsMalicious };
         }
 
+        [DisableRequestSizeLimit]
         [HttpPost("submitFile")]
         public async Task<ActionResult<AnalyzeFileResponse>> UploadFile(IFormFile file)
         {

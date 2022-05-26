@@ -97,9 +97,12 @@ Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.Ma
         process.StartInfo.CreateNoWindow = true;
         process.Start();
 
-        if (!process.WaitForExit(10000))
+        if (!process.WaitForExit(120000))
         {
             timedOut++;
+            process.Kill();
+            process.WaitForExit();
+            Console.WriteLine($"Killed - [{index}]");
             return;
         }
 
@@ -115,7 +118,7 @@ Parallel.For(0, instances, new ParallelOptions { MaxDegreeOfParallelism = int.Ma
     catch { }
     finally
     {
-        if (File.Exists(testFileName))
+        if (testFileName != "test.dat" && File.Exists(testFileName))
         {
             File.Delete(testFileName);
         }
