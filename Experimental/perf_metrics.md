@@ -5,6 +5,34 @@ CPU: 2 processors, 1 core per processor (2 cores) (Intel(R) Core(TM) i7-9850H CP
 RAM: 2 GB
 Windows Version: 10.0.22000 Build 22000 (Microsoft Windows 11 Enterprise Evaluation)
 
+Disk Performance:
+```
+Windows System Assessment Tool
+> Running: Feature Enumeration ''
+> Run Time 00:00:00.00
+> Running: Storage Assessment '-drive c -ran -read'
+> Run Time 00:00:00.61
+> Running: Storage Assessment '-drive c -seq -read'
+> Run Time 00:00:01.17
+> Running: Storage Assessment '-drive c -seq -write'
+> Run Time 00:00:01.89
+> Running: Storage Assessment '-drive c -flush -seq'
+> Run Time 00:00:00.51
+> Running: Storage Assessment '-drive c -flush -ran'
+> Run Time 00:00:00.55
+> Dshow Video Encode Time                      0.00000 s
+> Dshow Video Decode Time                      0.00000 s
+> Media Foundation Decode Time                 0.00000 s
+> Disk  Random 16.0 Read                       42.85 MB/s          6.4
+> Disk  Sequential 64.0 Read                   532.99 MB/s          8.1
+> Disk  Sequential 64.0 Write                  523.52 MB/s          8.1
+> Average Read Time with Sequential Writes     0.199 ms          8.6
+> Latency: 95th Percentile                     0.390 ms          8.7
+> Latency: Maximum                             0.807 ms          8.9
+> Average Read Time with Random Writes         0.221 ms          8.9
+> Total Run Time 00:00:04.81
+```
+
 ## Resource utilization
 - elasticSearch (OpenJDK)- 1320 MB (CPU: 0.5% ->  25%)
 - prometheus (CPU: 1.5%)
@@ -590,11 +618,54 @@ Max nr. of concurrent instances: [102]
 
 
 ===========================================================================================================================================
+0. FileHasher - 100 instances, 1 MB binary file
+```
+Timed out: [0]
+Failed: [0]
+Average time: [129.97841799999998]
+Best time: [73.5787]
+Worst time: [226.9471]
+
+Average nr. of threads: [12.428571428571429]
+Max nr. of threads: [13]
+Max nr. of concurrent instances: [4]
+```
+
+==============================================================
+1. FileHasher - 100 instances, 10 MB binary file
+```
+Launching [100] instances of: [FileHasher.exe]
+Timed out: [0]
+Failed: [0]
+Average time: [216.6472300000001]
+Best time: [97.7156]
+Worst time: [390.5429]
+
+Average nr. of threads: [12.875]
+Max nr. of threads: [13]
+Max nr. of concurrent instances: [4]
+```
+
+==============================================================
+2. FileHasher - 100 instances, 100 MB binary file
+```
+Timed out: [0]
+Failed: [0]
+Average time: [2579.050863]
+Best time: [375.5237]
+Worst time: [19954.4287]
+
+Average nr. of threads: [20.741477272727273]
+Max nr. of threads: [33]
+Max nr. of concurrent instances: [20]
+```
+
+===========================================================================================================================================
 
 
 ## TODO
-- exclude HASH calculation time (both) => calculate time for different file sizes
-- export dashboard snapshots
+- [x] exclude HASH calculation time (both) => calculate time for different file sizes
+- [x] export dashboard snapshots (grafana.db - encrypted snapshot)
 - export perfmon created stats (elasticsearch, prometheus)
-- run tests when file is known
-- track latest grafana dashboards
+- [x] run tests when file is known
+- [x] track latest grafana dashboards
