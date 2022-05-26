@@ -394,7 +394,7 @@
           "exemplar": true,
           "expr": "sum(increase(http_call_duration_milliseconds_bucket{endpoint=\"/analyzer.Analyzer/GetAnalyzeResultByFileMetadata\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -449,7 +449,7 @@
           "exemplar": true,
           "expr": "sum(increase(http_call_duration_milliseconds_bucket{endpoint=\"/analyzer.Analyzer/UploadFile\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -504,7 +504,7 @@
           "exemplar": true,
           "expr": "sum(increase(grpc_call_duration_milliseconds_bucket{method=\"/analyzer.Analyzer/GetAnalyzeResultByFileMetadata\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -559,7 +559,7 @@
           "exemplar": true,
           "expr": "sum(increase(grpc_call_duration_milliseconds_bucket{method=\"/analyzer.Analyzer/UploadFile\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -601,7 +601,7 @@
             },
             "lineInterpolation": "smooth",
             "lineWidth": 1,
-            "pointSize": 1,
+            "pointSize": 3,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -699,7 +699,7 @@
             },
             "lineInterpolation": "smooth",
             "lineWidth": 1,
-            "pointSize": 1,
+            "pointSize": 3,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -793,6 +793,6 @@
   "timezone": "",
   "title": "gRPC Metrics",
   "uid": "MPf_g4Y8m",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }

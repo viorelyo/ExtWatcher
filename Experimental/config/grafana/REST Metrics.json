@@ -394,7 +394,7 @@
           "exemplar": true,
           "expr": "sum(increase(http_call_duration_milliseconds_bucket{endpoint=\"/api/Analyzer/analyzeResult\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -449,7 +449,7 @@
           "exemplar": true,
           "expr": "sum(increase(http_call_duration_milliseconds_bucket{endpoint=\"/api/Analyzer/submitFile\"}[$__interval])) by (le)",
           "format": "heatmap",
-          "interval": "5m",
+          "interval": "1m",
           "legendFormat": "{{le}}",
           "refId": "A"
         }
@@ -491,7 +491,7 @@
             },
             "lineInterpolation": "smooth",
             "lineWidth": 1,
-            "pointSize": 1,
+            "pointSize": 4,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -585,6 +585,6 @@
   "timezone": "",
   "title": "REST Metrics",
   "uid": "ZRe_k3X7k",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
